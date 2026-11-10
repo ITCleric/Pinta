@@ -144,6 +144,14 @@ public sealed partial class DockPanel
 		item.MaximizeClicked += (_, _) => panelItem.UpdateOnMaximize (dock_bar);
 	}
 
+	public void SetItemVisible (string name, bool visible)
+	{
+		var item = items.FirstOrDefault (x => x.Item.UniqueName == name);
+		if (item is null) return;
+		if (visible && item.IsMinimized) item.UpdateOnMaximize (dock_bar);
+		item.Item.Visible = visible;
+	}
+
 	public void SaveSettings (ISettingsService settings)
 	{
 		foreach (var panel_item in items) {

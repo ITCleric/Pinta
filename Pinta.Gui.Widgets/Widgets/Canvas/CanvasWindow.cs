@@ -80,6 +80,7 @@ public sealed partial class CanvasWindow
 		canvas.Name = "canvas";
 
 		Gtk.Viewport viewPort = Gtk.Viewport.New (null, null);
+		viewPort.AddCssClass ("canvas-viewport");
 		viewPort.AddController (scrollController);
 		viewPort.Child = canvas;
 

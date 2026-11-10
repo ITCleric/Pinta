@@ -79,21 +79,21 @@ public sealed class EditActions
 			Translations.GetString ("Redo"),
 			null,
 			Resources.StandardIcons.EditRedo,
-			shortcuts: ["<Primary><Shift>Z", "<Ctrl>Y"]);
+			shortcuts: ["<Primary>Y"]);
 
 		Cut = new Command (
 			"cut",
 			Translations.GetString ("Cut"),
 			null,
 			Resources.StandardIcons.EditCut,
-			shortcuts: ["<Primary>X"]);
+			shortcuts: ["<Primary>X", "<Shift>Delete"]);
 
 		Copy = new Command (
 			"copy",
 			Translations.GetString ("Copy"),
 			null,
 			Resources.StandardIcons.EditCopy,
-			shortcuts: ["<Primary>C"]);
+			shortcuts: ["<Primary>C", "<Ctrl>Insert"]);
 
 		CopyMerged = new Command (
 			"copymerged",
@@ -107,7 +107,7 @@ public sealed class EditActions
 			Translations.GetString ("Paste"),
 			null,
 			Resources.StandardIcons.EditPaste,
-			shortcuts: ["<Primary>V"]);
+			shortcuts: ["<Primary>V", "<Shift>Insert"]);
 
 		PasteIntoNewLayer = new Command (
 			"pasteintonewlayer",
@@ -164,7 +164,7 @@ public sealed class EditActions
 			Translations.GetString ("Deselect All"),
 			null,
 			Resources.Icons.EditSelectionNone,
-			shortcuts: ["<Primary><Shift>A", "<Ctrl>D"]);
+			shortcuts: ["<Primary>D"]);
 
 		LoadPalette = new Command (
 			"loadpalette",

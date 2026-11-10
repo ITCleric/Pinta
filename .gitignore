@@ -37,3 +37,7 @@ xdg/pinta.desktop
 xdg/pinta.appdata.xml
 .vs
 .vscode
+
+.dotnet/
+artifacts/
+docs/assets/effects-icons.png

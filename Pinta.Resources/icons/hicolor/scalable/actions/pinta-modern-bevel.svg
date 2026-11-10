@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><title>bevel</title><defs>
+ <linearGradient id="body" x2="0" y2="1"><stop stop-color="#c1d7eb"/><stop offset="1" stop-color="#4e7d9d"/></linearGradient>
+ <linearGradient id="shine" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body)" stroke="#4e7d9d"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M6 7h20v19H6z" fill="#87bddf"/><path d="m6 7 5 5h10l5-5z" fill="#edfaff"/><path d="m6 7 5 5v9l-5 5z" fill="#c4e8ff"/><path d="m6 26 5-5h10l5 5zM26 7l-5 5v9l5 5z" fill="#2f6a95"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine)"/>
+ </svg>

@@ -95,7 +95,10 @@ public static class GioExtensions
 		string newLabel = item.GetAttributeValue ("label", GLib.VariantType.String)!.GetString (out nuint _);
 
 		for (int i = 0; i < menu.GetNItems (); i++) {
-			string label = menu.GetItemAttributeValue (i, "label", GLib.VariantType.String)!.GetString (out nuint _);
+			// Sections can be unlabeled (for example the fixed Repeat Last Effect section).
+			var labelValue = menu.GetItemAttributeValue (i, "label", GLib.VariantType.String);
+			if (labelValue is null) continue;
+			string label = labelValue.GetString (out nuint _);
 			if (string.Compare (label, newLabel) <= 0) continue;
 			menu.InsertItem (i, item);
 			return;

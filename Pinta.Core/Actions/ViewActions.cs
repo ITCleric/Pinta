@@ -43,6 +43,9 @@ public sealed class ViewActions
 	public Command EditCanvasGrid { get; }
 	public ToggleCommand StatusBar { get; }
 	public ToggleCommand ToolBox { get; }
+	public ToggleCommand HistoryWindow { get; } = new ("history-window", Translations.GetString ("History"), null, null, shortcuts: ["F6"]);
+	public ToggleCommand LayersWindow { get; } = new ("layers-window", Translations.GetString ("Layers"), null, null, shortcuts: ["F7"]);
+	public ToggleCommand ColorsWindow { get; } = new ("colors-window", Translations.GetString ("Colors"), null, null, shortcuts: ["F8"]);
 	public ToggleCommand Rulers { get; }
 	public Gio.SimpleAction RulerMetric { get; }
 	public Command Fullscreen { get; }
@@ -90,14 +93,15 @@ public sealed class ViewActions
 			"ZoomToSelection",
 			Translations.GetString ("Zoom to Selection"),
 			null,
-			Resources.Icons.ViewZoomSelection);
+			Resources.Icons.ViewZoomSelection,
+			shortcuts: ["<Primary><Shift>B"]);
 
 		ActualSize = new Command (
 			"ActualSize",
 			Translations.GetString ("Normal Size"),
 			null,
 			Resources.StandardIcons.ZoomOriginal,
-			shortcuts: ["<Primary>0", "<Primary><Shift>A"]);
+			shortcuts: ["<Primary>0"]);
 
 		ToolBar = new ToggleCommand (
 			"Toolbar",
@@ -134,7 +138,8 @@ public sealed class ViewActions
 			"ToolBox",
 			Translations.GetString ("Tool Box"),
 			null,
-			null);
+			null,
+			shortcuts: ["F5"]);
 
 		Rulers = new ToggleCommand (
 			"Rulers",
@@ -163,6 +168,7 @@ public sealed class ViewActions
 		ToolWindows.Value = true;
 		StatusBar.Value = true;
 		ToolBox.Value = true;
+		HistoryWindow.Value = LayersWindow.Value = ColorsWindow.Value = true;
 
 		this.chrome = chrome;
 		this.workspace = workspace;
@@ -204,6 +210,7 @@ public sealed class ViewActions
 		Gio.Menu zoom_section = Gio.Menu.New ();
 		zoom_section.AppendItem (ActualSize.CreateMenuItem ());
 		zoom_section.AppendItem (ZoomToWindow.CreateMenuItem ());
+		zoom_section.AppendItem (ZoomToSelection.CreateMenuItem ());
 		zoom_section.AppendItem (Fullscreen.CreateMenuItem ());
 
 		Gio.Menu grid_section = Gio.Menu.New ();
@@ -221,6 +228,9 @@ public sealed class ViewActions
 		show_hide_menu.AppendItem (Rulers.CreateMenuItem ());
 		show_hide_menu.AppendItem (StatusBar.CreateMenuItem ());
 		show_hide_menu.AppendItem (ToolBox.CreateMenuItem ());
+		show_hide_menu.AppendItem (HistoryWindow.CreateMenuItem ());
+		show_hide_menu.AppendItem (LayersWindow.CreateMenuItem ());
+		show_hide_menu.AppendItem (ColorsWindow.CreateMenuItem ());
 		show_hide_menu.AppendItem (ImageTabs.CreateMenuItem ());
 		show_hide_menu.AppendItem (ToolWindows.CreateMenuItem ());
 		if (mainToolbarPresent) show_hide_menu.AppendItem (ToolBar.CreateMenuItem ());
@@ -238,11 +248,15 @@ public sealed class ViewActions
 			ZoomOut,
 			ActualSize,
 			ZoomToWindow,
+			ZoomToSelection,
 			Fullscreen,
 			EditCanvasGrid,
 			Rulers,
 			StatusBar,
 			ToolBox,
+			HistoryWindow,
+			LayersWindow,
+			ColorsWindow,
 			ImageTabs,
 			ToolWindows,
 		]);

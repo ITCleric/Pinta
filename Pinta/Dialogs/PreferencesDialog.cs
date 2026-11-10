@@ -1,8 +1,11 @@
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using GObject;
+using Object = GObject.Object;
 
 namespace Pinta;
 
@@ -17,6 +20,10 @@ internal sealed partial class PreferencesDialog
 	private IChromeService chrome = null!;
 	private IPaletteService palette = null!;
 	private List<string> language_codes = [];
+	[Gtk.Connect ("theme_group")]
+	private Adw.PreferencesGroup theme_group;
+	private readonly List<Adw.EntryRow> theme_rows = [];
+	private bool loading_theme;
 
 	[Gtk.Connect ("language_comborow")]
 	private Adw.ComboRow language_row;
@@ -50,6 +57,7 @@ internal sealed partial class PreferencesDialog
 		dialog.chrome = chrome;
 		dialog.palette = palette;
 		dialog.LoadSettings (settings);
+		dialog.BuildThemeEditor ();
 		return dialog;
 	}
 
@@ -114,6 +122,82 @@ internal sealed partial class PreferencesDialog
 		string colorHex = settings.GetSetting (SettingNames.STARTUP_IMAGE_BACKGROUND_COLOR, Cairo.Color.Black.ToHex ());
 		startup_color_button.DisplayColor = Cairo.Color.FromHex (colorHex) ?? Cairo.Color.Black;
 		startup_color_row.Visible = startup_background_row.Selected == (uint) BackgroundType.SecondaryColor;
+	}
+
+	private void BuildThemeEditor ()
+	{
+		string[] labels = ["Background", "Surface", "Foreground", "Accent", "Border", "Canvas", "Selection"];
+		foreach (string label in labels) {
+			var row = Adw.EntryRow.New ();
+			row.Title = Translations.GetString (label);
+			theme_group.Add (row);
+			theme_rows.Add (row);
+			row.OnChanged += (_, _) => SaveTheme ();
+		}
+		ThemePalette theme;
+		try { theme = ThemePalette.FromJson (settings.GetSetting ("custom-theme", ThemePalette.Light.ToJson ())); }
+		catch (Exception) { theme = ThemePalette.Light; }
+		SetThemeRows (theme);
+		var buttons = Gtk.Box.New (Gtk.Orientation.Horizontal, 8);
+		foreach (var (label, preset) in new[] { ("Light Preset", ThemePalette.Light), ("Dark Preset", ThemePalette.Dark) }) {
+			var button = Gtk.Button.NewWithLabel (Translations.GetString (label));
+			button.OnClicked += (_, _) => { SetThemeRows (preset); SaveTheme (); };
+			buttons.Append (button);
+		}
+		var import = Gtk.Button.NewWithLabel (Translations.GetString ("Import…"));
+		import.OnClicked += async (_, _) => await TransferTheme (false);
+		buttons.Append (import);
+		var export = Gtk.Button.NewWithLabel (Translations.GetString ("Export…"));
+		export.OnClicked += async (_, _) => await TransferTheme (true);
+		buttons.Append (export);
+		theme_group.Add (buttons);
+	}
+
+	private void SetThemeRows (ThemePalette theme)
+	{
+		loading_theme = true;
+		string[] values = [theme.Background, theme.Surface, theme.Foreground, theme.Accent, theme.Border, theme.Canvas, theme.Selection];
+		for (int i = 0; i < values.Length; i++) theme_rows[i].SetText (values[i]);
+		loading_theme = false;
+	}
+
+	private ThemePalette ReadTheme () => new (
+		theme_rows[0].GetText (), theme_rows[1].GetText (), theme_rows[2].GetText (),
+		theme_rows[3].GetText (), theme_rows[4].GetText (), theme_rows[5].GetText (), theme_rows[6].GetText ());
+
+	private void SaveTheme ()
+	{
+		if (loading_theme) return;
+		foreach (var row in theme_rows) {
+			if (ThemePalette.IsColor (row.GetText ())) row.RemoveCssClass ("error");
+			else row.AddCssClass ("error");
+		}
+		var theme = ReadTheme ();
+		if (!theme.IsValid) return;
+		settings.PutSetting ("custom-theme", theme.ToJson ());
+		color_scheme_row.SetSelected (3);
+	}
+
+	private async Task TransferTheme (bool export)
+	{
+		try {
+			using var dialog = Gtk.FileDialog.New ();
+			dialog.Title = Translations.GetString (export ? "Export Theme" : "Import Theme");
+			Gio.File? file = export ? await dialog.SaveAsync (chrome.MainWindow) : await dialog.OpenAsync (chrome.MainWindow);
+			string? path = file?.GetPath ();
+			if (path is null) return;
+			if (export) {
+				var theme = ReadTheme ();
+				if (!theme.IsValid) throw new FormatException ("Theme colors must use #RRGGBB.");
+				await File.WriteAllTextAsync (path, theme.ToJson ());
+			} else {
+				var theme = ThemePalette.FromJson (await File.ReadAllTextAsync (path));
+				SetThemeRows (theme);
+				SaveTheme ();
+			}
+		} catch (Exception ex) {
+			AddToast (Adw.Toast.New (ex.Message));
+		}
 	}
 
 	private void OnLanguageChanged (Object sender, NotifySignalArgs args)

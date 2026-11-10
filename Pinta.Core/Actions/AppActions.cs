@@ -49,7 +49,7 @@ public sealed class AppActions
 			Translations.GetString ("Preferences..."),
 			null,
 			Resources.StandardIcons.Preferences,
-			shortcuts: ["<Primary>comma"]);
+			shortcuts: SystemManager.GetOperatingSystem () == OS.Mac ? ["<Primary><Alt>comma", "<Alt>X"] : ["<Alt>X"]);
 		KeyboardShortcuts = new Command (
 			"keyboardshortcuts",
 			Translations.GetString ("Keyboard Shortcuts"),

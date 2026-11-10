@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Collections.Immutable;
 using GObject;
 
@@ -78,7 +79,7 @@ public class Command
 		Shortcuts =
 			shortcuts is null
 			? []
-			: [.. shortcuts];
+			: [.. shortcuts.Select (ShortcutPolicy.ForPlatform)];
 	}
 
 	public Gio.MenuItem CreateMenuItem ()

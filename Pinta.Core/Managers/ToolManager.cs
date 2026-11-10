@@ -200,21 +200,27 @@ public sealed class ToolManager : IEnumerable<BaseTool>, IToolService
 		return true;
 	}
 
-	public bool SetCurrentTool (Gdk.Key shortcut)
+	public bool SetCurrentTool (Gdk.Key shortcut) => SetCurrentTool (shortcut, false);
+
+	public bool SetCurrentTool (Gdk.Key shortcut, bool reverse)
 	{
-		if (FindNextTool (shortcut) is not BaseTool tool)
+		if (FindNextTool (shortcut, reverse) is not BaseTool tool)
 			return false;
 
 		SetCurrentTool (tool);
 		return true;
 	}
 
-	private BaseTool? FindNextTool (Gdk.Key shortcut)
+	private BaseTool? FindNextTool (Gdk.Key shortcut, bool reverse)
 	{
 		// Find all tools with this shortcut
 		var shortcut_tools =
 			tools
 			.Where (t => t.ShortcutKey.ToUpper () == shortcut.ToUpper ())
+			.OrderBy (t => t.GetType ().Name switch {
+				"RectangleSelectTool" => 0, "LassoSelectTool" => 1, "EllipseSelectTool" => 2, "MagicWandTool" => 3,
+				_ => t.Priority,
+			})
 			.ToImmutableArray ();
 
 		// No tools with this shortcut, bail
@@ -226,7 +232,9 @@ public sealed class ToolManager : IEnumerable<BaseTool>, IToolService
 			return shortcut_tools.First ();
 
 		// Get the tool after the currently selected tool
-		int next_index = shortcut_tools.IndexOf (CurrentTool) + 1;
+		int current_index = shortcut_tools.IndexOf (CurrentTool);
+		int next_index = current_index < 0 ? (reverse ? shortcut_tools.Length - 1 : 0)
+			: (current_index + (reverse ? -1 : 1) + shortcut_tools.Length) % shortcut_tools.Length;
 
 		// Wrap if we're past the final tool
 		if (next_index >= shortcut_tools.Length)

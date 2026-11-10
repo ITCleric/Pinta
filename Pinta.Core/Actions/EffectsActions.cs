@@ -33,6 +33,13 @@ public sealed class EffectsActions
 {
 	public Dictionary<string, Gio.Menu> Menus { get; } = [];
 	public Collection<Command> Actions { get; } = [];
+	public Dictionary<Command, string> Categories { get; } = [];
+	public Command Browse { get; } = new ("browse-effects", Translations.GetString ("Effects Browser…"), null,
+		Resources.Icons.EffectsDefault, shortcuts: ["<Primary><Alt>F"]);
+	public Command RepeatLastEffect { get; } = new (
+		"repeat-last-effect", Translations.GetString ("Repeat Last Effect"), null,
+		Resources.Icons.EffectsDefault, shortcuts: ["<Primary>F"]);
+	private bool repeat_registered;
 
 	private readonly ChromeManager chrome;
 	public EffectsActions (ChromeManager chrome)
@@ -44,6 +51,18 @@ public sealed class EffectsActions
 	public void AddEffect (string category, Command action)
 	{
 		var effects_menu = chrome.EffectsMenu;
+		if (!repeat_registered) {
+			repeat_registered = true;
+			var section = Gio.Menu.New ();
+			section.AppendItem (RepeatLastEffect.CreateMenuItem ());
+			section.AppendItem (Browse.CreateMenuItem ());
+			effects_menu.AppendSection (null, section);
+			chrome.Application.AddCommand (RepeatLastEffect);
+			chrome.Application.AddCommand (Browse);
+			RepeatLastEffect.Sensitive = false;
+			RepeatLastEffect.Activated += (_, _) => PintaCore.LivePreview.RepeatLastEffect ();
+			PintaCore.LivePreview.EffectApplied += (_, _) => RepeatLastEffect.Sensitive = true;
+		}
 
 		if (!Menus.ContainsKey (category)) {
 			var category_menu = Gio.Menu.New ();
@@ -52,6 +71,7 @@ public sealed class EffectsActions
 		}
 
 		Actions.Add (action);
+		Categories[action] = category;
 
 		Gio.Menu m = Menus[category];
 		m.AppendMenuItemSorted (action.CreateMenuItem ());
@@ -65,12 +85,15 @@ public sealed class EffectsActions
 
 		var menu = Menus[category];
 		menu.Remove (action);
+		Actions.Remove (action);
+		Categories.Remove (action);
 	}
 	#endregion
 
 	#region Public Methods
 	public void ToggleActionsSensitive (bool sensitive)
 	{
+		RepeatLastEffect.Sensitive = sensitive && PintaCore.LivePreview.LastEffect is not null;
 		foreach (Command a in Actions)
 			a.Sensitive = sensitive;
 	}

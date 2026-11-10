@@ -40,6 +40,7 @@ internal sealed class MainWindow
 	// NRT - Created in OnActivated
 	WindowShell window_shell = null!;
 	Dock dock = null!;
+	private ColorsPad colors_pad = null!;
 	Gio.Menu menu_bar = null!;
 	Gio.Menu image_menu = null!;
 	Gio.Menu view_menu = null!;
@@ -253,8 +254,13 @@ internal sealed class MainWindow
 		}
 
 		// If the canvas/tool didn't consume it, see if its a toolbox shortcut
-		if (!args.State.HasModifierKey () && PintaCore.Tools.SetCurrentTool (args.GetKey ()))
+		if (!(args.State & ~Gdk.ModifierType.ShiftMask).HasModifierKey () && PintaCore.Tools.SetCurrentTool (args.GetKey (), args.State.HasFlag (Gdk.ModifierType.ShiftMask)))
 			return true;
+
+		if (!args.State.HasModifierKey () && args.GetKey ().ToUpper ().Value == Gdk.Constants.KEY_C) {
+			colors_pad.SwitchActiveColor ();
+			return true;
+		}
 
 		// Finally, see if the palette widget wants it.
 		bool shouldSwapColors = !args.State.HasModifierKey () && args.GetKey ().ToUpper ().Value == Gdk.Constants.KEY_X;
@@ -479,7 +485,7 @@ internal sealed class MainWindow
 	private void CreateToolToolBar ()
 	{
 		Gtk.Box tool_toolbar = window_shell.CreateToolBar ("tool_toolbar");
-		tool_toolbar.HeightRequest = 48;
+		tool_toolbar.HeightRequest = 32;
 
 		PintaCore.Chrome.InitializeToolToolBar (tool_toolbar);
 	}
@@ -517,8 +523,27 @@ internal sealed class MainWindow
 		toolbox_scroll.OverlayScrolling = true;
 		toolbox_scroll.WindowPlacement = Gtk.CornerType.BottomRight;
 
-		container.Append (toolbox_scroll);
-		PintaCore.Chrome.InitializeToolBox (toolbox);
+		var overlay = Gtk.Overlay.New ();
+		overlay.Hexpand = overlay.Vexpand = true;
+		container.Append (overlay);
+		var tools_frame = DockItem.New (toolbox_scroll, "Tools", Resources.Icons.ToolPaintBrush);
+		tools_frame.Label = Translations.GetString ("Tools");
+		tools_frame.AddCssClass ("floating-palette");
+		tools_frame.Halign = Gtk.Align.Start; tools_frame.Valign = Gtk.Align.Start;
+		tools_frame.MarginStart = 8; tools_frame.MarginTop = 40;
+		tools_frame.MinimizeClicked += (_, _) => PintaCore.Actions.View.ToolBox.Value = false;
+		PintaCore.Actions.View.ToolBox.Toggled += (visible, _) => { if (visible) tools_frame.Maximize (); };
+		overlay.AddOverlay (tools_frame);
+		PintaCore.Chrome.InitializeToolBox (tools_frame);
+		colors_pad = new ColorsPad (PintaCore.Palette);
+		colors_pad.Widget.MinimizeClicked += (_, _) => PintaCore.Actions.View.ColorsWindow.Value = false;
+		overlay.AddOverlay (colors_pad.Widget);
+		PintaCore.Actions.View.ColorsWindow.Toggled += (visible, _) => {
+			colors_pad.Widget.Visible = visible;
+			if (visible) colors_pad.Widget.Maximize ();
+		};
+		PintaCore.Actions.View.HistoryWindow.Toggled += (visible, _) => dock.RightPanel.SetItemVisible ("History", visible);
+		PintaCore.Actions.View.LayersWindow.Toggled += (visible, _) => dock.RightPanel.SetItemVisible ("Layers", visible);
 
 		// Dock widget
 		dock = Dock.New ();
@@ -531,15 +556,13 @@ internal sealed class MainWindow
 		canvas_pad.Initialize (dock);
 		PintaCore.Chrome.InitializeImageTabsNotebook (canvas_pad.Notebook);
 
-		// Layer pad
+		// Paint.NET places history above the layer stack.
+		HistoryPad history_pad = new (PintaCore.Actions.Edit);
+		history_pad.Initialize (dock);
 		LayersPad layers_pad = new (PintaCore.Actions.Layers);
 		layers_pad.Initialize (dock);
 
-		// History pad
-		HistoryPad history_pad = new (PintaCore.Actions.Edit);
-		history_pad.Initialize (dock);
-
-		container.Append (dock);
+		overlay.Child = dock;
 	}
 
 	private void LoadUserSettings ()
@@ -553,6 +576,9 @@ internal sealed class MainWindow
 		PintaCore.Actions.View.ToolBar.Value = PintaCore.Settings.GetSetting (SettingNames.TOOLBAR_SHOWN, true);
 		PintaCore.Actions.View.StatusBar.Value = PintaCore.Settings.GetSetting (SettingNames.STATUSBAR_SHOWN, true);
 		PintaCore.Actions.View.ToolBox.Value = PintaCore.Settings.GetSetting (SettingNames.TOOLBOX_SHOWN, true);
+		PintaCore.Actions.View.ColorsWindow.Value = PintaCore.Settings.GetSetting ("colors-window-shown", true);
+		PintaCore.Actions.View.HistoryWindow.Value = PintaCore.Settings.GetSetting ("history-window-shown", true);
+		PintaCore.Actions.View.LayersWindow.Value = PintaCore.Settings.GetSetting ("layers-window-shown", true);
 		PintaCore.Actions.View.ImageTabs.Value = PintaCore.Settings.GetSetting (SettingNames.IMAGE_TABS_SHOWN, true);
 		PintaCore.Actions.View.ToolWindows.Value = PintaCore.Settings.GetSetting (SettingNames.TOOL_WINDOWS_SHOWN, true);
 
@@ -581,6 +607,9 @@ internal sealed class MainWindow
 		PintaCore.Settings.PutSetting (SettingNames.TOOLBAR_SHOWN, PintaCore.Actions.View.ToolBar.Value);
 		PintaCore.Settings.PutSetting (SettingNames.STATUSBAR_SHOWN, PintaCore.Actions.View.StatusBar.Value);
 		PintaCore.Settings.PutSetting (SettingNames.TOOLBOX_SHOWN, PintaCore.Actions.View.ToolBox.Value);
+		PintaCore.Settings.PutSetting ("colors-window-shown", PintaCore.Actions.View.ColorsWindow.Value);
+		PintaCore.Settings.PutSetting ("history-window-shown", PintaCore.Actions.View.HistoryWindow.Value);
+		PintaCore.Settings.PutSetting ("layers-window-shown", PintaCore.Actions.View.LayersWindow.Value);
 		PintaCore.Settings.PutSetting (SettingNames.LAST_DIALOG_DIRECTORY, PintaCore.RecentFiles.LastDialogDirectory?.GetUri () ?? "");
 
 		if (PintaCore.Tools.CurrentTool is BaseTool tool)

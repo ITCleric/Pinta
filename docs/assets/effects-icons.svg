@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420"><rect width="1000" height="420" fill="#e9eff5"/><text x="24" y="35" font-family="sans-serif" font-size="22" fill="#24384a">Pinta Modern · Original Aero-style effect icons</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="70" y="58" viewBox="0 0 32 32"><title>alpha-gray</title><defs>
+ <linearGradient id="body0" x2="0" y2="1"><stop stop-color="#c3d2e2"/><stop offset="1" stop-color="#526881"/></linearGradient>
+ <linearGradient id="shine0" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb0" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check0" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body0)" stroke="#526881"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M7 8h7v16H7z" fill="url(#check0)"/><path d="M20 8h5v16h-5z" fill="white"/><path d="m14 14 4 2-4 2z" fill="#fff"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine0)"/>
+ </svg>
+<text x="94" y="123" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">alpha gray</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="234" y="58" viewBox="0 0 32 32"><title>bevel</title><defs>
+ <linearGradient id="body1" x2="0" y2="1"><stop stop-color="#c1d7eb"/><stop offset="1" stop-color="#4e7d9d"/></linearGradient>
+ <linearGradient id="shine1" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb1" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check1" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body1)" stroke="#4e7d9d"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M6 7h20v19H6z" fill="#87bddf"/><path d="m6 7 5 5h10l5-5z" fill="#edfaff"/><path d="m6 7 5 5v9l-5 5z" fill="#c4e8ff"/><path d="m6 26 5-5h10l5 5zM26 7l-5 5v9l5 5z" fill="#2f6a95"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine1)"/>
+ </svg>
+<text x="258" y="123" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">bevel</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="398" y="58" viewBox="0 0 32 32"><title>channels</title><defs>
+ <linearGradient id="body2" x2="0" y2="1"><stop stop-color="#8e8fe7"/><stop offset="1" stop-color="#414196"/></linearGradient>
+ <linearGradient id="shine2" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb2" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check2" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body2)" stroke="#414196"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M7 10h18M7 16h18M7 22h18" stroke="white" stroke-width="1.2"/><circle cx="11" cy="10" r="3" fill="#ff5b4f"/><circle cx="21" cy="16" r="3" fill="#6ee26c"/><circle cx="15" cy="22" r="3" fill="#62b7ff"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine2)"/>
+ </svg>
+<text x="422" y="123" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">channels</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="562" y="58" viewBox="0 0 32 32"><title>chroma-key</title><defs>
+ <linearGradient id="body3" x2="0" y2="1"><stop stop-color="#a6e36d"/><stop offset="1" stop-color="#388430"/></linearGradient>
+ <linearGradient id="shine3" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb3" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check3" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body3)" stroke="#388430"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M7 7h18v18H7z" fill="url(#check3)"/><path d="m7 25 7-17 6 11 5-9v15z" fill="#47d642"/><circle cx="22" cy="10" r="4" fill="#ffe680"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine3)"/>
+ </svg>
+<text x="586" y="123" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">chroma key</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="726" y="58" viewBox="0 0 32 32"><title>color-balance</title><defs>
+ <linearGradient id="body4" x2="0" y2="1"><stop stop-color="#49cddc"/><stop offset="1" stop-color="#087f9b"/></linearGradient>
+ <linearGradient id="shine4" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb4" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check4" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body4)" stroke="#087f9b"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M16 7v17M8 11h16M10 11l-4 8h8zM22 11l-4 8h8z" fill="#ffdb71" stroke="#725d1e" stroke-width="1.2"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine4)"/>
+ </svg>
+<text x="750" y="123" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">color balance</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="890" y="58" viewBox="0 0 32 32"><title>combined</title><defs>
+ <linearGradient id="body5" x2="0" y2="1"><stop stop-color="#50c5f1"/><stop offset="1" stop-color="#126eab"/></linearGradient>
+ <linearGradient id="shine5" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb5" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check5" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body5)" stroke="#126eab"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M9 7v18M16 7v18M23 7v18" stroke="white" stroke-width="2"/><path d="M6 11h6M13 21h6M20 14h6" stroke="#ffda5b" stroke-width="5"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine5)"/>
+ </svg>
+<text x="914" y="123" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">combined</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="70" y="146" viewBox="0 0 32 32"><title>complementary</title><defs>
+ <linearGradient id="body6" x2="0" y2="1"><stop stop-color="#b37bea"/><stop offset="1" stop-color="#593e9c"/></linearGradient>
+ <linearGradient id="shine6" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb6" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check6" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body6)" stroke="#593e9c"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <circle cx="12" cy="14" r="7" fill="#ffb72e"/><circle cx="20" cy="19" r="7" fill="#5d9cff" opacity=".9"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine6)"/>
+ </svg>
+<text x="94" y="211" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">complementary</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="234" y="146" viewBox="0 0 32 32"><title>drop-shadow</title><defs>
+ <linearGradient id="body7" x2="0" y2="1"><stop stop-color="#9fb5c9"/><stop offset="1" stop-color="#425a72"/></linearGradient>
+ <linearGradient id="shine7" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb7" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check7" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body7)" stroke="#425a72"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <rect x="12" y="12" width="15" height="15" rx="2" fill="#27364c" opacity=".7"/><rect x="6" y="6" width="15" height="15" rx="2" fill="#f2f9ff"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine7)"/>
+ </svg>
+<text x="258" y="211" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">drop shadow</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="398" y="146" viewBox="0 0 32 32"><title>gradient-map</title><defs>
+ <linearGradient id="body8" x2="0" y2="1"><stop stop-color="#ca8be5"/><stop offset="1" stop-color="#6642a6"/></linearGradient>
+ <linearGradient id="shine8" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb8" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check8" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body8)" stroke="#6642a6"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M6 9h20v15H6z" fill="#572a8b"/><path d="m6 24 9-15h11v15z" fill="#ffce68"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine8)"/>
+ </svg>
+<text x="422" y="211" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">gradient map</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="562" y="146" viewBox="0 0 32 32"><title>gray-alpha</title><defs>
+ <linearGradient id="body9" x2="0" y2="1"><stop stop-color="#95b9d3"/><stop offset="1" stop-color="#355c80"/></linearGradient>
+ <linearGradient id="shine9" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb9" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check9" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body9)" stroke="#355c80"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M7 8h5v16H7z" fill="white"/><path d="M19 8h7v16h-7z" fill="url(#check9)"/><path d="m13 14 4 2-4 2z" fill="#fff"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine9)"/>
+ </svg>
+<text x="586" y="211" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">gray alpha</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="726" y="146" viewBox="0 0 32 32"><title>grid</title><defs>
+ <linearGradient id="body10" x2="0" y2="1"><stop stop-color="#7dbbea"/><stop offset="1" stop-color="#2c6a9e"/></linearGradient>
+ <linearGradient id="shine10" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb10" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check10" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body10)" stroke="#2c6a9e"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M7 7h18v18H7z" fill="#fff"/><path d="M7 13h18M7 19h18M13 7v18M19 7v18" stroke="#24749d" stroke-width="2"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine10)"/>
+ </svg>
+<text x="750" y="211" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">grid</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="890" y="146" viewBox="0 0 32 32"><title>halftone</title><defs>
+ <linearGradient id="body11" x2="0" y2="1"><stop stop-color="#a1bacb"/><stop offset="1" stop-color="#405d76"/></linearGradient>
+ <linearGradient id="shine11" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb11" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check11" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body11)" stroke="#405d76"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <circle cx="8" cy="8" r="0.7" fill="white"/><circle cx="8" cy="13" r="0.7" fill="white"/><circle cx="8" cy="18" r="0.7" fill="white"/><circle cx="8" cy="23" r="0.7" fill="white"/><circle cx="13" cy="8" r="1.0499999999999998" fill="white"/><circle cx="13" cy="13" r="1.0499999999999998" fill="white"/><circle cx="13" cy="18" r="1.0499999999999998" fill="white"/><circle cx="13" cy="23" r="1.0499999999999998" fill="white"/><circle cx="18" cy="8" r="1.4" fill="white"/><circle cx="18" cy="13" r="1.4" fill="white"/><circle cx="18" cy="18" r="1.4" fill="white"/><circle cx="18" cy="23" r="1.4" fill="white"/><circle cx="23" cy="8" r="1.7499999999999998" fill="white"/><circle cx="23" cy="13" r="1.7499999999999998" fill="white"/><circle cx="23" cy="18" r="1.7499999999999998" fill="white"/><circle cx="23" cy="23" r="1.7499999999999998" fill="white"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine11)"/>
+ </svg>
+<text x="914" y="211" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">halftone</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="70" y="234" viewBox="0 0 32 32"><title>inner-shadow</title><defs>
+ <linearGradient id="body12" x2="0" y2="1"><stop stop-color="#acb7d1"/><stop offset="1" stop-color="#4a5b83"/></linearGradient>
+ <linearGradient id="shine12" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb12" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check12" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body12)" stroke="#4a5b83"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <rect x="6" y="6" width="20" height="20" rx="3" fill="#f4f8ff"/><path d="M6 24V6h20v5H11v13z" fill="#526a8b"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine12)"/>
+ </svg>
+<text x="94" y="299" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">inner shadow</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="234" y="234" viewBox="0 0 32 32"><title>invert-alpha</title><defs>
+ <linearGradient id="body13" x2="0" y2="1"><stop stop-color="#9aabb9"/><stop offset="1" stop-color="#475669"/></linearGradient>
+ <linearGradient id="shine13" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb13" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check13" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body13)" stroke="#475669"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <circle cx="16" cy="16" r="9" fill="#fff"/><path d="M16 7a9 9 0 0 1 0 18z" fill="#27384a"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine13)"/>
+ </svg>
+<text x="258" y="299" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">invert alpha</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="398" y="234" viewBox="0 0 32 32"><title>linocut</title><defs>
+ <linearGradient id="body14" x2="0" y2="1"><stop stop-color="#b7b1a6"/><stop offset="1" stop-color="#5a554e"/></linearGradient>
+ <linearGradient id="shine14" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb14" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check14" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body14)" stroke="#5a554e"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M6 25 12 7l4 11 5-8 6 15z" fill="#fff9e9"/><path d="m9 23 4-8 2 8m3-1 3-7 3 8" fill="#33302b"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine14)"/>
+ </svg>
+<text x="422" y="299" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">linocut</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="562" y="234" viewBox="0 0 32 32"><title>monochrome</title><defs>
+ <linearGradient id="body15" x2="0" y2="1"><stop stop-color="#a7b7c7"/><stop offset="1" stop-color="#455769"/></linearGradient>
+ <linearGradient id="shine15" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb15" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check15" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body15)" stroke="#455769"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <circle cx="16" cy="16" r="9" fill="white"/><path d="M16 7a9 9 0 0 1 0 18z" fill="#20262c"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine15)"/>
+ </svg>
+<text x="586" y="299" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">monochrome</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="726" y="234" viewBox="0 0 32 32"><title>mosaic</title><defs>
+ <linearGradient id="body16" x2="0" y2="1"><stop stop-color="#e8b66d"/><stop offset="1" stop-color="#a46032"/></linearGradient>
+ <linearGradient id="shine16" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb16" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check16" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body16)" stroke="#a46032"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M6 7h8v8H6z" fill="#fff3a1"/><path d="M17 7h9v8h-9z" fill="#69c8ef"/><path d="M6 18h8v8H6z" fill="#91d979"/><path d="M17 18h9v8h-9z" fill="#f38369"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine16)"/>
+ </svg>
+<text x="750" y="299" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">mosaic</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="890" y="234" viewBox="0 0 32 32"><title>ordered-dither</title><defs>
+ <linearGradient id="body17" x2="0" y2="1"><stop stop-color="#8caac8"/><stop offset="1" stop-color="#3a6285"/></linearGradient>
+ <linearGradient id="shine17" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb17" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check17" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body17)" stroke="#3a6285"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <rect x="7" y="7" width="3" height="3" fill="white" opacity="0.2"/><rect x="7" y="11" width="3" height="3" fill="white" opacity="0.6000000000000001"/><rect x="7" y="15" width="3" height="3" fill="white" opacity="1.0"/><rect x="7" y="19" width="3" height="3" fill="white" opacity="0.4"/><rect x="7" y="23" width="3" height="3" fill="white" opacity="0.8"/><rect x="11" y="7" width="3" height="3" fill="white" opacity="0.8"/><rect x="11" y="11" width="3" height="3" fill="white" opacity="0.2"/><rect x="11" y="15" width="3" height="3" fill="white" opacity="0.6000000000000001"/><rect x="11" y="19" width="3" height="3" fill="white" opacity="1.0"/><rect x="11" y="23" width="3" height="3" fill="white" opacity="0.4"/><rect x="15" y="7" width="3" height="3" fill="white" opacity="0.4"/><rect x="15" y="11" width="3" height="3" fill="white" opacity="0.8"/><rect x="15" y="15" width="3" height="3" fill="white" opacity="0.2"/><rect x="15" y="19" width="3" height="3" fill="white" opacity="0.6000000000000001"/><rect x="15" y="23" width="3" height="3" fill="white" opacity="1.0"/><rect x="19" y="7" width="3" height="3" fill="white" opacity="1.0"/><rect x="19" y="11" width="3" height="3" fill="white" opacity="0.4"/><rect x="19" y="15" width="3" height="3" fill="white" opacity="0.8"/><rect x="19" y="19" width="3" height="3" fill="white" opacity="0.2"/><rect x="19" y="23" width="3" height="3" fill="white" opacity="0.6000000000000001"/><rect x="23" y="7" width="3" height="3" fill="white" opacity="0.6000000000000001"/><rect x="23" y="11" width="3" height="3" fill="white" opacity="1.0"/><rect x="23" y="15" width="3" height="3" fill="white" opacity="0.4"/><rect x="23" y="19" width="3" height="3" fill="white" opacity="0.8"/><rect x="23" y="23" width="3" height="3" fill="white" opacity="0.2"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine17)"/>
+ </svg>
+<text x="914" y="299" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">ordered dither</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="70" y="322" viewBox="0 0 32 32"><title>pointillism</title><defs>
+ <linearGradient id="body18" x2="0" y2="1"><stop stop-color="#f1ba77"/><stop offset="1" stop-color="#ac6434"/></linearGradient>
+ <linearGradient id="shine18" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb18" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check18" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body18)" stroke="#ac6434"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <circle cx="9" cy="10" r="3" fill="#ef6156"/><circle cx="20" cy="8" r="3" fill="#f7e17d"/><circle cx="15" cy="16" r="3" fill="#77baff"/><circle cx="24" cy="19" r="3" fill="#b8e773"/><circle cx="9" cy="24" r="3" fill="#9de8cb"/><circle cx="20" cy="26" r="2" fill="#f9dbaf"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine18)"/>
+ </svg>
+<text x="94" y="387" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">pointillism</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="234" y="322" viewBox="0 0 32 32"><title>spherize</title><defs>
+ <linearGradient id="body19" x2="0" y2="1"><stop stop-color="#8be4f7"/><stop offset="1" stop-color="#1672b9"/></linearGradient>
+ <linearGradient id="shine19" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb19" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check19" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body19)" stroke="#1672b9"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <circle cx="16" cy="16" r="10" fill="url(#orb19)" stroke="#1b5a8c"/><ellipse cx="16" cy="16" rx="5" ry="10" fill="none" stroke="white" opacity=".8"/><path d="M6 16h20" stroke="white"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine19)"/>
+ </svg>
+<text x="258" y="387" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">spherize</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="398" y="322" viewBox="0 0 32 32"><title>stained-glass</title><defs>
+ <linearGradient id="body20" x2="0" y2="1"><stop stop-color="#e8a9da"/><stop offset="1" stop-color="#854685"/></linearGradient>
+ <linearGradient id="shine20" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb20" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check20" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body20)" stroke="#854685"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="m6 6 11 2-3 10-8-3z" fill="#6fc7ee" stroke="#403353"/><path d="m17 8 9-2v14l-12-2z" fill="#f8df72" stroke="#403353"/><path d="m6 15 8 3 5 8H6z" fill="#f08579" stroke="#403353"/><path d="m14 18 12 2v6h-7z" fill="#a7d987" stroke="#403353"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine20)"/>
+ </svg>
+<text x="422" y="387" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">stained glass</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="562" y="322" viewBox="0 0 32 32"><title>stars</title><defs>
+ <linearGradient id="body21" x2="0" y2="1"><stop stop-color="#f7d87c"/><stop offset="1" stop-color="#c17b1c"/></linearGradient>
+ <linearGradient id="shine21" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb21" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check21" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body21)" stroke="#c17b1c"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="m16 5 3.2 7.1 7.8.8-5.8 5.2 1.5 7.7-6.7-4-6.7 4 1.5-7.7L5 12.9l7.8-.8z" fill="#fff1a3" stroke="#956115"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine21)"/>
+ </svg>
+<text x="586" y="387" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">stars</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="726" y="322" viewBox="0 0 32 32"><title>transparency</title><defs>
+ <linearGradient id="body22" x2="0" y2="1"><stop stop-color="#42b7ed"/><stop offset="1" stop-color="#126da8"/></linearGradient>
+ <linearGradient id="shine22" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb22" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check22" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body22)" stroke="#126da8"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M8 8h16v16H8z" fill="url(#check22)"/><path d="M16 8h8v16h-8z" fill="white" opacity=".6"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine22)"/>
+ </svg>
+<text x="750" y="387" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">transparency</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" x="890" y="322" viewBox="0 0 32 32"><title>waves</title><defs>
+ <linearGradient id="body23" x2="0" y2="1"><stop stop-color="#8adeef"/><stop offset="1" stop-color="#147ba9"/></linearGradient>
+ <linearGradient id="shine23" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb23" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check23" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body23)" stroke="#147ba9"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="M5 11q5-7 11 0t11 0M5 17q5-7 11 0t11 0M5 23q5-7 11 0t11 0" stroke="white" stroke-width="2.5" fill="none"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine23)"/>
+ </svg>
+<text x="914" y="387" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#24384a">waves</text>
+</svg>

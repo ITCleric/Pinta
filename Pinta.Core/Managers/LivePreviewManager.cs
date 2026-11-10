@@ -68,7 +68,16 @@ public sealed class LivePreviewManager : ILivePreview
 	public RectangleI RenderBounds { get; private set; }
 	public bool IsEnabled { get; private set; }
 
-	public async void Start (BaseEffect effect)
+	public BaseEffect? LastEffect { get; private set; }
+	public event EventHandler? EffectApplied;
+
+	public void RepeatLastEffect ()
+	{
+		if (LastEffect is not null && !IsEnabled && workspace.HasOpenDocuments)
+			Start (LastEffect.Clone (), configure: false);
+	}
+
+	public async void Start (BaseEffect effect, bool configure = true)
 	{
 		if (IsEnabled)
 			throw new InvalidOperationException ("LivePreviewManager.Start() called while live preview is already enabled.");
@@ -144,7 +153,7 @@ public sealed class LivePreviewManager : ILivePreview
 				}
 			);
 
-			bool userConfirmed = !effect.IsConfigurable || await effect.LaunchConfiguration (session);
+			bool userConfirmed = !configure || !effect.IsConfigurable || await effect.LaunchConfiguration (session);
 
 			chrome.MainWindowBusy = true;
 
@@ -167,7 +176,7 @@ public sealed class LivePreviewManager : ILivePreview
 			foreach (var ex in result.Errors)
 				Debug.WriteLine ("AsyncEffectRenderer Error while rendering effect: " + effectName + " exception: " + ex.Message + "\n" + ex.StackTrace);
 
-			if (userCanceled) {
+			if (userCanceled || result.WasCanceled || result.Errors.Count > 0) {
 				Debug.WriteLine ("*User* decided to cancel the render");
 				return;
 			}
@@ -183,6 +192,8 @@ public sealed class LivePreviewManager : ILivePreview
 			context.Restore ();
 
 			workspace.ActiveDocument.History.PushNewItem (historyItem);
+			LastEffect = effect.Clone ();
+			EffectApplied?.Invoke (this, EventArgs.Empty);
 
 		} finally {
 

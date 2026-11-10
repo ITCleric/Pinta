@@ -31,6 +31,7 @@
                       <item translatable="yes" comments="Translators: This refers to using the system default color scheme.">Default</item>
                       <item translatable="yes" comments="Translators: This refers to using a light variant of the color scheme.">Light</item>
                       <item translatable="yes" comments="Translators: This refers to using a dark variant of the color scheme.">Dark</item>
+                      <item translatable="yes">Custom</item>
                     </items>
                   </object>
                 </property>
@@ -104,6 +105,18 @@
                 <property name="visible">False</property>
               </object>
             </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesPage">
+        <property name="title" translatable="yes">Custom Theme</property>
+        <property name="icon-name">applications-graphics-symbolic</property>
+        <child>
+          <object class="AdwPreferencesGroup" id="theme_group">
+            <property name="title" translatable="yes">Theme Colors</property>
+            <property name="description" translatable="yes">Enter #RRGGBB values. Valid changes apply immediately when Custom is selected.</property>
           </object>
         </child>
       </object>

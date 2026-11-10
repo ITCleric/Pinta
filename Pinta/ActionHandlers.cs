@@ -91,6 +91,9 @@ public sealed class ActionHandlers
 			new CloseAllDocumentsAction (actions, workspace),
 			new SaveAllDocumentsAction (actions.Window, workspace),
 
+			// Effects
+			new EffectBrowserAction (actions, chrome),
+
 			// Help
 			new AboutDialogAction (actions.App, chrome, applicationVersion),
 			new KeyboardShortcutsDialogAction (actions.App, actions, chrome, tools),

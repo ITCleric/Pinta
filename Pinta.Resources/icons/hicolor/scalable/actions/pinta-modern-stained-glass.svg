@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><title>stained-glass</title><defs>
+ <linearGradient id="body" x2="0" y2="1"><stop stop-color="#e8a9da"/><stop offset="1" stop-color="#854685"/></linearGradient>
+ <linearGradient id="shine" x2="0" y2="1"><stop stop-color="white" stop-opacity=".55"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+ <radialGradient id="orb" cx=".3" cy=".2" r=".8"><stop stop-color="white"/><stop offset=".4" stop-color="#71d2ff"/><stop offset="1" stop-color="#1666ad"/></radialGradient>
+ <pattern id="check" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0h8v8H0z" fill="#fff"/><path d="M0 0h4v4H0zM4 4h4v4H4z" fill="#a4b4c5"/></pattern></defs>
+ <rect x="3" y="4" width="27" height="27" rx="5" fill="#172c43" opacity=".22"/>
+ <rect x="2.5" y="2.5" width="27" height="27" rx="5" fill="url(#body)" stroke="#854685"/>
+ <rect x="3.5" y="3.5" width="25" height="25" rx="4" fill="none" stroke="white" stroke-opacity=".65"/>
+ <path d="m6 6 11 2-3 10-8-3z" fill="#6fc7ee" stroke="#403353"/><path d="m17 8 9-2v14l-12-2z" fill="#f8df72" stroke="#403353"/><path d="m6 15 8 3 5 8H6z" fill="#f08579" stroke="#403353"/><path d="m14 18 12 2v6h-7z" fill="#a7d987" stroke="#403353"/><path d="M7 4h18q3 0 3 4v7Q16 20 4 15V8q0-4 3-4z" fill="url(#shine)"/>
+ </svg>

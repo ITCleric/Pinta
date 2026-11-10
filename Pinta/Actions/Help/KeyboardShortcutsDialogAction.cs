@@ -102,7 +102,7 @@ internal sealed class KeyboardShortcutsDialogAction : IActionHandler
 		AddSection (Translations.GetString ("View"), GetCommands (actions.View));
 		AddSection (Translations.GetString ("Image"), GetCommands (actions.Image));
 		AddSection (Translations.GetString ("Adjustments"), actions.Adjustments.Actions);
-		AddSection (Translations.GetString ("Effects"), actions.Effects.Actions);
+		AddSection (Translations.GetString ("Effects"), actions.Effects.Actions.Prepend (actions.Effects.RepeatLastEffect).Prepend (actions.Effects.Browse));
 		AddSection (Translations.GetString ("Window"), GetCommands (actions.Window));
 		AddSection (Translations.GetString ("Help"), GetCommands (actions.Help));
 
@@ -113,7 +113,7 @@ internal sealed class KeyboardShortcutsDialogAction : IActionHandler
 	{
 		return actionCollection.GetType ()
 			.GetProperties ()
-			.Where (p => p.PropertyType == typeof (Command))
+			.Where (p => typeof (Command).IsAssignableFrom (p.PropertyType))
 			.Select (p => (Command) p.GetValue (actionCollection)!)
 			.Where (c => c != null);
 	}

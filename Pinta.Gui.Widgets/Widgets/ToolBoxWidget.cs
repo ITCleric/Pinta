@@ -5,7 +5,7 @@ using Pinta.Core;
 
 namespace Pinta.Gui.Widgets;
 
-[GObject.Subclass<Adw.WrapBox>]
+[GObject.Subclass<Gtk.Grid>]
 public sealed partial class ToolBoxWidget
 {
 	private ToolManager tools = null!; // NRT - set in factory method
@@ -16,7 +16,8 @@ public sealed partial class ToolBoxWidget
 
 	partial void Initialize ()
 	{
-		SetOrientation (Gtk.Orientation.Vertical);
+		RowSpacing = 1;
+		ColumnSpacing = 1;
 	}
 
 	public static ToolBoxWidget New (ToolManager tools)
@@ -62,14 +63,12 @@ public sealed partial class ToolBoxWidget
 		toolButton.OnClicked += (_, _) => HandleToolButtonClicked (tool);
 		tool_buttons[tool] = toolButton;
 
-		List<BaseTool> toolList = tools.ToList ();
-		int prevIndex = toolList.IndexOf (tool) - 1;
-		if (prevIndex >= 0) {
-			BaseTool prevTool = toolList[prevIndex];
-			Widget? prevSibling = tool_buttons[prevTool];
-			InsertChildAfter (toolButton, prevSibling);
-		} else {
-			Prepend (toolButton);
+		foreach (var child in tool_buttons.Values)
+			if (child.GetParent () is not null) Remove (child);
+		int index = 0;
+		foreach (var entry in tools) {
+			Attach (tool_buttons[entry], index % 2, index / 2, 1, 1);
+			index++;
 		}
 	}
 
@@ -93,5 +92,6 @@ public sealed partial class ToolBoxWidget
 	{
 		Gtk.ToggleButton toolButton = tool_buttons[tool];
 		Remove (toolButton);
+		tool_buttons.Remove (tool);
 	}
 }

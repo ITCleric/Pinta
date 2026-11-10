@@ -50,5 +50,5 @@ internal static class SettingDefaults
 	public const string LANGUAGE = "";
 
 	// On macOS the global menubar should be used by default.
-	internal static bool MenuBarShown () => SystemManager.GetOperatingSystem () == OS.Mac;
+	internal static bool MenuBarShown () => true;
 }

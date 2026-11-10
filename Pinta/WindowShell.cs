@@ -64,6 +64,7 @@ public sealed class WindowShell
 		}
 
 		app_window.Name = name;
+		app_window.AddCssClass ("pinta-modern");
 		app_window.Title = title;
 		app_window.DefaultWidth = width;
 		app_window.DefaultHeight = height;

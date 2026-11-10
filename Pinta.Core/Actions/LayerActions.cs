@@ -41,6 +41,11 @@ public sealed class LayerActions
 	public Command MoveLayerUp { get; }
 	public Command MoveLayerDown { get; }
 	public Command Properties { get; }
+	public Command ToggleVisibility { get; } = new ("toggle-layer-visibility", Translations.GetString ("Toggle Layer Visibility"), null, null, shortcuts: ["<Primary>comma"]);
+	public Command LayerAbove { get; } = new ("layer-above", Translations.GetString ("Go to Layer Above"), null, null, shortcuts: ["<Alt>Page_Up"]);
+	public Command LayerBelow { get; } = new ("layer-below", Translations.GetString ("Go to Layer Below"), null, null, shortcuts: ["<Alt>Page_Down"]);
+	public Command TopLayer { get; } = new ("top-layer", Translations.GetString ("Go to Top Layer"), null, null, shortcuts: ["<Primary><Alt>Page_Up"]);
+	public Command BottomLayer { get; } = new ("bottom-layer", Translations.GetString ("Go to Bottom Layer"), null, null, shortcuts: ["<Primary><Alt>Page_Down"]);
 
 	private readonly ChromeManager chrome;
 	private readonly ImageConverterManager image_formats;
@@ -94,21 +99,20 @@ public sealed class LayerActions
 			"fliplayerhorizontal",
 			Translations.GetString ("Flip Horizontal"),
 			null,
-			Resources.Icons.LayerFlipHorizontal,
-			shortcuts: ["<Primary>F"]);
+			Resources.Icons.LayerFlipHorizontal);
 
 		FlipVertical = new Command (
 			"fliplayervertical",
 			Translations.GetString ("Flip Vertical"),
 			null,
-			Resources.Icons.LayerFlipVertical,
-			shortcuts: ["<Shift>F"]);
+			Resources.Icons.LayerFlipVertical);
 
 		RotateZoom = new Command (
 			"RotateZoom",
 			Translations.GetString ("Rotate / Zoom Layer..."),
 			null,
-			Resources.Icons.LayerRotateZoom);
+			Resources.Icons.LayerRotateZoom,
+			shortcuts: ["<Primary><Shift>Z"]);
 
 		MoveLayerUp = new Command (
 			"movelayerup",
@@ -153,11 +157,26 @@ public sealed class LayerActions
 			Properties,
 
 			MoveLayerDown,
-			MoveLayerUp]);
+			MoveLayerUp, ToggleVisibility, LayerAbove, LayerBelow, TopLayer, BottomLayer]);
 	}
 
 	public void RegisterHandlers ()
 	{
+		ToggleVisibility.Activated += (_, _) => {
+			if (!workspace.HasOpenDocuments) return;
+			tools.Commit ();
+			var doc = workspace.ActiveDocument;
+			var layer = doc.Layers.CurrentUserLayer;
+			LayerProperties initial = new (layer.Name, layer.Hidden, layer.Opacity, layer.BlendMode);
+			LayerProperties updated = new (layer.Name, !layer.Hidden, layer.Opacity, layer.BlendMode);
+			var item = new UpdateLayerPropertiesHistoryItem (Resources.Icons.LayerProperties,
+				Translations.GetString ("Toggle Layer Visibility"), doc.Layers.CurrentUserLayerIndex, initial, updated);
+			item.Redo (); doc.History.PushNewItem (item);
+		};
+		LayerAbove.Activated += (_, _) => SelectLayer (1);
+		LayerBelow.Activated += (_, _) => SelectLayer (-1);
+		TopLayer.Activated += (_, _) => SelectLayer (int.MaxValue);
+		BottomLayer.Activated += (_, _) => SelectLayer (int.MinValue);
 		AddNewLayer.Activated += HandlePintaCoreActionsLayersAddNewLayerActivated;
 		DeleteLayer.Activated += HandlePintaCoreActionsLayersDeleteLayerActivated;
 		DuplicateLayer.Activated += HandlePintaCoreActionsLayersDuplicateLayerActivated;
@@ -174,6 +193,15 @@ public sealed class LayerActions
 		workspace.ActiveDocumentChanged += EnableOrDisableLayerActions;
 
 		EnableOrDisableLayerActions (null, EventArgs.Empty);
+	}
+
+	private void SelectLayer (int delta)
+	{
+		if (!workspace.HasOpenDocuments) return;
+		tools.Commit ();
+		var layers = workspace.ActiveDocument.Layers;
+		int index = (int) Math.Clamp ((long) layers.CurrentUserLayerIndex + delta, 0, layers.UserLayers.Count - 1);
+		layers.SetCurrentUserLayer (index);
 	}
 
 	private void EnableOrDisableLayerActions (object? sender, EventArgs e)

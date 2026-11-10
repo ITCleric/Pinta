@@ -44,6 +44,11 @@ internal sealed class CoreEffectsExtension : IExtension
 	{
 		IServiceProvider services = PintaCore.Services;
 
+		PintaCore.Effects.RegisterAdjustment (new TransparencyEffect ());
+		PintaCore.Effects.RegisterAdjustment (new InvertAlphaEffect ());
+		PintaCore.Effects.RegisterAdjustment (new ColorBalanceEffect ());
+		PintaCore.Effects.RegisterAdjustment (new BlackAndWhitePlusEffect ());
+		PintaCore.Effects.RegisterAdjustment (new CombinedAdjustmentsEffect ());
 		// Add the adjustments
 		PintaCore.Effects.RegisterAdjustment (new AutoLevelEffect (services));
 		PintaCore.Effects.RegisterAdjustment (new BlackAndWhiteEffect (services));
@@ -55,6 +60,25 @@ internal sealed class CoreEffectsExtension : IExtension
 		PintaCore.Effects.RegisterAdjustment (new PosterizeEffect (services));
 		PintaCore.Effects.RegisterAdjustment (new SepiaEffect (services));
 
+		PintaCore.Effects.RegisterEffect (new AlphaToGrayEffect ());
+		PintaCore.Effects.RegisterEffect (new GrayToAlphaEffect ());
+		PintaCore.Effects.RegisterEffect (new ComplementaryColorsEffect ());
+		PintaCore.Effects.RegisterEffect (new ChannelSwizzleEffect ());
+		PintaCore.Effects.RegisterEffect (new GridCheckerboardEffect ());
+		PintaCore.Effects.RegisterEffect (new PolygonStarsEffect ());
+		PintaCore.Effects.RegisterEffect (new OrderedDitherEffect ());
+		PintaCore.Effects.RegisterEffect (new HalftoneEffect ());
+		PintaCore.Effects.RegisterEffect (new SpherizeEffect ());
+		PintaCore.Effects.RegisterEffect (new WavesEffect ());
+		PintaCore.Effects.RegisterEffect (new MosaicEffect ());
+		PintaCore.Effects.RegisterEffect (new LinocutEffect ());
+		PintaCore.Effects.RegisterEffect (new ChromaKeyEffect ());
+		PintaCore.Effects.RegisterEffect (new InnerShadowEffect ());
+		PintaCore.Effects.RegisterEffect (new BevelObjectEffect ());
+		PintaCore.Effects.RegisterEffect (new GradientMappingEffect ());
+		PintaCore.Effects.RegisterEffect (new DropShadowEffect ());
+		PintaCore.Effects.RegisterEffect (new PointillismEffect ());
+		PintaCore.Effects.RegisterEffect (new StainedGlassEffect ());
 		// Add the effects
 		PintaCore.Effects.RegisterEffect (new AddNoiseEffect (services));
 		PintaCore.Effects.RegisterEffect (new AlignObjectEffect (services));
@@ -97,6 +121,11 @@ internal sealed class CoreEffectsExtension : IExtension
 
 	public void Uninitialize ()
 	{
+		PintaCore.Effects.UnregisterInstanceOfAdjustment<TransparencyEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfAdjustment<InvertAlphaEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfAdjustment<ColorBalanceEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfAdjustment<BlackAndWhitePlusEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfAdjustment<CombinedAdjustmentsEffect> ();
 		// Remove the adjustments
 		PintaCore.Effects.UnregisterInstanceOfAdjustment<AutoLevelEffect> ();
 		PintaCore.Effects.UnregisterInstanceOfAdjustment<BlackAndWhiteEffect> ();
@@ -108,6 +137,25 @@ internal sealed class CoreEffectsExtension : IExtension
 		PintaCore.Effects.UnregisterInstanceOfAdjustment<PosterizeEffect> ();
 		PintaCore.Effects.UnregisterInstanceOfAdjustment<SepiaEffect> ();
 
+		PintaCore.Effects.UnregisterInstanceOfEffect<AlphaToGrayEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<GrayToAlphaEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<ComplementaryColorsEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<ChannelSwizzleEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<GridCheckerboardEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<PolygonStarsEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<OrderedDitherEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<HalftoneEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<SpherizeEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<WavesEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<MosaicEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<LinocutEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<ChromaKeyEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<InnerShadowEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<BevelObjectEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<GradientMappingEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<DropShadowEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<PointillismEffect> ();
+		PintaCore.Effects.UnregisterInstanceOfEffect<StainedGlassEffect> ();
 		// Remove the effects
 		PintaCore.Effects.UnregisterInstanceOfEffect<AddNoiseEffect> ();
 		PintaCore.Effects.UnregisterInstanceOfEffect<AlignObjectEffect> ();

@@ -81,7 +81,7 @@ public sealed class FileActions
 			Translations.GetString ("Close"),
 			null,
 			Resources.StandardIcons.WindowClose,
-			shortcuts: ["<Primary>W"]);
+			shortcuts: ["<Primary>W", "<Primary>F4"]);
 
 		Save = new Command (
 			"save",

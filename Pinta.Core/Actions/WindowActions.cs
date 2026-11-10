@@ -35,6 +35,8 @@ public sealed class WindowActions
 
 	public Command SaveAll { get; }
 	public Command CloseAll { get; }
+	public Command NextImage { get; } = new ("next-image", Translations.GetString ("Next Image"), null, null, shortcuts: ["<Primary>Page_Down", "<Ctrl>Tab"]);
+	public Command PreviousImage { get; } = new ("previous-image", Translations.GetString ("Previous Image"), null, null, shortcuts: ["<Primary>Page_Up", "<Ctrl><Shift>Tab"]);
 
 	private readonly WorkspaceManager workspace;
 	public WindowActions (WorkspaceManager workspace)
@@ -44,7 +46,7 @@ public sealed class WindowActions
 			Translations.GetString ("Save All"),
 			null,
 			Resources.StandardIcons.DocumentSave,
-			shortcuts: ["<Ctrl><Alt>A"]);
+			shortcuts: ["<Primary><Alt>S"]);
 
 		CloseAll = new Command (
 			"CloseAll",
@@ -61,6 +63,7 @@ public sealed class WindowActions
 
 		active_doc_action.OnActivate += (o, e) => {
 			int idx = e.Parameter!.GetInt32 ();
+			if (idx < 0 || idx >= workspace.OpenDocuments.Count) return;
 			workspace.SetActiveDocument (idx);
 			active_doc_action.ChangeState (e.Parameter);
 		};
@@ -74,6 +77,8 @@ public sealed class WindowActions
 		workspace.ActiveDocumentChanged += OnActiveDocumentChanged;
 		workspace.DocumentClosed += (_, _) => RebuildDocumentMenu ();
 
+		NextImage.Activated += (_, _) => SwitchImage (1);
+		PreviousImage.Activated += (_, _) => SwitchImage (-1);
 		this.workspace = workspace;
 	}
 
@@ -83,19 +88,27 @@ public sealed class WindowActions
 	{
 		menu.AppendItem (SaveAll.CreateMenuItem ());
 		menu.AppendItem (CloseAll.CreateMenuItem ());
+		menu.AppendItem (NextImage.CreateMenuItem ());
+		menu.AppendItem (PreviousImage.CreateMenuItem ());
 
 		doc_section = Gio.Menu.New ();
 		menu.AppendSection (null, doc_section);
 
 		app.AddCommands ([
 			SaveAll,
-			CloseAll]);
+			CloseAll, NextImage, PreviousImage]);
 
 		app.AddAction (active_doc_action);
 
 		// Assign accelerators up to Alt-9 for the active documents.
 		for (int i = 0; i < 9; ++i)
-			app.SetAccelsForAction (BuildActionId (i), [$"<Alt>{i + 1}"]);
+			app.SetAccelsForAction (BuildActionId (i), [$"<Alt>{i + 1}", $"<Control>{i + 1}"]);
+	}
+
+	private void SwitchImage (int delta)
+	{
+		int count = workspace.OpenDocuments.Count;
+		if (count > 0) workspace.SetActiveDocument ((workspace.ActiveDocumentIndex + delta + count) % count);
 	}
 
 	private void AddDocumentMenuItem (int idx)
