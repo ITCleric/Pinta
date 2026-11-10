@@ -48,7 +48,7 @@ internal sealed class LayersPad : IDockPad
 			iconName: Resources.Icons.LayerDuplicate
 		);
 		Item = layers_item;
-		layers.WidthRequest = 180; layers.HeightRequest = 120;
+		layers.WidthRequest = 190; layers.HeightRequest = 120;
 		layers_item.Label = Translations.GetString ("Layers");
 
 		Gio.Menu hamburger_menu = Gio.Menu.New ();
@@ -66,7 +66,7 @@ internal sealed class LayersPad : IDockPad
 		hamburger_menu.AppendSection (null, prop_section);
 
 		Gtk.MenuButton hamburger_button = GtkExtensions.CreateMenuButton (
-			hamburger_menu, Resources.StandardIcons.OpenMenu);
+			hamburger_menu, Resources.Icons.LayerProperties);
 
 		hamburger_button.Direction = Gtk.ArrowType.Up;
 

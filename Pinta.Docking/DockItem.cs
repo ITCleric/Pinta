@@ -118,7 +118,7 @@ public sealed partial class DockItem
 			item.minimize_button.OnClicked += (o, args) => item.Minimize ();
 			item.maximize_button.OnClicked += (o, args) => item.Maximize ();
 
-			const int padding = 8;
+			const int padding = 3;
 			item.label_widget.MarginStart = item.label_widget.MarginEnd = padding;
 			item.label_widget.Hexpand = true;
 			item.label_widget.Halign = Gtk.Align.Start;
@@ -220,7 +220,7 @@ public sealed partial class DockItem
 
 	private static Gtk.Label CreateLabelWidget ()
 	{
-		const int padding = 8;
+		const int padding = 3;
 
 		Gtk.Label result = Gtk.Label.New (null);
 		result.MarginStart = result.MarginEnd = padding;

@@ -30,6 +30,30 @@ foreach (var theme in new[] { ThemePalette.Light, ThemePalette.Dark, ThemePalett
 	Check (errors.Count == 0, $"Theme CSS parses: {string.Join ("; ", errors)}");
 }
 
+// Root widgets in a window without presenting it: exercise the real GTK chrome and CSS.
+using (var css = Gtk.CssProvider.New ()) {
+	var display = Gdk.Display.GetDefault ()!;
+	css.LoadFromBytes (GLib.Bytes.New (Encoding.UTF8.GetBytes (ThemePalette.Light.ToCss ())));
+	Gtk.StyleContext.AddProviderForDisplay (display, css, Gtk.Constants.STYLE_PROVIDER_PRIORITY_APPLICATION + 1);
+	using var window = Gtk.Window.New ();
+	window.AddCssClass ("pinta-modern"); window.Title = "Original document";
+	var chrome = ClassicWindowChrome.Create (window);
+	window.SetTitlebar (chrome);
+	var row = (Gtk.Box) ((Gtk.WindowHandle) chrome).GetChild ()!;
+	window.Title = "Renamed document *";
+	Check (((Gtk.Label) row.GetFirstChild ()!.GetNextSibling ()!).GetText () == window.Title, "Windows titlebar tracks document names and unsaved indicator");
+	Check (row.GetLastChild ()!.HasCssClass ("windows-close") && row.GetLastChild ()!.GetPrevSibling ()!.HasCssClass ("windows-maximize"), "Windows caption keeps close and maximize controls at the right");
+	chrome.Measure (Gtk.Orientation.Vertical, -1, out int minimum, out _, out _, out _);
+	Check (minimum >= 30 && minimum <= 36, "Windows titlebar retains compact logical height");
+	var slider = Gtk.Scale.NewWithRange (Gtk.Orientation.Horizontal, -4, 6, .01);
+	slider.AddCssClass ("status-zoom-slider"); slider.DrawValue = false;
+	window.SetChild (slider);
+	slider.Measure (Gtk.Orientation.Vertical, 110, out minimum, out _, out _, out _);
+	Check (minimum >= 0 && minimum <= 30, "Windows zoom slider has valid compact measurements");
+	window.Destroy ();
+	Gtk.StyleContext.RemoveProviderForDisplay (display, css);
+}
+
 var iconTheme = Gtk.IconTheme.GetForDisplay (Gdk.Display.GetDefault ()!);
 iconTheme.AddSearchPath (Path.Combine (AppContext.BaseDirectory, "icons"));
 var toolIcons = typeof (Pinta.Resources.Icons).GetFields ()

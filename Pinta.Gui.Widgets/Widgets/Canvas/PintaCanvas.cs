@@ -62,6 +62,8 @@ internal sealed partial class PintaCanvas
 			enableLivePreview: true,
 			enableBackgroundPattern: false);
 
+		AddCssClass ("canvas-paper");
+
 		// If there is additional space available, keep the image centered and prevent stretching.
 		Hexpand = false;
 		Halign = Gtk.Align.Center;

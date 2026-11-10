@@ -16,8 +16,8 @@ public sealed partial class ToolBoxWidget
 
 	partial void Initialize ()
 	{
-		RowSpacing = 2;
-		ColumnSpacing = 2;
+		RowSpacing = 0;
+		ColumnSpacing = 0;
 	}
 
 	public static ToolBoxWidget New (ToolManager tools)

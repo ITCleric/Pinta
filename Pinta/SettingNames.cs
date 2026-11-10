@@ -49,6 +49,6 @@ internal static class SettingDefaults
 {
 	public const string LANGUAGE = "";
 
-	// On macOS the global menubar should be used by default.
+	// Keep the classic in-window menu on every platform.
 	internal static bool MenuBarShown () => true;
 }

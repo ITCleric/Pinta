@@ -19,7 +19,8 @@ internal sealed class ColorsPad
 	private bool primary_selected = true;
 	private bool updating;
 	private Gtk.ComboBoxText active_selector = null!;
-	private readonly ImageSurface wheel_surface;
+	private ImageSurface? wheel_surface;
+	private int wheel_scale;
 	public DockItem Widget { get; }
 	private Color Active => primary_selected ? palette.PrimaryColor : palette.SecondaryColor;
 
@@ -27,23 +28,16 @@ internal sealed class ColorsPad
 	{
 		this.palette = palette;
 		const int side = 144;
-		wheel_surface = CairoExtensions.CreateImageSurface (Format.Argb32, side, side);
-		var pixels = wheel_surface.GetPixelData ();
-		for (int y = 0; y < side; y++) for (int x = 0; x < side; x++) {
-			double dx = x + .5 - side / 2.0, dy = side / 2.0 - y - .5;
-			double r = Math.Sqrt (dx * dx + dy * dy) / (side / 2.0 - 2);
-			double hue = (Math.Atan2 (dy, dx) * 180 / Math.PI + 360) % 360;
-			pixels[y * side + x] = r > 1 ? ColorBgra.Zero : Color.FromHsv (hue, r, 1).ToColorBgra ();
-		}
-		wheel_surface.MarkDirty ();
 		wheel.WidthRequest = side; wheel.HeightRequest = side;
 		wheel.Halign = Gtk.Align.Center;
 		wheel.TooltipText = Translations.GetString ("Left: primary color • Right: secondary color • Ctrl: hue • Alt: saturation • Shift: snap hue");
 		wheel.SetDrawFunc ((_, cr, w, h) => {
-			cr.SetSourceSurface (wheel_surface, 0, 0); cr.Paint ();
+			EnsureWheelSurface (wheel.GetScaleFactor ());
+			cr.Save (); cr.Scale (1.0 / wheel_scale, 1.0 / wheel_scale);
+			cr.SetSourceSurface (wheel_surface!, 0, 0); cr.Paint (); cr.Restore ();
 			var hsv = Active.ToHsv ();
 			double angle = hsv.Hue * Math.PI / 180;
-			cr.Arc (side / 2.0 + Math.Cos (angle) * hsv.Sat * 70, side / 2.0 - Math.Sin (angle) * hsv.Sat * 70, 4, 0, Math.PI * 2);
+			cr.Arc (side / 2.0 + Math.Cos (angle) * hsv.Sat * 70, side / 2.0 + Math.Sin (angle) * hsv.Sat * 70, 4, 0, Math.PI * 2);
 			cr.SetSourceRgb (0, 0, 0); cr.LineWidth = 2; cr.Stroke ();
 		});
 		var drag = Gtk.GestureDrag.New (); drag.SetButton (0);
@@ -122,6 +116,26 @@ internal sealed class ColorsPad
 		Refresh ();
 	}
 
+	// Cache at the monitor's actual pixel density; pointer coordinates remain logical pixels.
+	private void EnsureWheelSurface (int scale)
+	{
+		scale = Math.Max (1, scale);
+		if (wheel_surface is not null && wheel_scale == scale) return;
+		wheel_surface?.Dispose ();
+		wheel_scale = scale;
+		int size = 144 * scale;
+		wheel_surface = CairoExtensions.CreateImageSurface (Format.Argb32, size, size);
+		var pixels = wheel_surface.GetPixelData ();
+		for (int y = 0; y < size; y++) for (int x = 0; x < size; x++) {
+			double dx = (x + .5) / scale - 72, dy = (y + .5) / scale - 72;
+			double radius = Math.Sqrt (dx * dx + dy * dy);
+			double coverage = Math.Clamp ((70 - radius) * scale + .5, 0, 1);
+			double hue = (Math.Atan2 (dy, dx) * 180 / Math.PI + 360) % 360;
+			pixels[y * size + x] = Color.FromHsv (hue, Math.Min (1, radius / 70), 1, coverage).ToColorBgra ();
+		}
+		wheel_surface.MarkDirty ();
+	}
+
 	public void SwitchActiveColor () { primary_selected = !primary_selected; Refresh (); }
 
 	private void SwapColors ()
@@ -136,7 +150,7 @@ internal sealed class ColorsPad
 	private void Pick (double x, double y, Gtk.GestureDrag drag)
 	{
 		primary_selected = drag.GetCurrentButton () != 3;
-		double dx = x - 72, dy = 72 - y;
+		double dx = x - 72, dy = y - 72;
 		var current = Active.ToHsv ();
 		var state = drag.GetCurrentEventState ();
 		double hue = (Math.Atan2 (dy, dx) * 180 / Math.PI + 360) % 360;

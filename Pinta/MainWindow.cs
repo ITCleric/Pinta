@@ -384,6 +384,7 @@ internal sealed class MainWindow
 		Gio.Menu editMenu = Gio.Menu.New ();
 		Gio.Menu imageMenu = Gio.Menu.New ();
 		Gio.Menu adjustmentsMenu = Gio.Menu.New ();
+		Gio.Menu layersMenu = Gio.Menu.New ();
 		Gio.Menu effectsMenu = Gio.Menu.New ();
 		Gio.Menu addinsMenu = Gio.Menu.New ();
 		Gio.Menu windowMenu = Gio.Menu.New ();
@@ -399,6 +400,7 @@ internal sealed class MainWindow
 		if (usingMenuBar) {
 			menuBar.AppendSubmenu (Translations.GetString ("_View"), viewMenu);
 			menuBar.AppendSubmenu (Translations.GetString ("_Image"), imageMenu);
+			menuBar.AppendSubmenu (Translations.GetString ("_Layers"), layersMenu);
 			menuBar.AppendSubmenu (Translations.GetString ("_Adjustments"), adjustmentsMenu);
 			menuBar.AppendSubmenu (Translations.GetString ("Effe_cts"), effectsMenu);
 		}
@@ -422,6 +424,16 @@ internal sealed class MainWindow
 		PintaCore.Actions.View.RegisterActions (app, viewMenu);
 		PintaCore.Actions.Image.RegisterActions (app, imageMenu);
 		PintaCore.Actions.Layers.RegisterActions (app);
+		var layers = PintaCore.Actions.Layers;
+		foreach (Command[] group in new Command[][] {
+			[layers.AddNewLayer, layers.DeleteLayer, layers.DuplicateLayer, layers.MergeLayerDown, layers.ImportFromFile],
+			[layers.FlipHorizontal, layers.FlipVertical, layers.RotateZoom],
+			[layers.MoveLayerUp, layers.MoveLayerDown, layers.ToggleVisibility, layers.Properties],
+		}) {
+			var section = Gio.Menu.New ();
+			foreach (var command in group) section.AppendItem (command.CreateMenuItem ());
+			layersMenu.AppendSection (null, section);
+		}
 		PintaCore.Actions.Addins.RegisterActions (app, addinsMenu);
 		PintaCore.Actions.Window.RegisterActions (app, windowMenu);
 		PintaCore.Actions.Help.RegisterActions (app, helpMenu);

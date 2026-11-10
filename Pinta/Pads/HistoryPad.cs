@@ -48,7 +48,7 @@ internal sealed class HistoryPad : IDockPad
 			uniqueName: "History",
 			iconName: Resources.Icons.HistoryList);
 		Item = history_item;
-		history.WidthRequest = 180; history.HeightRequest = 120;
+		history.WidthRequest = 190; history.HeightRequest = 120;
 		history_item.Label = Translations.GetString ("History");
 
 		Gtk.Box history_tb = history_item.AddToolBar ();

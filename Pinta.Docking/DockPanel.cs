@@ -26,7 +26,7 @@ public sealed partial class DockPanel
 	{
 		var entry = new DockPanelItem (item);
 		items.Add (entry);
-		item.WidthRequest = 208;
+		item.WidthRequest = 218;
 		item.HeightRequest = item.UniqueName == "History" ? 190 : 210;
 		item.EnableFloating (overlay, Gtk.Align.End,
 			item.UniqueName == "History" ? Gtk.Align.Start : Gtk.Align.End, 8, 8);

@@ -65,7 +65,7 @@ public sealed partial class DockNotebook
 		tab_strip = Gtk.ScrolledWindow.New ();
 		tab_strip.HscrollbarPolicy = Gtk.PolicyType.Automatic;
 		tab_strip.VscrollbarPolicy = Gtk.PolicyType.Never;
-		tab_strip.HeightRequest = 72;
+		tab_strip.HeightRequest = 62;
 		tab_strip.Hexpand = true;
 		tab_strip.Child = thumbnails;
 		SetOrientation (Gtk.Orientation.Vertical);
@@ -131,7 +131,7 @@ public sealed partial class DockNotebook
 		button.FocusOnClick = false;
 		button.AddCssClass ("document-preview-button");
 		var image = Gtk.DrawingArea.New ();
-		image.WidthRequest = 82; image.HeightRequest = 56;
+		image.WidthRequest = 56; image.HeightRequest = 48;
 		image.SetDrawFunc ((_, context, width, height) => {
 			if (item is IDockNotebookPreview preview) preview.DrawPreview (context, width, height);
 		});

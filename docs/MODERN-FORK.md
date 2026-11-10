@@ -6,11 +6,11 @@ Reference checked on 10 November 2026: Paint.NET 5.1.12 stable and 5.2 Beta buil
 
 ## Implemented interface
 
-A traditional in-window menu and command buttons share the top deck with document thumbnails. The separate options toolbar sits beneath it. Thumbnails select and close documents, show an unsaved indicator, and refresh after committed edits, undo/redo and layer changes.
+A traditional full-width in-window menu sits above the command buttons and compact document thumbnails. The default window uses a blue Windows-style titlebar with native GTK minimize/maximize/close actions. See the [classic Windows UI architecture and verification notes](WINDOWS-UI.md). The separate options toolbar sits beneath it. Thumbnails select and close documents, show an unsaved indicator, and refresh after committed edits, undo/redo and layer changes.
 
 The canvas extends across the workspace behind four independent palettes: two-column Tools at the upper left, Colors at the lower left, History at the upper right and Layers at the lower right. Drag a title bar to reposition a palette; positions are saved and clamped to the workspace on restoration. Double-click its title to restore its corner anchor. The close buttons hide palettes.
 
-Colors has overlapping primary/secondary swatches, an HSV wheel and a compact palette grid; More/Less reveals brightness, opacity and hex controls. The bottom status bar shows the tool hint, coordinates, selection dimensions and a logarithmic zoom slider. Four independent visibility toggles and a preferences button sit at the upper right. Light and dark styles use compact square controls, thin borders and theme-aware palette title bars. F5–F8 toggle these four palettes. C switches the active color and X swaps colors. The wheel supports right-button secondary-color selection and Ctrl/Alt/Shift constraints.
+Colors has overlapping primary/secondary swatches, an HSV wheel and a compact palette grid; More/Less reveals brightness, opacity and hex controls. The bottom status bar shows the tool hint, coordinates, selection dimensions and a logarithmic zoom slider. Four independent visibility toggles and a preferences button sit at the upper right. The default light style uses gray command rows, blue gradient palette headers, subtle rectangular Windows controls and thin borders. Light, dark and custom colors remain available. F5–F8 toggle these four palettes. C switches the active color and X swaps colors. The wheel supports right-button secondary-color selection and Ctrl/Alt/Shift constraints.
 
 Effects → Effects Browser provides an icon-based, searchable list of registered effects and adjustments, including Pinta add-ins. Effects → Repeat Last Effect reuses the last successfully applied settings without opening the configuration dialog. Cancelled/failed renders do not replace the repeat cache.
 
@@ -94,7 +94,7 @@ The full Paint.NET keyboard/mouse reference has additional behavior that is not 
 
 The entire BoltBait pack is not reproduced. Specialized functions such as seam carving, calendar/chart rendering, text formations, meme composition, file/clipboard fills and selection-specific bevel/outline/shadow workflows remain outside this implementation. Broader packs such as pyrochild's Smudge/Liquify/Grid Warp are research references rather than claimed implemented features. Paint.NET plugin DLLs cannot be installed into this fork.
 
-The workspaces and themes have not been visually accepted on macOS. Palettes are movable overlays inside the editor rather than separate native translucent windows. OS title-bar decorations and some native dialogs still follow the host platform. Interactive visual comparison against the supplied references remains pending. High-precision HDR/WCG rendering, GPU effect execution and the new Paint.NET file-type API are not present.
+The workspaces and themes have not been visually accepted on macOS. Palettes are movable overlays inside the editor rather than separate native translucent windows. The classic main window now draws its own Windows-style titlebar; some native dialogs still follow the host platform. Interactive visual comparison against the supplied references remains pending. High-precision HDR/WCG rendering, GPU effect execution and the new Paint.NET file-type API are not present.
 
 ## Build and verification
 
@@ -121,7 +121,7 @@ These checks parse the generated light/dark/custom CSS and cover external thumbn
 
 The non-C locale matters: GNU gettext deliberately does not translate in the C locale, so the upstream French-translation test fails with `LC_ALL=C.UTF-8` even when the `.mo` catalogs have been built.
 
-Verified on the development Mac: solution build succeeds with zero warnings; 799 core tests and 422 effects tests pass. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 76 checks. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
+Verified on the development Mac: solution build succeeds with zero warnings; 799 core tests and 422 effects tests pass. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 80 checks, including Windows chrome/title updates and valid compact zoom-slider measurements. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
 
 New tests exercise every added effect on partial-alpha inputs, 1×1 images, nonzero regions, split renders, immutable source buffers and premultiplied output. Further tests cover neutral adjustments, chroma key, alpha masks, cloned settings, theme validation/round trips and macOS shortcut alternatives.
 

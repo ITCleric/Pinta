@@ -24,6 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System;
+
 namespace Pinta.Core;
 
 public sealed class ActionManager
@@ -98,22 +100,13 @@ public sealed class ActionManager
 #endif
 		toolbar.Append (GtkExtensions.CreateToolBarSeparator ());
 
-		// Cut/Copy/Paste comes before Undo/Redo on Windows
-		if (system.OperatingSystem == OS.Windows) {
-			toolbar.Append (Edit.Cut.CreateToolBarItem ());
-			toolbar.Append (Edit.Copy.CreateToolBarItem ());
-			toolbar.Append (Edit.Paste.CreateToolBarItem ());
-			toolbar.Append (GtkExtensions.CreateToolBarSeparator ());
-			toolbar.Append (Edit.Undo.CreateToolBarItem ());
-			toolbar.Append (Edit.Redo.CreateToolBarItem ());
-		} else {
-			toolbar.Append (Edit.Undo.CreateToolBarItem ());
-			toolbar.Append (Edit.Redo.CreateToolBarItem ());
-			toolbar.Append (GtkExtensions.CreateToolBarSeparator ());
-			toolbar.Append (Edit.Cut.CreateToolBarItem ());
-			toolbar.Append (Edit.Copy.CreateToolBarItem ());
-			toolbar.Append (Edit.Paste.CreateToolBarItem ());
-		}
+		// Keep command order consistent with the classic Windows toolbar on every platform.
+		toolbar.Append (Edit.Cut.CreateToolBarItem ());
+		toolbar.Append (Edit.Copy.CreateToolBarItem ());
+		toolbar.Append (Edit.Paste.CreateToolBarItem ());
+		toolbar.Append (GtkExtensions.CreateToolBarSeparator ());
+		toolbar.Append (Edit.Undo.CreateToolBarItem ());
+		toolbar.Append (Edit.Redo.CreateToolBarItem ());
 
 		toolbar.Append (GtkExtensions.CreateToolBarSeparator ());
 		toolbar.Append (Image.CropToSelection.CreateToolBarItem ());
@@ -142,6 +135,20 @@ public sealed class ActionManager
 
 	public void CreateStatusBar (Gtk.Box statusbar, WorkspaceManager workspaceManager)
 	{
+		var imageSize = Gtk.Label.New (string.Empty);
+		imageSize.TooltipText = Translations.GetString ("Image size (pixels)");
+		imageSize.WidthChars = 12;
+		void RefreshImageSize (object? sender, EventArgs args)
+		{
+			imageSize.SetText (workspaceManager.HasOpenDocuments
+				? $"{workspaceManager.ImageSize.Width} × {workspaceManager.ImageSize.Height} px" : string.Empty);
+		}
+		workspaceManager.ActiveDocumentChanged += RefreshImageSize;
+		workspaceManager.ViewSizeChanged += RefreshImageSize;
+		statusbar.Append (GtkExtensions.CreateToolBarSeparator ());
+		statusbar.Append (imageSize);
+		statusbar.Append (GtkExtensions.CreateToolBarSeparator ());
+
 		// Cursor position widget - left aligned with enough space to display coordinates up to tens of thousands (e.g. 10000, 10000).
 		statusbar.Append (Gtk.Image.NewFromIconName (Resources.Icons.CursorPosition));
 		var cursor = Gtk.Label.New ("0, 0");
@@ -168,6 +175,7 @@ public sealed class ActionManager
 			selection_size.SetText ($"{bounds.Width}, {bounds.Height}");
 		};
 
+		statusbar.Append (GtkExtensions.CreateToolBarSeparator ());
 		// Document zoom widget
 		View.CreateStatusBar (statusbar);
 	}

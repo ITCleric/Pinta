@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using Pinta.Core;
+using Pinta.Gui.Widgets;
 
 namespace Pinta;
 
@@ -59,11 +60,12 @@ public sealed class WindowShell
 			app_layout.AddTopBar (header_bar);
 		} else {
 			// If the header bar isn't being used, we use a regular Gtk.ApplicationWindow
-			// to have a traditional titlebar with the standard close / minimize buttons,
-			// and a menubar in the window unless a global menu is used (e.g. macOS)
+			// with compact Windows-style chrome and a separate in-window menubar.
+			// Window actions still pass through GTK and the editor's close-request handler.
 			app_window = Gtk.ApplicationWindow.New (app);
 			app_window.ShowMenubar = false;
 			app_window.SetChild (app_layout);
+			app_window.SetTitlebar (ClassicWindowChrome.Create (app_window));
 		}
 
 		app_window.Name = name;
@@ -80,17 +82,17 @@ public sealed class WindowShell
 		app_layout.SetContent (shell_layout);
 		var command_deck = Gtk.Box.New (Gtk.Orientation.Horizontal, 6);
 		command_deck.AddCssClass ("command-deck");
-		command_stack.Valign = Gtk.Align.Start;
+		command_stack.Valign = Gtk.Align.Center;
 		if (useMenuBar && app.Menubar is not null) {
 			var menubar = Gtk.PopoverMenuBar.NewFromModel (app.Menubar);
 			menubar.AddCssClass ("editor-menubar");
-			command_stack.Append (menubar);
+			shell_layout.Append (menubar);
 		}
 		command_deck.Append (command_stack);
 		DocumentStripHost.Hexpand = true;
 		DocumentStripHost.AddCssClass ("document-strip-host");
 		command_deck.Append (DocumentStripHost);
-		WorkspaceToggles.Valign = Gtk.Align.Start;
+		WorkspaceToggles.Valign = Gtk.Align.Center;
 		WorkspaceToggles.AddCssClass ("workspace-toggles");
 		command_deck.Append (WorkspaceToggles);
 		shell_layout.Append (command_deck);
@@ -108,6 +110,15 @@ public sealed class WindowShell
 
 		if (name == "main_toolbar") command_stack.Append (main_toolbar);
 		else shell_layout.Append (main_toolbar);
+		if (name == "tool_toolbar") {
+			var scroll = Gtk.ScrolledWindow.New ();
+			scroll.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+			scroll.VscrollbarPolicy = Gtk.PolicyType.Never;
+			scroll.PropagateNaturalHeight = true;
+			shell_layout.Remove (main_toolbar);
+			scroll.Child = main_toolbar;
+			shell_layout.Append (scroll);
+		}
 		main_toolbar.Show ();
 
 		return main_toolbar;
