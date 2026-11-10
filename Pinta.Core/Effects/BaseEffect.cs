@@ -50,6 +50,9 @@ public abstract class BaseEffect
 	/// </summary>
 	public abstract string Name { get; }
 
+	/// <summary>A short explanation for effect discovery and tooltips.</summary>
+	public virtual string Description => string.Empty;
+
 	/// <summary>
 	/// Returns the icon to use for the effect in the Adjustments/Effects menu and history pad.
 	/// </summary>

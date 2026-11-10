@@ -1,0 +1,1209 @@
+[
+  {
+    "number": 1,
+    "kind": "SplitToning",
+    "slug": "split-toning",
+    "name": "Split Toning",
+    "category": "Photo Grade",
+    "description": "Warm highlights and cool shadows with a smooth luminance-dependent tint.",
+    "controls": [
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 2,
+    "kind": "Vibrance",
+    "slug": "vibrance",
+    "name": "Vibrance",
+    "category": "Photo Grade",
+    "description": "Boost muted colors while protecting already saturated colors and skin-like tones.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 3,
+    "kind": "ColorTemperature",
+    "slug": "color-temperature",
+    "name": "Color Temperature",
+    "category": "Photo Grade",
+    "description": "Warm or cool the image while compensating for changes in brightness.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 75,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 4,
+    "kind": "HighlightRolloff",
+    "slug": "highlight-rolloff",
+    "name": "Highlight Rolloff",
+    "category": "Photo Grade",
+    "description": "Soften bright highlights with a smooth shoulder curve; this does not recover clipped RAW data.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 5,
+    "kind": "ShadowLift",
+    "slug": "shadow-lift",
+    "name": "Shadow Lift",
+    "category": "Photo Grade",
+    "description": "Open dark areas with a smooth shadow-weighted lift.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 6,
+    "kind": "FilmicContrast",
+    "slug": "filmic-contrast",
+    "name": "Filmic Contrast",
+    "category": "Photo Grade",
+    "description": "Apply a normalized cinematic S-curve with controlled contrast.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 7,
+    "kind": "MatteFade",
+    "slug": "matte-fade",
+    "name": "Matte Fade",
+    "category": "Photo Grade",
+    "description": "Lift the black point and gently soften whites for a matte print finish.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 8,
+    "kind": "BleachBypass",
+    "slug": "bleach-bypass",
+    "name": "Bleach Bypass",
+    "category": "Photo Grade",
+    "description": "Combine reduced saturation with punchy silver-retention-style contrast.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 60,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 9,
+    "kind": "DuotonePrint",
+    "slug": "duotone-print",
+    "name": "Duotone Print",
+    "category": "Photo Grade",
+    "description": "Render a two-ink ordered print using your two chosen colors.",
+    "controls": [
+      "Colors",
+      "Scale"
+    ],
+    "radius": 8,
+    "scale": 4,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 10,
+    "kind": "SelectiveColorPop",
+    "slug": "selective-color-pop",
+    "name": "Selective Color Pop",
+    "category": "Photo Grade",
+    "description": "Keep hues near the first chosen color and turn the remaining image monochrome.",
+    "controls": [
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 35,
+    "amount": 75,
+    "colors": [
+      "#d74141",
+      "#ffffff"
+    ]
+  },
+  {
+    "number": 11,
+    "kind": "BloomDiffusion",
+    "slug": "bloom-diffusion",
+    "name": "Bloom Diffusion",
+    "category": "Lens & Light",
+    "description": "Spread bright highlights into a soft, threshold-controlled glow.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 10,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 12,
+    "kind": "OrtonDream",
+    "slug": "orton-dream",
+    "name": "Orton Dream",
+    "category": "Lens & Light",
+    "description": "Layer a diffused screen-and-multiply treatment over the original photo.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 13,
+    "kind": "SoftFocus",
+    "slug": "soft-focus",
+    "name": "Soft Focus",
+    "category": "Lens & Light",
+    "description": "Blend a smooth, alpha-aware diffusion layer into fine detail.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 5,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 14,
+    "kind": "UnsharpDetail",
+    "slug": "unsharp-detail",
+    "name": "Unsharp Detail",
+    "category": "Lens & Light",
+    "description": "Add crisp detail using the difference between the original and its blurred image.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 3,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 15,
+    "kind": "HighPass",
+    "slug": "high-pass",
+    "name": "High Pass",
+    "category": "Lens & Light",
+    "description": "Extract a neutral-gray high-pass detail map for texture and retouching work.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 6,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 16,
+    "kind": "Clarity",
+    "slug": "clarity",
+    "name": "Clarity",
+    "category": "Lens & Light",
+    "description": "Enhance local luminance contrast without applying a global contrast curve.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 18,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 17,
+    "kind": "TiltShift",
+    "slug": "tilt-shift",
+    "name": "Tilt Shift",
+    "category": "Lens & Light",
+    "description": "Keep an angled focus band sharp while diffusing the foreground and distance.",
+    "controls": [
+      "Radius",
+      "Scale",
+      "Angle"
+    ],
+    "radius": 10,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 18,
+    "kind": "BokehDisc",
+    "slug": "bokeh-disc",
+    "name": "Bokeh Disc",
+    "category": "Lens & Light",
+    "description": "Use a sampled circular aperture with highlight weighting for a defocused look.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 9,
+    "scale": 24,
+    "detail": 60,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 19,
+    "kind": "ChromaticFringe",
+    "slug": "chromatic-fringe",
+    "name": "Chromatic Fringe",
+    "category": "Lens & Light",
+    "description": "Separate red and blue radially to simulate lens color fringing.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 60,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 20,
+    "kind": "AnamorphicStreak",
+    "slug": "anamorphic-streak",
+    "name": "Anamorphic Streak",
+    "category": "Lens & Light",
+    "description": "Stretch bright points into horizontal lens-like light streaks.",
+    "controls": [
+      "Radius",
+      "Detail",
+      "Colors"
+    ],
+    "radius": 14,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#6dc6ff",
+      "#e57de4"
+    ]
+  },
+  {
+    "number": 21,
+    "kind": "FineFilmGrain",
+    "slug": "fine-film-grain",
+    "name": "Fine Film Grain",
+    "category": "Materials",
+    "description": "Add reproducible luminance-weighted fine grain with a selectable seed.",
+    "controls": [
+      "Seed",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 45,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 22,
+    "kind": "PaperFibers",
+    "slug": "paper-fibers",
+    "name": "Paper Fibers",
+    "category": "Materials",
+    "description": "Add a softly tinted paper surface with irregular directional fibers.",
+    "controls": [
+      "Scale",
+      "Seed",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 18,
+    "detail": 45,
+    "amount": 75,
+    "colors": [
+      "#302d29",
+      "#f1e5ca"
+    ]
+  },
+  {
+    "number": 23,
+    "kind": "CanvasWeave",
+    "slug": "canvas-weave",
+    "name": "Canvas Weave",
+    "category": "Materials",
+    "description": "Emboss an alternating woven thread pattern into the image.",
+    "controls": [
+      "Scale",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 8,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 24,
+    "kind": "BrushedMetal",
+    "slug": "brushed-metal",
+    "name": "Brushed Metal",
+    "category": "Materials",
+    "description": "Generate a tinted metal surface with directional grain and a broad reflection.",
+    "controls": [
+      "Scale",
+      "Seed",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#b6c6d6",
+      "#ffffff"
+    ]
+  },
+  {
+    "number": 25,
+    "kind": "RainGlass",
+    "slug": "rain-glass",
+    "name": "Rain Glass",
+    "category": "Materials",
+    "description": "Refract the image through seeded glass droplets with small specular highlights.",
+    "controls": [
+      "Scale",
+      "Radius",
+      "Seed"
+    ],
+    "radius": 7,
+    "scale": 32,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 26,
+    "kind": "WatercolorWash",
+    "slug": "watercolor-wash",
+    "name": "Watercolor Wash",
+    "category": "Materials",
+    "description": "Choose low-variance neighborhood washes and add a restrained paper tooth.",
+    "controls": [
+      "Radius",
+      "Seed",
+      "Detail"
+    ],
+    "radius": 5,
+    "scale": 24,
+    "detail": 45,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 27,
+    "kind": "Crosshatch",
+    "slug": "crosshatch",
+    "name": "Crosshatch",
+    "category": "Materials",
+    "description": "Build layered diagonal ink hatching according to local brightness.",
+    "controls": [
+      "Scale",
+      "Angle",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 9,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#302d29",
+      "#f1e5ca"
+    ]
+  },
+  {
+    "number": 28,
+    "kind": "ComicInking",
+    "slug": "comic-inking",
+    "name": "Comic Inking",
+    "category": "Materials",
+    "description": "Combine quantized color with luminance edges for an inked comic treatment.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 29,
+    "kind": "EngravedLines",
+    "slug": "engraved-lines",
+    "name": "Engraved Lines",
+    "category": "Materials",
+    "description": "Convert tone into flowing engraved strokes of varying thickness.",
+    "controls": [
+      "Scale",
+      "Angle",
+      "Colors"
+    ],
+    "radius": 8,
+    "scale": 9,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#302d29",
+      "#f1e5ca"
+    ]
+  },
+  {
+    "number": 30,
+    "kind": "WoodcutPrint",
+    "slug": "woodcut-print",
+    "name": "Woodcut Print",
+    "category": "Materials",
+    "description": "Combine carved contours, coarse tonal bands and deterministic wood grain.",
+    "controls": [
+      "Scale",
+      "Seed",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 12,
+    "detail": 50,
+    "amount": 75,
+    "colors": [
+      "#302d29",
+      "#f1e5ca"
+    ]
+  },
+  {
+    "number": 31,
+    "kind": "Kaleidoscope",
+    "slug": "kaleidoscope",
+    "name": "Kaleidoscope",
+    "category": "Geometry",
+    "description": "Fold the image into mirrored radial segments. Scale controls the segment count.",
+    "controls": [
+      "Scale",
+      "Angle"
+    ],
+    "radius": 8,
+    "scale": 8,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 32,
+    "kind": "MirrorQuadrants",
+    "slug": "mirror-quadrants",
+    "name": "Mirror Quadrants",
+    "category": "Geometry",
+    "description": "Reflect the lower-right part of the image across the two center axes.",
+    "controls": [],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 33,
+    "kind": "TinyPlanet",
+    "slug": "tiny-planet",
+    "name": "Tiny Planet",
+    "category": "Geometry",
+    "description": "Wrap a panorama into a stereographic-style little planet. Scale controls zoom.",
+    "controls": [
+      "Scale",
+      "Angle"
+    ],
+    "radius": 8,
+    "scale": 64,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 34,
+    "kind": "BarrelLens",
+    "slug": "barrel-lens",
+    "name": "Barrel Lens",
+    "category": "Geometry",
+    "description": "Introduce a radial barrel-lens distortion around the image center.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 35,
+    "kind": "PerspectiveSkew",
+    "slug": "perspective-skew",
+    "name": "Perspective Skew",
+    "category": "Geometry",
+    "description": "Apply a controllable keystone and slanted perspective remapping.",
+    "controls": [
+      "Angle",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 45,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 36,
+    "kind": "SpiralTunnel",
+    "slug": "spiral-tunnel",
+    "name": "Spiral Tunnel",
+    "category": "Geometry",
+    "description": "Repeat the image through a logarithmic spiral tunnel.",
+    "controls": [
+      "Scale",
+      "Angle"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 37,
+    "kind": "RippleRings",
+    "slug": "ripple-rings",
+    "name": "Ripple Rings",
+    "category": "Geometry",
+    "description": "Displace the image with concentric radial ripples.",
+    "controls": [
+      "Radius",
+      "Scale"
+    ],
+    "radius": 7,
+    "scale": 32,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 38,
+    "kind": "SineWeave",
+    "slug": "sine-weave",
+    "name": "Sine Weave",
+    "category": "Geometry",
+    "description": "Interweave two modulated displacement fields into a flowing mesh.",
+    "controls": [
+      "Radius",
+      "Scale",
+      "Angle"
+    ],
+    "radius": 9,
+    "scale": 36,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 39,
+    "kind": "PixelSort",
+    "slug": "pixel-sort",
+    "name": "Pixel Sort",
+    "category": "Geometry",
+    "description": "Sort bright opaque runs by luminance inside bounded horizontal spans.",
+    "controls": [
+      "Scale",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 64,
+    "detail": 35,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 40,
+    "kind": "PrismTiles",
+    "slug": "prism-tiles",
+    "name": "Prism Tiles",
+    "category": "Geometry",
+    "description": "Fold each square tile across its diagonal into mirrored triangular prisms.",
+    "controls": [
+      "Scale"
+    ],
+    "radius": 8,
+    "scale": 32,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 41,
+    "kind": "OuterGlow",
+    "slug": "outer-glow",
+    "name": "Outer Glow",
+    "category": "Studio Object",
+    "description": "Place a colored soft halo behind the nontransparent parts of the layer.",
+    "controls": [
+      "Radius",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 12,
+    "scale": 24,
+    "detail": 60,
+    "amount": 75,
+    "colors": [
+      "#6dc6ff",
+      "#e57de4"
+    ]
+  },
+  {
+    "number": 42,
+    "kind": "LongShadow",
+    "slug": "long-shadow",
+    "name": "Long Shadow",
+    "category": "Studio Object",
+    "description": "Cast a directional, fading silhouette shadow behind an object.",
+    "controls": [
+      "Radius",
+      "Angle",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 18,
+    "scale": 24,
+    "detail": 45,
+    "amount": 75,
+    "colors": [
+      "#202535",
+      "#ffffff"
+    ]
+  },
+  {
+    "number": 43,
+    "kind": "AlphaErode",
+    "slug": "alpha-erode",
+    "name": "Alpha Erode",
+    "category": "Studio Object",
+    "description": "Shrink opaque areas using a separable minimum-alpha filter.",
+    "controls": [
+      "Radius"
+    ],
+    "radius": 3,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 44,
+    "kind": "AlphaDilate",
+    "slug": "alpha-dilate",
+    "name": "Alpha Dilate",
+    "category": "Studio Object",
+    "description": "Expand alpha coverage and extend neighboring object color into the new edge.",
+    "controls": [
+      "Radius"
+    ],
+    "radius": 3,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 45,
+    "kind": "EdgeColorize",
+    "slug": "edge-colorize",
+    "name": "Edge Colorize",
+    "category": "Studio Object",
+    "description": "Turn luminance contours into a two-color glowing edge treatment.",
+    "controls": [
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#6dc6ff",
+      "#e57de4"
+    ]
+  },
+  {
+    "number": 46,
+    "kind": "NormalMap",
+    "slug": "normal-map",
+    "name": "Normal Map",
+    "category": "Studio Object",
+    "description": "Convert luminance slopes into a tangent-space RGB normal map.",
+    "controls": [
+      "Radius",
+      "Detail"
+    ],
+    "radius": 2,
+    "scale": 24,
+    "detail": 55,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 47,
+    "kind": "HeightLight",
+    "slug": "height-light",
+    "name": "Height Light",
+    "category": "Studio Object",
+    "description": "Shade luminance as a height surface using an angled virtual light.",
+    "controls": [
+      "Radius",
+      "Angle",
+      "Detail",
+      "Colors"
+    ],
+    "radius": 2,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#b6c6d6",
+      "#ffffff"
+    ]
+  },
+  {
+    "number": 48,
+    "kind": "DistanceFade",
+    "slug": "distance-fade",
+    "name": "Distance Fade",
+    "category": "Studio Object",
+    "description": "Fade alpha smoothly toward the outer edges of the layer.",
+    "controls": [
+      "Scale",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 85,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 49,
+    "kind": "RoundedCorners",
+    "slug": "rounded-corners",
+    "name": "Rounded Corners",
+    "category": "Studio Object",
+    "description": "Cut antialiased rounded corners into the layer alpha.",
+    "controls": [
+      "Radius"
+    ],
+    "radius": 24,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 50,
+    "kind": "SeamlessBlend",
+    "slug": "seamless-blend",
+    "name": "Seamless Blend",
+    "category": "Studio Object",
+    "description": "Blend opposite edges symmetrically to soften texture tiling seams.",
+    "controls": [
+      "Radius"
+    ],
+    "radius": 24,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 51,
+    "kind": "VhsTape",
+    "slug": "vhs-tape",
+    "name": "VHS Tape",
+    "category": "Play",
+    "description": "Add seeded tracking jitter, color lag, scan lines and occasional tape scratches.",
+    "controls": [
+      "Radius",
+      "Scale",
+      "Seed",
+      "Detail"
+    ],
+    "radius": 5,
+    "scale": 8,
+    "detail": 45,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 52,
+    "kind": "CrtScreen",
+    "slug": "crt-screen",
+    "name": "CRT Screen",
+    "category": "Play",
+    "description": "Simulate a curved phosphor screen with RGB subpixels, scan lines and edge falloff.",
+    "controls": [
+      "Scale",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 2,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 53,
+    "kind": "PocketPalette",
+    "slug": "pocket-palette",
+    "name": "Pocket Palette",
+    "category": "Play",
+    "description": "Average pixels into a four-green handheld-console palette with ordered dithering.",
+    "controls": [
+      "Scale"
+    ],
+    "radius": 8,
+    "scale": 6,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 54,
+    "kind": "ThermalVision",
+    "slug": "thermal-vision",
+    "name": "Thermal Vision",
+    "category": "Play",
+    "description": "Map image brightness into a dramatic multicolor heat display.",
+    "controls": [
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 55,
+    "kind": "AsciiMosaic",
+    "slug": "ascii-mosaic",
+    "name": "ASCII Mosaic",
+    "category": "Play",
+    "description": "Build an image from ten tiny bitmap glyphs using two chosen colors.",
+    "controls": [
+      "Scale",
+      "Colors"
+    ],
+    "radius": 8,
+    "scale": 10,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#302d29",
+      "#f1e5ca"
+    ]
+  },
+  {
+    "number": 56,
+    "kind": "EmojiMosaic",
+    "slug": "emoji-mosaic",
+    "name": "Emoji Mosaic",
+    "category": "Play",
+    "description": "Turn image cells into small happy, sad or surprised illustrated faces.",
+    "controls": [
+      "Scale",
+      "Colors"
+    ],
+    "radius": 8,
+    "scale": 28,
+    "detail": 50,
+    "amount": 100,
+    "colors": [
+      "#ffd25e",
+      "#263b50"
+    ]
+  },
+  {
+    "number": 57,
+    "kind": "PixelConfetti",
+    "slug": "pixel-confetti",
+    "name": "Pixel Confetti",
+    "category": "Play",
+    "description": "Scatter deterministic colorful paper slips over the image or a transparent canvas.",
+    "controls": [
+      "Scale",
+      "Seed",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 28,
+    "detail": 60,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  },
+  {
+    "number": 58,
+    "kind": "ComicBurst",
+    "slug": "comic-burst",
+    "name": "Comic Burst",
+    "category": "Play",
+    "description": "Add a two-color comic-book radial burst that leaves a calmer center.",
+    "controls": [
+      "Scale",
+      "Angle",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 24,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#ffda52",
+      "#e95b80"
+    ]
+  },
+  {
+    "number": 59,
+    "kind": "LaserGrid",
+    "slug": "laser-grid",
+    "name": "Laser Grid",
+    "category": "Play",
+    "description": "Generate a retro perspective laser floor with a glowing horizon.",
+    "controls": [
+      "Scale",
+      "Colors",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 18,
+    "detail": 55,
+    "amount": 75,
+    "colors": [
+      "#f34ee7",
+      "#172342"
+    ]
+  },
+  {
+    "number": 60,
+    "kind": "PartyPixelate",
+    "slug": "party-pixelate",
+    "name": "Party Pixelate",
+    "category": "Play",
+    "description": "Turn averaged image blocks into a seeded party of shifting hue families.",
+    "controls": [
+      "Scale",
+      "Seed",
+      "Detail"
+    ],
+    "radius": 8,
+    "scale": 12,
+    "detail": 60,
+    "amount": 75,
+    "colors": [
+      "#315f9f",
+      "#f4be73"
+    ]
+  }
+]

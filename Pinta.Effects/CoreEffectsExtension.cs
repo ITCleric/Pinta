@@ -79,6 +79,7 @@ internal sealed class CoreEffectsExtension : IExtension
 		PintaCore.Effects.RegisterEffect (new DropShadowEffect ());
 		PintaCore.Effects.RegisterEffect (new PointillismEffect ());
 		PintaCore.Effects.RegisterEffect (new StainedGlassEffect ());
+		StudioCatalog.Register ();
 		// Add the effects
 		PintaCore.Effects.RegisterEffect (new AddNoiseEffect (services));
 		PintaCore.Effects.RegisterEffect (new AlignObjectEffect (services));
@@ -156,6 +157,7 @@ internal sealed class CoreEffectsExtension : IExtension
 		PintaCore.Effects.UnregisterInstanceOfEffect<DropShadowEffect> ();
 		PintaCore.Effects.UnregisterInstanceOfEffect<PointillismEffect> ();
 		PintaCore.Effects.UnregisterInstanceOfEffect<StainedGlassEffect> ();
+		StudioCatalog.Unregister ();
 		// Remove the effects
 		PintaCore.Effects.UnregisterInstanceOfEffect<AddNoiseEffect> ();
 		PintaCore.Effects.UnregisterInstanceOfEffect<AlignObjectEffect> ();

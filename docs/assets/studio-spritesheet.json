@@ -1,0 +1,606 @@
+{
+  "width": 1200,
+  "height": 850,
+  "icons": [
+    {
+      "number": 1,
+      "id": "split-toning",
+      "name": "Split Toning",
+      "x": 24,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-split-toning.png"
+    },
+    {
+      "number": 2,
+      "id": "vibrance",
+      "name": "Vibrance",
+      "x": 144,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-vibrance.png"
+    },
+    {
+      "number": 3,
+      "id": "color-temperature",
+      "name": "Color Temperature",
+      "x": 264,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-color-temperature.png"
+    },
+    {
+      "number": 4,
+      "id": "highlight-rolloff",
+      "name": "Highlight Rolloff",
+      "x": 384,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-highlight-rolloff.png"
+    },
+    {
+      "number": 5,
+      "id": "shadow-lift",
+      "name": "Shadow Lift",
+      "x": 504,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-shadow-lift.png"
+    },
+    {
+      "number": 6,
+      "id": "filmic-contrast",
+      "name": "Filmic Contrast",
+      "x": 624,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-filmic-contrast.png"
+    },
+    {
+      "number": 7,
+      "id": "matte-fade",
+      "name": "Matte Fade",
+      "x": 744,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-matte-fade.png"
+    },
+    {
+      "number": 8,
+      "id": "bleach-bypass",
+      "name": "Bleach Bypass",
+      "x": 864,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-bleach-bypass.png"
+    },
+    {
+      "number": 9,
+      "id": "duotone-print",
+      "name": "Duotone Print",
+      "x": 984,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-duotone-print.png"
+    },
+    {
+      "number": 10,
+      "id": "selective-color-pop",
+      "name": "Selective Color Pop",
+      "x": 1104,
+      "y": 73,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-selective-color-pop.png"
+    },
+    {
+      "number": 11,
+      "id": "bloom-diffusion",
+      "name": "Bloom Diffusion",
+      "x": 24,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-bloom-diffusion.png"
+    },
+    {
+      "number": 12,
+      "id": "orton-dream",
+      "name": "Orton Dream",
+      "x": 144,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-orton-dream.png"
+    },
+    {
+      "number": 13,
+      "id": "soft-focus",
+      "name": "Soft Focus",
+      "x": 264,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-soft-focus.png"
+    },
+    {
+      "number": 14,
+      "id": "unsharp-detail",
+      "name": "Unsharp Detail",
+      "x": 384,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-unsharp-detail.png"
+    },
+    {
+      "number": 15,
+      "id": "high-pass",
+      "name": "High Pass",
+      "x": 504,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-high-pass.png"
+    },
+    {
+      "number": 16,
+      "id": "clarity",
+      "name": "Clarity",
+      "x": 624,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-clarity.png"
+    },
+    {
+      "number": 17,
+      "id": "tilt-shift",
+      "name": "Tilt Shift",
+      "x": 744,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-tilt-shift.png"
+    },
+    {
+      "number": 18,
+      "id": "bokeh-disc",
+      "name": "Bokeh Disc",
+      "x": 864,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-bokeh-disc.png"
+    },
+    {
+      "number": 19,
+      "id": "chromatic-fringe",
+      "name": "Chromatic Fringe",
+      "x": 984,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-chromatic-fringe.png"
+    },
+    {
+      "number": 20,
+      "id": "anamorphic-streak",
+      "name": "Anamorphic Streak",
+      "x": 1104,
+      "y": 205,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-anamorphic-streak.png"
+    },
+    {
+      "number": 21,
+      "id": "fine-film-grain",
+      "name": "Fine Film Grain",
+      "x": 24,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-fine-film-grain.png"
+    },
+    {
+      "number": 22,
+      "id": "paper-fibers",
+      "name": "Paper Fibers",
+      "x": 144,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-paper-fibers.png"
+    },
+    {
+      "number": 23,
+      "id": "canvas-weave",
+      "name": "Canvas Weave",
+      "x": 264,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-canvas-weave.png"
+    },
+    {
+      "number": 24,
+      "id": "brushed-metal",
+      "name": "Brushed Metal",
+      "x": 384,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-brushed-metal.png"
+    },
+    {
+      "number": 25,
+      "id": "rain-glass",
+      "name": "Rain Glass",
+      "x": 504,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-rain-glass.png"
+    },
+    {
+      "number": 26,
+      "id": "watercolor-wash",
+      "name": "Watercolor Wash",
+      "x": 624,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-watercolor-wash.png"
+    },
+    {
+      "number": 27,
+      "id": "crosshatch",
+      "name": "Crosshatch",
+      "x": 744,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-crosshatch.png"
+    },
+    {
+      "number": 28,
+      "id": "comic-inking",
+      "name": "Comic Inking",
+      "x": 864,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-comic-inking.png"
+    },
+    {
+      "number": 29,
+      "id": "engraved-lines",
+      "name": "Engraved Lines",
+      "x": 984,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-engraved-lines.png"
+    },
+    {
+      "number": 30,
+      "id": "woodcut-print",
+      "name": "Woodcut Print",
+      "x": 1104,
+      "y": 337,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-woodcut-print.png"
+    },
+    {
+      "number": 31,
+      "id": "kaleidoscope",
+      "name": "Kaleidoscope",
+      "x": 24,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-kaleidoscope.png"
+    },
+    {
+      "number": 32,
+      "id": "mirror-quadrants",
+      "name": "Mirror Quadrants",
+      "x": 144,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-mirror-quadrants.png"
+    },
+    {
+      "number": 33,
+      "id": "tiny-planet",
+      "name": "Tiny Planet",
+      "x": 264,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-tiny-planet.png"
+    },
+    {
+      "number": 34,
+      "id": "barrel-lens",
+      "name": "Barrel Lens",
+      "x": 384,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-barrel-lens.png"
+    },
+    {
+      "number": 35,
+      "id": "perspective-skew",
+      "name": "Perspective Skew",
+      "x": 504,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-perspective-skew.png"
+    },
+    {
+      "number": 36,
+      "id": "spiral-tunnel",
+      "name": "Spiral Tunnel",
+      "x": 624,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-spiral-tunnel.png"
+    },
+    {
+      "number": 37,
+      "id": "ripple-rings",
+      "name": "Ripple Rings",
+      "x": 744,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-ripple-rings.png"
+    },
+    {
+      "number": 38,
+      "id": "sine-weave",
+      "name": "Sine Weave",
+      "x": 864,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-sine-weave.png"
+    },
+    {
+      "number": 39,
+      "id": "pixel-sort",
+      "name": "Pixel Sort",
+      "x": 984,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-pixel-sort.png"
+    },
+    {
+      "number": 40,
+      "id": "prism-tiles",
+      "name": "Prism Tiles",
+      "x": 1104,
+      "y": 469,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-prism-tiles.png"
+    },
+    {
+      "number": 41,
+      "id": "outer-glow",
+      "name": "Outer Glow",
+      "x": 24,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-outer-glow.png"
+    },
+    {
+      "number": 42,
+      "id": "long-shadow",
+      "name": "Long Shadow",
+      "x": 144,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-long-shadow.png"
+    },
+    {
+      "number": 43,
+      "id": "alpha-erode",
+      "name": "Alpha Erode",
+      "x": 264,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-alpha-erode.png"
+    },
+    {
+      "number": 44,
+      "id": "alpha-dilate",
+      "name": "Alpha Dilate",
+      "x": 384,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-alpha-dilate.png"
+    },
+    {
+      "number": 45,
+      "id": "edge-colorize",
+      "name": "Edge Colorize",
+      "x": 504,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-edge-colorize.png"
+    },
+    {
+      "number": 46,
+      "id": "normal-map",
+      "name": "Normal Map",
+      "x": 624,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-normal-map.png"
+    },
+    {
+      "number": 47,
+      "id": "height-light",
+      "name": "Height Light",
+      "x": 744,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-height-light.png"
+    },
+    {
+      "number": 48,
+      "id": "distance-fade",
+      "name": "Distance Fade",
+      "x": 864,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-distance-fade.png"
+    },
+    {
+      "number": 49,
+      "id": "rounded-corners",
+      "name": "Rounded Corners",
+      "x": 984,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-rounded-corners.png"
+    },
+    {
+      "number": 50,
+      "id": "seamless-blend",
+      "name": "Seamless Blend",
+      "x": 1104,
+      "y": 601,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-seamless-blend.png"
+    },
+    {
+      "number": 51,
+      "id": "vhs-tape",
+      "name": "VHS Tape",
+      "x": 24,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-vhs-tape.png"
+    },
+    {
+      "number": 52,
+      "id": "crt-screen",
+      "name": "CRT Screen",
+      "x": 144,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-crt-screen.png"
+    },
+    {
+      "number": 53,
+      "id": "pocket-palette",
+      "name": "Pocket Palette",
+      "x": 264,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-pocket-palette.png"
+    },
+    {
+      "number": 54,
+      "id": "thermal-vision",
+      "name": "Thermal Vision",
+      "x": 384,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-thermal-vision.png"
+    },
+    {
+      "number": 55,
+      "id": "ascii-mosaic",
+      "name": "ASCII Mosaic",
+      "x": 504,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-ascii-mosaic.png"
+    },
+    {
+      "number": 56,
+      "id": "emoji-mosaic",
+      "name": "Emoji Mosaic",
+      "x": 624,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-emoji-mosaic.png"
+    },
+    {
+      "number": 57,
+      "id": "pixel-confetti",
+      "name": "Pixel Confetti",
+      "x": 744,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-pixel-confetti.png"
+    },
+    {
+      "number": 58,
+      "id": "comic-burst",
+      "name": "Comic Burst",
+      "x": 864,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-comic-burst.png"
+    },
+    {
+      "number": 59,
+      "id": "laser-grid",
+      "name": "Laser Grid",
+      "x": 984,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-laser-grid.png"
+    },
+    {
+      "number": 60,
+      "id": "party-pixelate",
+      "name": "Party Pixelate",
+      "x": 1104,
+      "y": 733,
+      "width": 72,
+      "height": 72,
+      "png": "pinta-studio-party-pixelate.png"
+    }
+  ]
+}

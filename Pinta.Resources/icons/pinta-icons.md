@@ -19,3 +19,7 @@
 ## Original desktop tool set (Pinta Modern)
 
 The 22 `hicolor/scalable/actions/pinta-tool-*.svg` icons are independently drawn for this fork under the project's MIT license. Rebuild them with `scripts/generate-tool-icons.py`. The previous symbolic assets remain available for compatibility; cursor artwork is unchanged.
+
+## Original Studio & Play set (Pinta Modern)
+
+The 60 `hicolor/scalable/actions/pinta-studio-*.svg` files and their separate `hicolor/64x64/actions/pinta-studio-*.png` exports are independently drawn for this fork under the project's MIT license. They extend the square colored desktop icon family. Regenerate them with `scripts/generate-studio-icons.py`; the generator reads the canonical catalog in `Pinta.Effects/Studio/catalog.json` and also builds `docs/assets/studio-spritesheet.{svg,png,json}`. No third-party plugin artwork is included.

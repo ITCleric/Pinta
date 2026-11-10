@@ -44,10 +44,17 @@ internal sealed class EffectBrowserAction (ActionManager actions, ChromeManager 
 			var subtitle = Gtk.Label.New (category);
 			subtitle.Halign = Gtk.Align.Start; subtitle.AddCssClass ("dim-label");
 			labels.AppendMultiple ([title, subtitle]); box.Append (labels);
+			if (!string.IsNullOrWhiteSpace (action.Tooltip)) {
+				var description = Gtk.Label.New (action.Tooltip);
+				description.Halign = Gtk.Align.Start;
+				description.Wrap = true; description.MaxWidthChars = 58;
+				description.Xalign = 0; description.AddCssClass ("dim-label");
+				labels.Append (description);
+			}
 			button.SetChild (box);
 			button.OnClicked += (_, _) => { dialog.Close (); action.Activate (); };
 			list.Append (button);
-			rows.Add ((button, action.Label + " " + category));
+			rows.Add ((button, action.Label + " " + category + " " + action.Tooltip));
 		}
 		var empty = Gtk.Label.New (Translations.GetString ("No matching effects"));
 		empty.Visible = false; list.Append (empty);

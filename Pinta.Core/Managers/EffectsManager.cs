@@ -76,7 +76,7 @@ public sealed class EffectsManager
 		Command action = new (
 			adjustmentType.Name,
 			adjustment.Name + (adjustment.IsConfigurable ? Translations.GetString ("...") : ""),
-			string.Empty,
+			adjustment.Description,
 			adjustment.Icon,
 			shortcuts:
 				adjustment.AdjustmentMenuKey is null
@@ -114,7 +114,7 @@ public sealed class EffectsManager
 		Command action = new (
 			effectType.Name,
 			effect.Name + (effect.IsConfigurable ? Translations.GetString ("...") : ""),
-			string.Empty,
+			effect.Description,
 			effect.Icon);
 
 		chrome_manager.Application.AddCommand (action);

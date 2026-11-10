@@ -14,7 +14,17 @@ Colors has overlapping primary/secondary swatches, an HSV wheel and a compact pa
 
 Effects → Effects Browser provides an icon-based, searchable list of registered effects and adjustments, including Pinta add-ins. Effects → Repeat Last Effect reuses the last successfully applied settings without opening the configuration dialog. Cancelled/failed renders do not replace the repeat cache.
 
-## New effects
+## Studio & Play — 60 additional effects
+
+The [complete inventory and usage guide](STUDIO-PLAY-60.md) lists 60 new configurable effects in six groups: Photo Grade, Lens & Light, Materials, Geometry, Studio Object and Play. These are additional to the earlier 24 below, for 84 additions overall. They are built into Pinta's effect registration, live preview, selection rendering, undo and repeat-effect workflow. Their descriptions appear in the searchable effects browser and command tooltips.
+
+Highlights include split toning, highlight rolloff, bloom diffusion, bokeh, chromatic fringes, paper and canvas materials, kaleidoscope and tiny-planet remapping, pixel sorting, alpha morphology, normal maps, VHS/CRT looks, ASCII/emoji mosaics, confetti and a laser grid. Every effect has its own original square Aero-style SVG and separate 64px PNG. The sprite atlas includes all 60 named cells and a JSON index.
+
+![60 Studio & Play icons](assets/studio-spritesheet.png)
+
+These are CPU effects in Pinta's existing 8-bit RGBA pipeline. They do not load third-party Paint.NET DLLs or reproduce an entire community pack. The guide documents approximation and parameter limits. Reproducible actual kernel previews are exported with `tests/Pinta.StudioPreview` and assembled by `scripts/render-studio-previews.py`.
+
+## Earlier 24 effects
 
 These are independent implementations of related operations, not copies of the named authors' code or exact replicas of their algorithms. Each effect has a dedicated original, editable Aero-style SVG icon, visible in the effect browser and history. The icon generator is `scripts/generate-modern-icons.py`.
 
@@ -111,7 +121,7 @@ These checks parse the generated light/dark/custom CSS and cover external thumbn
 
 The non-C locale matters: GNU gettext deliberately does not translate in the C locale, so the upstream French-translation test fails with `LC_ALL=C.UTF-8` even when the `.mo` catalogs have been built.
 
-Verified on the development Mac: solution build succeeds with zero warnings; 799 core tests and 174 effects tests pass. One pre-existing Voronoi test is skipped. The new coverage includes 53 effect tests and 18 theme/shortcut/palette-position tests.
+Verified on the development Mac: solution build succeeds with zero warnings; 799 core tests and 422 effects tests pass. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 76 checks. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
 
 New tests exercise every added effect on partial-alpha inputs, 1×1 images, nonzero regions, split renders, immutable source buffers and premultiplied output. Further tests cover neutral adjustments, chroma key, alpha masks, cloned settings, theme validation/round trips and macOS shortcut alternatives.
 

@@ -6,6 +6,8 @@ using System.IO;
 using System.Text;
 using Pinta.Core;
 using Pinta.Docking;
+using Pinta.Effects;
+using Pinta.Gui.Widgets;
 
 GLib.Module.Initialize ();
 Gio.Module.Initialize ();
@@ -36,6 +38,15 @@ var toolIcons = typeof (Pinta.Resources.Icons).GetFields ()
 	.Where (name => name is not null && name.StartsWith ("pinta-tool-", StringComparison.Ordinal))
 	.ToArray ();
 Check (toolIcons.Length == 22 && toolIcons.All (name => iconTheme.HasIcon (name!)), "All 22 colored tool icons resolve in the packaged icon theme");
+Check (StudioCatalog.CreateAll ().All (e => iconTheme.HasIcon (e.Icon)), "All 60 Studio & Play effect icons resolve in the packaged icon theme");
+using (var parent = Gtk.Window.New ()) {
+	foreach (var effect in StudioCatalog.CreateAll ()) {
+		using var dialog = SimpleEffectDialog.New (parent, effect.Name, effect.Icon, effect.Data, new PintaLocalizer (), null!);
+		Check (dialog.GetContentAreaBox ().GetFirstChild () is not null, $"Configuration widgets build: {effect.Name}");
+		dialog.Destroy ();
+	}
+	parent.Destroy ();
+}
 var toolbar = GtkExtensions.CreateToolBar ();
 Check (toolbar.HasCssClass ("editor-toolbar") && toolbar.Spacing == 2, "Toolbar keeps separate, explicitly styled tiles");
 
