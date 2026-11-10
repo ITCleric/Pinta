@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>Gradient</title><defs>
+<linearGradient id="blue" x2="0" y2="1"><stop stop-color="#acd9f5"/><stop offset=".5" stop-color="#5b9cc7"/><stop offset="1" stop-color="#2d668e"/></linearGradient>
+<linearGradient id="shape" x2="0" y2="1"><stop stop-color="#e5f8ff"/><stop offset="1" stop-color="#86c2e5"/></linearGradient>
+<linearGradient id="wood" x2=".8" y2="1"><stop stop-color="#ecd1a2"/><stop offset=".45" stop-color="#bf8a51"/><stop offset="1" stop-color="#89552f"/></linearGradient>
+<linearGradient id="steel" x2="1" y2=".4"><stop stop-color="#f2f7fa"/><stop offset=".5" stop-color="#aabecb"/><stop offset="1" stop-color="#748a9a"/></linearGradient>
+<linearGradient id="lens" x2=".7" y2="1"><stop stop-color="#f3fcff" stop-opacity=".85"/><stop offset="1" stop-color="#7bbce3" stop-opacity=".65"/></linearGradient>
+<linearGradient id="skin" x2="1" y2="1"><stop stop-color="#ffe9c7"/><stop offset="1" stop-color="#d4a477"/></linearGradient>
+<linearGradient id="spectrum"><stop stop-color="#25304d"/><stop offset=".45" stop-color="#4b8ed0"/><stop offset="1" stop-color="#f2fbff"/></linearGradient>
+</defs><rect x="2.5" y="3.5" width="19" height="17" fill="url(#spectrum)" stroke="#526b7d"/><rect x="3.5" y="4.5" width="17" height="15" fill="none" stroke="white" stroke-opacity=".75"/><path d="M5 17 18 7" stroke="white" stroke-width="1.2"/><rect x="4" y="16" width="3" height="3" fill="#253c54"/><rect x="17" y="5" width="3" height="3" fill="white" stroke="#516879" stroke-width=".5"/></svg>

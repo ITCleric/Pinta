@@ -91,6 +91,8 @@ partial class GtkExtensions
 	{
 		Gtk.Box toolbar = Gtk.Box.New (Gtk.Orientation.Horizontal, spacing: 0);
 		toolbar.AddCssClass (AdwaitaStyles.Toolbar);
+		toolbar.AddCssClass ("editor-toolbar");
+		toolbar.Spacing = 2;
 		return toolbar;
 	}
 
@@ -119,6 +121,7 @@ partial class GtkExtensions
 		};
 
 		Gtk.Button button = Gtk.Button.New ();
+		button.AddCssClass ("editor-tile");
 		button.ActionName = action.FullName;
 		button.TooltipText = fullTooltip;
 
@@ -142,7 +145,7 @@ partial class GtkExtensions
 
 	public static Gtk.Separator CreateToolBarSeparator ()
 	{
-		Gtk.Separator sep = Gtk.Separator.New (Gtk.Orientation.Horizontal);
+		Gtk.Separator sep = Gtk.Separator.New (Gtk.Orientation.Vertical);
 		sep.AddCssClass (AdwaitaStyles.Spacer);
 		return sep;
 	}

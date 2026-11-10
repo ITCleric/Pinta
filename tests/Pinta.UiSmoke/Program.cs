@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using Pinta.Core;
 using Pinta.Docking;
@@ -26,6 +27,17 @@ foreach (var theme in new[] { ThemePalette.Light, ThemePalette.Dark, ThemePalett
 	css.LoadFromBytes (GLib.Bytes.New (Encoding.UTF8.GetBytes (theme.ToCss ())));
 	Check (errors.Count == 0, $"Theme CSS parses: {string.Join ("; ", errors)}");
 }
+
+var iconTheme = Gtk.IconTheme.GetForDisplay (Gdk.Display.GetDefault ()!);
+iconTheme.AddSearchPath (Path.Combine (AppContext.BaseDirectory, "icons"));
+var toolIcons = typeof (Pinta.Resources.Icons).GetFields ()
+	.Where (field => field.Name.StartsWith ("Tool", StringComparison.Ordinal))
+	.Select (field => field.GetRawConstantValue () as string)
+	.Where (name => name is not null && name.StartsWith ("pinta-tool-", StringComparison.Ordinal))
+	.ToArray ();
+Check (toolIcons.Length == 22 && toolIcons.All (name => iconTheme.HasIcon (name!)), "All 22 colored tool icons resolve in the packaged icon theme");
+var toolbar = GtkExtensions.CreateToolBar ();
+Check (toolbar.HasCssClass ("editor-toolbar") && toolbar.Spacing == 2, "Toolbar keeps separate, explicitly styled tiles");
 
 var notebook = DockNotebook.New ();
 var first = new MockItem ("One"); var second = new MockItem ("Two"); var third = new MockItem ("Three");

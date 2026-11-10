@@ -34,6 +34,14 @@ Alpha to Gray exports alpha as opaque gray; Gray to Alpha multiplies luminance b
 
 ![Original effect icon sheet](assets/effects-icons.svg)
 
+### Desktop tool icons and tiles
+
+The tool palette, selected-tool indicator, and tool-related controls use 22 original colored SVGs with conventional drawing-tool silhouettes: dashed selections, a wooden brush and stamp, a gold pencil, pink eraser, metal pipette, hand and magnifying glass. They use non-symbolic icon names so GTK preserves their colors on light and dark themes. Regenerate them with `scripts/generate-tool-icons.py`.
+
+Toolbar commands, palette tools and workspace toggles have visible square tile borders even when idle, a restrained beveled highlight, hover feedback and an inset pressed/selected state. Input fields, popup frames, lists, switches and slider handles use square corners. Circular tool symbols and the color wheel retain their functional shapes.
+
+![Original tool icon and tile samples on light and dark backgrounds](assets/tool-icons.svg)
+
 ## Themes
 
 Preferences → Custom Theme edits Background, Surface, Foreground, Accent, Border, Canvas and Selection. Values use `#RRGGBB`. Valid edits apply immediately; invalid values are marked and never injected into CSS. Import and export use JSON through native file dialogs. Light and dark presets are available; examples are in `themes/`.

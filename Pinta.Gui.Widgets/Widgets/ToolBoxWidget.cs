@@ -16,8 +16,8 @@ public sealed partial class ToolBoxWidget
 
 	partial void Initialize ()
 	{
-		RowSpacing = 1;
-		ColumnSpacing = 1;
+		RowSpacing = 2;
+		ColumnSpacing = 2;
 	}
 
 	public static ToolBoxWidget New (ToolManager tools)
@@ -43,7 +43,7 @@ public sealed partial class ToolBoxWidget
 		button.Name = tool.Name;
 		button.FocusOnClick = false;
 
-		button.SetCssClasses ([Resources.Styles.ToolBoxButton, AdwaitaStyles.Flat]);
+		button.SetCssClasses ([Resources.Styles.ToolBoxButton, "editor-tile"]);
 
 		string shortcutText = "";
 		if (tool.ShortcutKey != Gdk.Key.Invalid) {

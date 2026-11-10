@@ -36,6 +36,9 @@ public sealed record ThemePalette (
 		bool dark = Brightness (Background) < 128;
 		string paletteHeader = dark ? $"mix({Background}, {Accent}, 0.18)" : Accent;
 		string headerText = dark ? Foreground : Brightness (Accent) > 165 ? "#17212a" : "#ffffff";
+		string tileTop = dark ? $"mix({Surface}, white, .06)" : Surface;
+		string tileBottom = $"mix({Surface}, {Background}, .85)";
+		string tileHighlight = dark ? "alpha(white, .12)" : "alpha(white, .85)";
 		return $$"""
 		@define-color window_bg_color {{Background}};
 		@define-color window_fg_color {{Foreground}};
@@ -64,8 +67,8 @@ public sealed record ThemePalette (
 		.pinta-modern .floating-palette combobox > box > button, .pinta-modern .floating-palette entry {
 		  border-radius: 0; min-height: 20px; padding: 0 3px; box-shadow: none;
 		}
-		.pinta-modern .tool-box-button { -gtk-icon-size: 18px; min-width: 20px; min-height: 20px; padding: 1px; border: 1px solid transparent; }
-		.pinta-modern .tool-box-button:hover { background-color: alpha({{Selection}}, 0.6); border-color: {{Accent}}; }
+		.pinta-modern .tool-box-button { -gtk-icon-size: 22px; min-width: 24px; min-height: 24px; padding: 2px; }
+
 		.pinta-modern .tool-box-button:checked { border-color: {{Accent}}; }
 		.pinta-modern .floating-palette { background-color: {{Surface}}; border: 1px solid {{Border}}; border-radius: 0; box-shadow: 1px 3px 9px alpha(black, .28); }
 		.pinta-modern .palette-titlebar { background-color: {{paletteHeader}}; color: {{headerText}}; min-height: 23px; padding: 0 2px; }
@@ -82,7 +85,7 @@ public sealed record ThemePalette (
 		.pinta-modern .workspace-toggles button { -gtk-icon-size: 16px; min-width: 20px; min-height: 20px; padding: 1px 2px; background: none; }
 		.pinta-modern .workspace-toggles button:checked { background-color: {{Selection}}; }
 		.pinta-modern .document-thumbnails { padding: 3px; }
-		.pinta-modern .document-preview-button { min-height: 56px; min-width: 82px; padding: 3px; border: 1px solid transparent; background: none; box-shadow: none; }
+		.pinta-modern .document-preview-button { min-height: 56px; min-width: 82px; padding: 3px; border: 1px solid {{Border}}; background-color: {{Surface}}; box-shadow: inset 0 1px 0 {{tileHighlight}}; }
 		.pinta-modern .document-preview-button:hover { border-color: {{Border}}; background-color: alpha({{Selection}}, .4); }
 		.pinta-modern .document-preview-button:checked { border-color: {{Accent}}; background-color: {{Selection}}; box-shadow: inset 0 0 0 1px {{Surface}}; }
 		.pinta-modern .document-close { -gtk-icon-size: 10px; min-width: 15px; min-height: 15px; padding: 0; margin: 2px; border: none; background-color: {{Surface}}; opacity: 0; }
@@ -97,6 +100,39 @@ public sealed record ThemePalette (
 		.pinta-modern .status-zoom-slider slider { min-width: 7px; min-height: 13px; border-radius: 1px; }
 		.pinta-modern separator { background-color: {{Border}}; }
 		.pinta-modern .effect-content { padding: 6px; }
+		/* Desktop controls: explicit square frames override libadwaita's rounded defaults. */
+		.pinta-modern button, .pinta-modern entry, .pinta-modern spinbutton,
+		.pinta-modern dropdown > button, .pinta-modern combobox > box > button,
+		.pinta-modern popover > contents, .pinta-modern .card, .pinta-modern .boxed-list,
+		.pinta-modern .boxed-list > row, .pinta-modern stacksidebar row, .pinta-modern frame,
+		.pinta-modern switch, .pinta-modern switch slider, .pinta-modern checkbutton check,
+		.pinta-modern scale slider, .pinta-modern progressbar trough, .pinta-modern progressbar progress {
+		  border-radius: 0;
+		}
+		.pinta-modern .editor-toolbar { border-radius: 0; }
+		.pinta-modern .editor-toolbar > separator { min-width: 1px; margin: 2px 3px; background-color: {{Border}}; }
+		.pinta-modern .editor-tile, .pinta-modern .toolbar .editor-tile,
+		.pinta-modern .workspace-toggles .editor-tile, .pinta-modern .tool-box-button.editor-tile {
+		  border-radius: 0; border: 1px solid mix({{Border}}, {{Surface}}, .2);
+		  background-color: {{Background}};
+		  background-image: linear-gradient(to bottom, {{tileTop}}, {{tileBottom}});
+		  box-shadow: inset 0 1px 0 {{tileHighlight}}, inset 1px 0 0 {{tileHighlight}}, 0 1px 1px alpha(black, .1);
+		  margin: 1px; transition: none;
+		}
+		.pinta-modern .editor-tile:hover, .pinta-modern .toolbar .editor-tile:hover,
+		.pinta-modern .workspace-toggles .editor-tile:hover, .pinta-modern .tool-box-button.editor-tile:hover {
+		  border-color: {{Accent}}; background-color: {{Selection}};
+		  background-image: linear-gradient(to bottom, mix({{Surface}}, {{Selection}}, .6), {{Selection}});
+		}
+		.pinta-modern .editor-tile:checked, .pinta-modern .editor-tile:active,
+		.pinta-modern .toolbar .editor-tile:checked, .pinta-modern .toolbar .editor-tile:active,
+		.pinta-modern .workspace-toggles .editor-tile:checked, .pinta-modern .tool-box-button.editor-tile:checked {
+		  border-color: {{Accent}}; background-image: none; background-color: {{Selection}};
+		  box-shadow: inset 1px 1px 2px alpha(black, .24), inset -1px -1px 0 {{tileHighlight}};
+		}
+		.pinta-modern .editor-tile:disabled { opacity: .45; box-shadow: none; }
+		.pinta-modern .editor-tile:focus-visible { outline: 1px dotted {{Foreground}}; outline-offset: -4px; }
+
 
 		""";
 	}

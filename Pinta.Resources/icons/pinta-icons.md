@@ -15,3 +15,7 @@
 - hicolor/scalable/actions/text-light-symbolic.svg
 - hicolor/scalable/actions/text-normal-symbolic.svg
 - hicolor/scalable/actions/text-variant-*.svg
+
+## Original desktop tool set (Pinta Modern)
+
+The 22 `hicolor/scalable/actions/pinta-tool-*.svg` icons are independently drawn for this fork under the project's MIT license. Rebuild them with `scripts/generate-tool-icons.py`. The previous symbolic assets remain available for compatibility; cursor artwork is unchanged.

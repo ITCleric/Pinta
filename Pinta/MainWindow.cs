@@ -458,6 +458,7 @@ internal sealed class MainWindow
 			(view.ColorsWindow, Resources.Icons.ToolColorPicker),
 		}) {
 			var toggle = Gtk.ToggleButton.New ();
+			toggle.AddCssClass ("editor-tile");
 			toggle.IconName = icon;
 			toggle.Active = command.Value;
 			toggle.FocusOnClick = false;
