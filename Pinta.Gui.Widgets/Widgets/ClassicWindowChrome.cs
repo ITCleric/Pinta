@@ -11,7 +11,7 @@ public static class ClassicWindowChrome
 		var handle = Gtk.WindowHandle.New ();
 		handle.AddCssClass ("windows-titlebar");
 		var row = Gtk.Box.New (Gtk.Orientation.Horizontal, 0);
-		var icon = Gtk.Image.NewFromIconName (Resources.Icons.ToolPaintBrush);
+		var icon = Gtk.Image.NewFromIconName (Resources.Icons.Pinta);
 		icon.PixelSize = 16; icon.MarginStart = 8; icon.MarginEnd = 7;
 		row.Append (icon);
 		var title = Gtk.Label.New (window.Title);

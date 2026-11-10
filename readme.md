@@ -2,7 +2,7 @@
 
 An independent Pinta fork inspired by contemporary Paint.NET, with a classic Windows-style workspace, blue palette headers, custom color themes, platform-aware shortcuts, a searchable effects browser, and 84 added effects with original Aero-style icons (24 earlier additions plus the new 60-effect Studio & Play pack).
 
-**Development build: full visual/keyboard/plugin parity is not complete.** See [implementation status, shortcuts, effects and limitations](docs/MODERN-FORK.md). On macOS, run `./scripts/run-macos.sh` after installing the dependencies below.
+**Development build: full visual/keyboard/plugin parity is not complete.** See [implementation status, shortcuts, effects and limitations](docs/MODERN-FORK.md). On macOS, run `./scripts/run-macos.sh` for development, or [build and install the self-contained Pinta Modern.app](docs/MACOS-APP.md) in Applications.
 
 [Full list of the 60 Studio & Play effects, settings and sources](docs/STUDIO-PLAY-60.md)
 

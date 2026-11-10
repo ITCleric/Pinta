@@ -96,6 +96,8 @@ internal sealed class MainClass
 		Pango.Module.Initialize ();
 		PangoCairo.Module.Initialize ();
 		var app = Adw.Application.New (PintaCore.ApplicationId, Gio.ApplicationFlags.NonUnique);
+		Gtk.Module.Initialize ();
+		Gtk.Window.SetDefaultIconName (Pinta.Resources.Icons.Pinta);
 
 		// For macOS, use bindtextdomain() to override the location for libadwaita's translations
 		// since the libraries are relocated into the .app package. This can be done for other libraries

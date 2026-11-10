@@ -56,6 +56,7 @@ using (var css = Gtk.CssProvider.New ()) {
 
 var iconTheme = Gtk.IconTheme.GetForDisplay (Gdk.Display.GetDefault ()!);
 iconTheme.AddSearchPath (Path.Combine (AppContext.BaseDirectory, "icons"));
+Check (iconTheme.HasIcon (Pinta.Resources.Icons.Pinta), "Original application icon resolves in the packaged GTK theme");
 var toolIcons = typeof (Pinta.Resources.Icons).GetFields ()
 	.Where (field => field.Name.StartsWith ("Tool", StringComparison.Ordinal))
 	.Select (field => field.GetRawConstantValue () as string)

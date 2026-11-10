@@ -42,3 +42,5 @@ xdg/pinta.appdata.xml
 artifacts/
 docs/assets/effects-icons.png
 docs/assets/tool-icons.png
+
+__pycache__/

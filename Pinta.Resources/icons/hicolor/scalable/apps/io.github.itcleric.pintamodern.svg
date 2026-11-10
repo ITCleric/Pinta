@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Pinta Modern — original canvas and brush application icon</title>
+  <defs>
+    <linearGradient id="frame" x2="0" y2="1"><stop stop-color="#c6efff"/><stop offset=".48" stop-color="#48a8e2"/><stop offset="1" stop-color="#1261a0"/></linearGradient>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#2779c6"/><stop offset=".7" stop-color="#a8e3f6"/><stop offset="1" stop-color="#e9f7fb"/></linearGradient>
+    <linearGradient id="metal" x2="1" y2="0"><stop stop-color="#586c7e"/><stop offset=".3" stop-color="#e8f4ff"/><stop offset=".55" stop-color="#94b7cb"/><stop offset=".8" stop-color="#f5fcff"/><stop offset="1" stop-color="#4b6478"/></linearGradient>
+    <linearGradient id="wood" x2="1" y2="0"><stop stop-color="#694120"/><stop offset=".4" stop-color="#d49a4c"/><stop offset=".62" stop-color="#ffe0a0"/><stop offset="1" stop-color="#99632d"/></linearGradient>
+    <linearGradient id="paint" x2="1" y2="1"><stop stop-color="#ffba52"/><stop offset=".5" stop-color="#ef6f35"/><stop offset="1" stop-color="#bd3846"/></linearGradient>
+    <filter id="shadow" x="-.3" y="-.3" width="1.6" height="1.6"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <path d="M126 171H842V845H126z" fill="#122d42" opacity=".27" filter="url(#shadow)" transform="translate(8 26)"/>
+  <rect x="112" y="140" width="728" height="704" rx="18" fill="url(#frame)" stroke="#174c75" stroke-width="12"/>
+  <rect x="128" y="156" width="696" height="672" rx="9" fill="none" stroke="#f0fcff" stroke-width="5" opacity=".85"/>
+  <path d="M158 192H794V788H158z" fill="#fff" stroke="#316c99" stroke-width="6"/>
+  <path d="M184 222H768V712H184z" fill="url(#sky)"/>
+  <circle cx="630" cy="333" r="64" fill="#fff4c0"/>
+  <path d="M184 618 355 407 497 575 596 465 768 656V712H184z" fill="#f1fbff"/>
+  <path d="m184 654 174-163 144 154 95-103 171 138v32H184z" fill="#5185aa"/>
+  <path d="M184 685q160-55 310-12t274-10v49H184z" fill="#265c88"/>
+  <path d="M184 738H438" stroke="#b6ccda" stroke-width="10"/>
+  <path d="M184 762H360" stroke="#d9e5ed" stroke-width="7"/>
+  <g transform="rotate(36 716 500)">
+    <path d="M676 193q6-45 40-45t40 45l-13 365h-54z" fill="#18364c" opacity=".2" transform="translate(14 12)"/>
+    <path d="M676 193q6-45 40-45t40 45l-13 365h-54z" fill="url(#wood)" stroke="#684625" stroke-width="7"/>
+    <path d="M696 208q0-34 13-38" fill="none" stroke="#ffe9b7" stroke-width="6" opacity=".8"/>
+    <path d="m688 540 57 0 12 115-82 0z" fill="url(#metal)" stroke="#4c697e" stroke-width="7"/>
+    <path d="M683 558h66m-69 76h74" stroke="#edfaff" stroke-width="6"/>
+    <path d="M676 653q-31 58-15 103t55 79q52-36 55-88t-15-94z" fill="url(#paint)" stroke="#82432d" stroke-width="7"/>
+    <path d="M690 665q-21 59-5 99m22-103q-10 69 7 120m19-117q13 49 1 81" fill="none" stroke="#ffe2a2" stroke-width="7" opacity=".8"/>
+    <path d="M661 757q15 43 55 78 49-37 54-87-35 27-109 9z" fill="#365272"/>
+    <path d="M687 787q16 23 29 33" fill="none" stroke="#82b9d9" stroke-width="6"/>
+  </g>
+</svg>
