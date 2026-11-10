@@ -71,6 +71,7 @@ public abstract class BaseTransformTool : BaseTool
 		base.OnBuildToolBar (toolbar);
 		var reset = Gtk.Button.NewWithLabel (Translations.GetString ("Reset Pivot"));
 		reset.AddCssClass ("editor-tile");
+		reset.FocusOnClick = false;
 		reset.TooltipText = Translations.GetString ("Return the rotation point to the center of the selection.");
 		reset.OnClicked += (_, _) => {
 			if (!workspace.HasOpenDocuments) return;
