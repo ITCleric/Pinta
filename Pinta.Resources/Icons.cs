@@ -207,6 +207,7 @@ public static class Icons
 	public const string LayerProperties = "document-properties-symbolic";
 	public const string LayerRotateZoom = "layers-rotate-zoom-symbolic";
 
+	public const string TransformRotate = "pinta-transform-rotate";
 	public const string TabTools = "pinta-tab-tools";
 	public const string TabColors = "pinta-tab-colors";
 	public const string TabHistory = "pinta-tab-history";

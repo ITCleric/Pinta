@@ -46,10 +46,10 @@ public sealed class MoveSelectedTool : BaseTransformTool
 	public override string Icon => Pinta.Resources.Icons.ToolMove;
 	// Translators: {0} is 'Ctrl', or a platform-specific key such as 'Command' on macOS.
 	public override string StatusBarText => Translations.GetString (
-		"Left click and drag the selection to move selected content." +
+		"Drag inside to move; drag corner nubs to resize. Drag outside a corner or the center ring to rotate." +
 		"\nHold {0} to scale instead of move." +
 		"\nRight click and drag the selection to rotate selected content." +
-		"\nHold Shift to rotate in steps." +
+		"\nDrag the central cross to move the pivot. Hold Shift for 15° rotation steps." +
 		"\nUse arrow keys to move selected content by a single pixel.",
 		system_manager.CtrlLabel ());
 
@@ -58,18 +58,17 @@ public sealed class MoveSelectedTool : BaseTransformTool
 	public override int Priority => 5;
 
 	protected override RectangleD GetSourceRectangle (Document document)
-		=> document.Selection.GetBounds ();
+		=> document.Selection.SelectionPolygons.Count == 0 ? new (0, 0, document.ImageSize.Width, document.ImageSize.Height) : document.Selection.GetBounds ();
 
 	protected override void OnStartTransform (Document document)
 	{
-		base.OnStartTransform (document);
-
 		// If there is no selection, select the whole image.
 		if (document.Selection.SelectionPolygons.Count == 0) {
 			RectangleD imageBounds = new (0, 0, document.ImageSize.Width, document.ImageSize.Height);
 			document.Selection.CreateRectangleSelection (imageBounds);
 		}
 
+		base.OnStartTransform (document);
 		original_selection = document.Selection.Clone ();
 		original_transform.InitMatrix (document.Layers.SelectionLayer.Transform);
 
@@ -135,6 +134,7 @@ public sealed class MoveSelectedTool : BaseTransformTool
 
 	protected override void OnCommit (Document? document)
 	{
+		base.OnCommit (document);
 		document?.FinishSelection ();
 	}
 

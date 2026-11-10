@@ -28,3 +28,6 @@ public interface IToolHandle
 	public void Draw (Gtk.Snapshot snapshot);
 }
 
+
+/// <summary>A handle drawn over the viewport, including the gray workspace outside the image.</summary>
+public interface IOverlayToolHandle : IToolHandle { }

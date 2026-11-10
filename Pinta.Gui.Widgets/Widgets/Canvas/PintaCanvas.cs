@@ -280,7 +280,7 @@ internal sealed partial class PintaCanvas
 
 		snapshot.PushClip (canvasViewBounds);
 
-		foreach (IToolHandle control in tool.Handles.Where (c => c.Active)) {
+		foreach (IToolHandle control in tool.Handles.Where (c => c.Active && c is not IOverlayToolHandle)) {
 			control.Draw (snapshot);
 		}
 

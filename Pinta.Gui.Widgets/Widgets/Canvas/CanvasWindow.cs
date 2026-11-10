@@ -40,6 +40,7 @@ public sealed partial class CanvasWindow
 	private ToolManager tools = null!;
 
 	private PintaCanvas canvas;
+	private Gtk.DrawingArea transform_overlay = null!;
 	private Ruler horizontal_ruler;
 	private Ruler vertical_ruler;
 	private Gtk.ScrolledWindow scrolled_window;
@@ -126,7 +127,19 @@ public sealed partial class CanvasWindow
 
 		Attach (horizontalRuler, 1, 0, 1, 1);
 		Attach (verticalRuler, 0, 1, 1, 1);
-		Attach (scrolledWindow, 1, 1, 1, 1);
+		var viewportOverlay = Gtk.Overlay.New ();
+		viewportOverlay.Child = scrolledWindow;
+		transform_overlay = Gtk.DrawingArea.New ();
+		transform_overlay.SetDrawFunc ((_, cr, width, height) => DrawTransformOverlay (cr));
+		transform_overlay.CanTarget = false;
+		transform_overlay.Hexpand = transform_overlay.Vexpand = true;
+		transform_overlay.Halign = transform_overlay.Valign = Gtk.Align.Fill;
+		viewportOverlay.AddOverlay (transform_overlay);
+		Attach (viewportOverlay, 1, 1, 1, 1);
+		scrolledWindow.Hadjustment!.OnChanged += (_, _) => QueueTransformOverlay ();
+		scrolledWindow.Vadjustment!.OnChanged += (_, _) => QueueTransformOverlay ();
+		scrolledWindow.Hadjustment!.OnValueChanged += (_, _) => QueueTransformOverlay ();
+		scrolledWindow.Vadjustment!.OnValueChanged += (_, _) => QueueTransformOverlay ();
 
 		// --- References to keep
 
@@ -167,6 +180,9 @@ public sealed partial class CanvasWindow
 		// the canvas widget (e.g. when zoomed out and no scrollbars are required)
 		document.Workspace.ViewSizeChanged += UpdateRulerRange;
 		document.SelectionChanged += UpdateRulerSelection;
+		document.SelectionChanged += (_, _) => QueueTransformOverlay ();
+		document.Workspace.CanvasInvalidated += (_, _) => QueueTransformOverlay ();
+		document.Workspace.ViewSizeChanged += (_, _) => QueueTransformOverlay ();
 
 		this.chrome = chrome;
 		this.tools = tools;
@@ -183,6 +199,24 @@ public sealed partial class CanvasWindow
 		CanvasWindow window = NewWithProperties ([]);
 		window.Configure (chrome, tools, document, canvasGrid, settings);
 		return window;
+	}
+
+
+	// Draw in viewport space so the dial and corner corridor remain visible outside the image.
+	private void QueueTransformOverlay () => transform_overlay.QueueDraw ();
+
+	private void DrawTransformOverlay (Cairo.Context context)
+	{
+		if (document is null || !ReferenceEquals (PintaCore.Workspace.ActiveDocumentOrDefault, document)) return;
+		var handles = tools.CurrentTool?.Handles.OfType<IOverlayToolHandle> ().Where (h => h.Active).ToArray ();
+		if (handles is null || handles.Length == 0) { scrolled_window.Cursor = null; return; }
+		var snapshot = Gtk.Snapshot.New ();
+		canvas.TranslateCoordinates (transform_overlay, PointD.Zero, out PointD origin);
+		snapshot.Translate (origin.ToGraphenePoint ());
+		foreach (var handle in handles) handle.Draw (snapshot);
+		// The draw callback's Cairo context already carries GTK's HiDPI transform and viewport clip.
+		var node = snapshot.ToNode ();
+		node?.Draw (context);
 	}
 
 	private void UpdateRulerSelection (object? sender, EventArgs e)
@@ -231,6 +265,7 @@ public sealed partial class CanvasWindow
 		};
 
 		tools.DoMouseMove (document, tool_args);
+		if (tools.CurrentTool?.Handles.Any (h => h is IOverlayToolHandle && h.Active) == true) scrolled_window.Cursor = tools.CurrentTool.CurrentCursor;
 	}
 
 	private void HandleGestureZoomScaleChanged (object? sender, EventArgs e)
@@ -415,6 +450,7 @@ public sealed partial class CanvasWindow
 		};
 
 		tools.DoMouseMove (document, tool_args);
+		if (tools.CurrentTool?.Handles.Any (h => h is IOverlayToolHandle && h.Active) == true) scrolled_window.Cursor = tools.CurrentTool.CurrentCursor;
 	}
 
 	private void OnDragEnd (Gtk.GestureDrag gesture, Gtk.GestureDrag.DragEndSignalArgs args)

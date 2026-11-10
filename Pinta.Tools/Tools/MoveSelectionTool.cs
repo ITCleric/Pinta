@@ -47,10 +47,10 @@ public sealed class MoveSelectionTool : BaseTransformTool
 	public override string Icon => Pinta.Resources.Icons.ToolMoveSelection;
 	// Translators: {0} is 'Ctrl', or a platform-specific key such as 'Command' on macOS.
 	public override string StatusBarText => Translations.GetString (
-		"Left click and drag the selection to move selection outline." +
+		"Drag inside to move the outline; drag corner nubs to resize. Drag outside a corner or the center ring to rotate." +
 		"\nHold {0} to scale instead of move." +
 		"\nRight click and drag the selection to rotate selection outline." +
-		"\nHold Shift to rotate in steps." +
+		"\nDrag the central cross to move the pivot. Hold Shift for 15° rotation steps." +
 		"\nUse arrow keys to move selection outline by a single pixel.",
 		system_manager.CtrlLabel ());
 

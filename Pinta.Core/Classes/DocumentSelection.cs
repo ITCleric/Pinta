@@ -52,6 +52,10 @@ public sealed class DocumentSelection
 	/// </summary>
 	public RectangleD HandleBounds { get; set; }
 
+	/// <summary>Oriented transform box and user-positioned pivot, preserved by undo snapshots.</summary>
+	public TransformFrame? TransformBounds { get; set; }
+	public PointD? RotationPivot { get; set; }
+
 	private bool visible = true;
 	public bool Visible {
 		get => visible;
@@ -82,6 +86,7 @@ public sealed class DocumentSelection
 	public void MarkDirty ()
 	{
 		selection_path = null;
+		TransformBounds = null; RotationPivot = null;
 
 		// Notify any listeners.
 		SelectionModified?.Invoke (this, EventArgs.Empty);
@@ -102,6 +107,7 @@ public sealed class DocumentSelection
 		return new () {
 			SelectionPolygons = [.. SelectionPolygons],
 			HandleBounds = HandleBounds,
+			TransformBounds = TransformBounds, RotationPivot = RotationPivot,
 			visible = visible,
 		};
 	}
@@ -172,15 +178,14 @@ public sealed class DocumentSelection
 			newPolygons.Add (newPolygon);
 		}
 
-		// Note this currently doesn't behave well with rotations, since we only
-		// store an axis-aligned bounding rectangle.
-		RectangleD transformedBounds = RectangleD.FromPoints (
-			transform.TransformPoint (HandleBounds.Location ()),
-			transform.TransformPoint (HandleBounds.EndLocation ()));
+		var frame = (TransformBounds ?? TransformFrame.FromRectangle (GetBounds ())).Transform (transform);
+		RectangleD transformedBounds = TransformFrame.FromRectangle (HandleBounds).Transform (transform).Bounds;
 
 		return new () {
 			SelectionPolygons = newPolygons,
 			HandleBounds = transformedBounds,
+			TransformBounds = frame,
+			RotationPivot = transform.TransformPoint (RotationPivot ?? (TransformBounds ?? TransformFrame.FromRectangle (GetBounds ())).Center),
 			visible = visible,
 		};
 	}

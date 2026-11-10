@@ -52,6 +52,10 @@ Toolbar commands, palette tools and workspace toggles have visible square tile b
 
 ![Original tool icon and tile samples on light and dark backgrounds](assets/tool-icons.svg)
 
+## Interactive transform controls
+
+Both move tools now have an oriented box with corner/edge resize nubs, an outside rotation corridor and a central rotation dial. Drag its outer ring to rotate, or its cross to reposition the pivot, including off-canvas. Shift snaps to 15°; corner resize supports Shift proportions and Alt/Option about the center. Reset Pivot restores the center. The existing right-drag rotation, primary-key scaling, arrow nudges and pixel/selection undo workflows remain. See [the controls and verification guide](TRANSFORM-CONTROLS.md).
+
 ## Themes
 
 Preferences → Themes now includes a responsive gallery of [12 built-in presets](THEMES.md), with Windows 95, three XP variants, Office 2003/2007, Vista/Windows 7 Aero, Frutiger Aero/Eco, Midnight and Graphite. Each preset includes both its palette and a desktop skin; selecting one applies it immediately. Custom color editing and JSON import/export preserve that skin.
@@ -123,7 +127,7 @@ These checks parse the generated light/dark/custom CSS and cover external thumbn
 
 The non-C locale matters: GNU gettext deliberately does not translate in the C locale, so the upstream French-translation test fails with `LC_ALL=C.UTF-8` even when the `.mo` catalogs have been built.
 
-Verified on the development Mac: solution build succeeds with zero warnings; 813 core tests pass after the preset additions; the unchanged effects suite previously passed 422 tests. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 95 checks, including Windows chrome/title updates and valid compact zoom-slider measurements. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
+Verified on the development Mac: solution build succeeds with zero warnings; 830 core tests pass after transform coverage; the effects suite passes 422 tests. The dedicated transform integration runner adds 30 native checks against real tools, pixel buffers and history. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 95 checks, including Windows chrome/title updates and valid compact zoom-slider measurements. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
 
 New tests exercise every added effect on partial-alpha inputs, 1×1 images, nonzero regions, split renders, immutable source buffers and premultiplied output. Further tests cover neutral adjustments, chroma key, alpha masks, cloned settings, theme validation/round trips and macOS shortcut alternatives.
 

@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using Cairo;
 using Pinta.Core;
 
@@ -32,187 +33,200 @@ namespace Pinta.Tools;
 
 public abstract class BaseTransformTool : BaseTool
 {
-	private readonly int rotate_steps = 32;
+	private readonly IWorkspaceService workspace;
+	private readonly ChromeManager? chrome;
+	private readonly TransformGizmoHandle gizmo;
+	private readonly Gdk.Cursor rotate_cursor;
 	private readonly Matrix transform = CairoExtensions.CreateIdentityMatrix ();
-	private RectangleD source_rect;
-	private PointD original_point;
-	private bool is_dragging = false;
-	private bool is_rotating = false;
-	private bool is_scaling = false;
-	private bool using_mouse = false;
+	private TransformFrame start_frame;
+	private PointD start_pivot, original_point;
+	private TransformPart drag_part;
+	private bool is_dragging, is_rotating, is_scaling, using_mouse, moving_pivot, started;
+	private string? last_hint;
+	private readonly Dictionary<string, Gdk.Cursor> cursors = [];
+	private bool IsActive => is_dragging || is_rotating || is_scaling || moving_pivot;
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="BaseTransformTool"/> class.
-	/// </summary>
 	public BaseTransformTool (IServiceProvider services) : base (services)
 	{
+		workspace = services.GetService<IWorkspaceService> ();
+		chrome = services.GetOptionalService<IChromeService> () as ChromeManager;
+		gizmo = new (workspace);
+		rotate_cursor = Gdk.Cursor.NewFromTexture (Resources.GetIcon (Pinta.Resources.Icons.TransformRotate, 32), 16, 16, null);
+	}
+	public override IEnumerable<IToolHandle> Handles {
+		get {
+			gizmo.Active = IsActiveTool () && workspace.HasOpenDocuments;
+			if (gizmo.Active) SynchronizeGizmo (workspace.ActiveDocument);
+			return [gizmo];
+		}
+	}
+	private void SynchronizeGizmo (Document document)
+	{
+		gizmo.Frame = document.Selection.TransformBounds ?? TransformFrame.FromRectangle (GetSourceRectangle (document));
+		gizmo.Pivot = document.Selection.RotationPivot ?? gizmo.Frame.Center;
+		gizmo.Active = gizmo.Frame.IsValid && (!IsSelectionTool || document.Selection.Visible);
+	}
+	protected override void OnBuildToolBar (Gtk.Box toolbar)
+	{
+		base.OnBuildToolBar (toolbar);
+		var reset = Gtk.Button.NewWithLabel (Translations.GetString ("Reset Pivot"));
+		reset.AddCssClass ("editor-tile");
+		reset.TooltipText = Translations.GetString ("Return the rotation point to the center of the selection.");
+		reset.OnClicked += (_, _) => {
+			if (!workspace.HasOpenDocuments) return;
+			if (IsActive) FinishGesture (workspace.ActiveDocument);
+			workspace.ActiveDocument.Selection.RotationPivot = null;
+			workspace.Invalidate ();
+		};
+		toolbar.Append (reset);
 	}
 
-	protected override void OnMouseDown (
-		Document document,
-		ToolMouseEventArgs e)
+	protected override void OnActivated (Document? document)
 	{
-		if (IsActive)
-			return;
-
+		base.OnActivated (document);
+		if (document is not null) { SynchronizeGizmo (document); document.Workspace.Invalidate (); }
+	}
+	protected override void OnMouseDown (Document document, ToolMouseEventArgs e)
+	{
+		if (IsActive || (e.MouseButton != MouseButton.Left && e.MouseButton != MouseButton.Right)) return;
+		SynchronizeGizmo (document);
+		if (!gizmo.Active) return;
+		drag_part = gizmo.HitTest (e.WindowPoint);
+		if (!document.Workspace.PointInCanvas (e.PointDouble) && drag_part == TransformPart.None && e.MouseButton != MouseButton.Right) return;
 		original_point = e.PointDouble;
-
-		if (!document.Workspace.PointInCanvas (e.PointDouble))
-			return;
-
-		if (e.MouseButton == MouseButton.Right)
-			is_rotating = true;
-		else if (e.IsControlPressed)
-			is_scaling = true;
-		else
-			is_dragging = true;
-
-		using_mouse = true;
-
-		OnStartTransform (document);
+		start_frame = gizmo.Frame; start_pivot = gizmo.Pivot;
+		is_rotating = e.MouseButton == MouseButton.Right || drag_part == TransformPart.Rotate;
+		moving_pivot = !is_rotating && drag_part == TransformPart.Pivot;
+		is_scaling = !is_rotating && !moving_pivot && (TransformFrame.IsResize (drag_part) || e.IsControlPressed);
+		is_dragging = !is_rotating && !moving_pivot && !is_scaling;
+		using_mouse = true; started = false; transform.InitIdentity ();
+		gizmo.Highlight = is_rotating ? TransformPart.Rotate : drag_part;
+		SetCursor (is_rotating ? rotate_cursor : moving_pivot ? NamedCursor (Pinta.Resources.StandardCursors.Move) : TransformFrame.IsResize (drag_part) ? ResizeCursor (drag_part) : DefaultCursor);
+		document.Workspace.Invalidate ();
 	}
-
-	protected override void OnMouseMove (
-		Document document,
-		ToolMouseEventArgs e)
+	protected override void OnMouseMove (Document document, ToolMouseEventArgs e)
 	{
-		if (!IsActive || !using_mouse)
+		if (!IsActive || !using_mouse) {
+			SynchronizeGizmo (document);
+			var hit = gizmo.HitTest (e.WindowPoint);
+			if (gizmo.Highlight != hit) { gizmo.Highlight = hit; document.Workspace.Invalidate (); }
+			SetCursor (hit == TransformPart.Rotate ? rotate_cursor : hit == TransformPart.Pivot ? NamedCursor (Pinta.Resources.StandardCursors.Move) : TransformFrame.IsResize (hit) ? ResizeCursor (hit) : DefaultCursor);
+			SetHint (hit == TransformPart.Rotate ? Translations.GetString ("Drag to rotate. Hold Shift for 15° steps.") : hit == TransformPart.Pivot ? Translations.GetString ("Drag the cross to move the pivot; drag its outer ring to rotate.") : StatusBarText);
 			return;
-
-		bool constrain = e.IsShiftPressed;
-
-		PointD center = source_rect.GetCenter ();
-
-		// The cursor position can be a subpixel value. Round to an integer
-		// so that we only translate by entire pixels.
-		// (Otherwise, blurring / anti-aliasing may be introduced)
-
-		double dx = Math.Floor (e.PointDouble.X - original_point.X);
-		double dy = Math.Floor (e.PointDouble.Y - original_point.Y);
-
-		PointD c1 = original_point - center;
-		PointD c2 = e.PointDouble - center;
-
-		RadiansAngle angle = new (Math.Atan2 (c1.Y, c1.X) - Math.Atan2 (c2.Y, c2.X));
-
-		transform.InitIdentity ();
-
+		}
+		if (moving_pivot) {
+			document.Selection.RotationPivot = start_pivot + (e.PointDouble - original_point);
+			document.Workspace.Invalidate ();
+			return;
+		}
+		if (!started) {
+			if (workspace.CanvasPointToView (original_point).DistanceSquared (e.WindowPoint) < .25) return;
+			OnStartTransform (document); started = true;
+		}
 		if (is_scaling) {
-
-			double sx = (c1.X + dx) / c1.X;
-			double sy = (c1.Y + dy) / c1.Y;
-
-			if (constrain) {
-
-				double max_scale = Math.Max (Math.Abs (sx), Math.Abs (sy));
-
-				sx = max_scale * Math.Sign (sx);
-				sy = max_scale * Math.Sign (sy);
-			}
-
-			transform.Translate (center.X, center.Y);
-			transform.Scale (sx, sy);
-			transform.Translate (-center.X, -center.Y);
+			var scale = TransformFrame.IsResize (drag_part)
+				? start_frame.Resize (drag_part, original_point, e.PointDouble, e.IsShiftPressed, e.IsAltPressed)
+				: start_frame.ScaleFromPointer (original_point, e.PointDouble, new (.5, .5), true, true, e.IsShiftPressed);
+			transform.InitMatrix (scale);
 		} else if (is_rotating) {
-
-			if (constrain)
-				angle = Utility.GetNearestStepAngle (angle, rotate_steps);
-
-			transform.Translate (center.X, center.Y);
-			transform.Rotate (-angle.Radians);
-			transform.Translate (-center.X, -center.Y);
-
+			double delta = start_frame.RotationDelta (original_point, e.PointDouble, start_pivot, e.IsShiftPressed);
+			transform.InitIdentity (); transform.Translate (start_pivot.X, start_pivot.Y); transform.Rotate (delta); transform.Translate (-start_pivot.X, -start_pivot.Y);
+			gizmo.GuidePoint = e.PointDouble;
+			SetCursor (rotate_cursor);
+			double degrees = (Math.Atan2 (start_frame.XAxis.Y, start_frame.XAxis.X) + delta) * 180 / Math.PI;
+			SetHint ($"{Translations.GetString ("Rotation")}: {degrees:0.0}° — {Translations.GetString ("Shift: 15° steps")}");
 		} else {
-			transform.Translate (dx, dy);
+			transform.InitIdentity ();
+			transform.Translate (Math.Floor (e.PointDouble.X - original_point.X), Math.Floor (e.PointDouble.Y - original_point.Y));
 		}
-
 		OnUpdateTransform (document, transform);
 	}
-
-	protected override void OnMouseUp (
-		Document document,
-		ToolMouseEventArgs e)
+	protected override void OnMouseUp (Document document, ToolMouseEventArgs e)
 	{
-		if (!IsActive || !using_mouse)
-			return;
-
-		OnFinishTransform (document, transform);
+		if (!IsActive || !using_mouse) return;
+		OnMouseMove (document, e);
+		FinishGesture (document);
 	}
-
-	protected override bool OnKeyDown (
-		Document document,
-		ToolKeyEventArgs e)
+	private void FinishGesture (Document document)
 	{
-		if (using_mouse) // Don't handle the arrow keys while already interacting via the mouse.
-			return base.OnKeyDown (document, e);
-
-		double dx = 0.0;
-		double dy = 0.0;
-		double coeff = e.IsControlPressed ? 10.0 : 1.0;
-
+		if (started) OnFinishTransform (document, transform);
+		ResetGesture ();
+		SetHint (StatusBarText); document.Workspace.Invalidate ();
+	}
+	private void ResetGesture ()
+	{
+		is_dragging = is_rotating = is_scaling = using_mouse = moving_pivot = started = false;
+		gizmo.GuidePoint = null; gizmo.Highlight = TransformPart.None;
+	}
+	private void SetHint (string text)
+	{
+		if (last_hint == text) return;
+		last_hint = text; chrome?.SetStatusBarText ($"{Name}: {text}");
+	}
+	private Gdk.Cursor NamedCursor (string name)
+	{
+		if (!cursors.TryGetValue (name, out var cursor)) cursors[name] = cursor = GdkExtensions.CursorFromName (name);
+		return cursor;
+	}
+	private Gdk.Cursor ResizeCursor (TransformPart part)
+	{
+		var uv = TransformFrame.HandleCoordinate (part); var d = gizmo.Frame.At (uv.X, uv.Y) - gizmo.Frame.Center;
+		string[] names = ["e-resize", "se-resize", "s-resize", "sw-resize", "w-resize", "nw-resize", "n-resize", "ne-resize"];
+		int index = ((int) Math.Round (Math.Atan2 (d.Y, d.X) / (Math.PI / 4)) + 8) % 8;
+		return NamedCursor (names[index]);
+	}
+	protected override bool OnKeyDown (Document document, ToolKeyEventArgs e)
+	{
+		if (using_mouse) return base.OnKeyDown (document, e);
+		double dx = 0, dy = 0, amount = e.IsControlPressed ? 10 : 1;
 		switch (e.Key.Value) {
-			case Gdk.Constants.KEY_Left:
-				dx = -coeff;
-				break;
-			case Gdk.Constants.KEY_Right:
-				dx = coeff;
-				break;
-			case Gdk.Constants.KEY_Up:
-				dy = -coeff;
-				break;
-			case Gdk.Constants.KEY_Down:
-				dy = coeff;
-				break;
-			default:
-				// Otherwise, let the key be handled elsewhere.
-				return base.OnKeyDown (document, e);
+			case Gdk.Constants.KEY_Left: dx = -amount; break;
+			case Gdk.Constants.KEY_Right: dx = amount; break;
+			case Gdk.Constants.KEY_Up: dy = -amount; break;
+			case Gdk.Constants.KEY_Down: dy = amount; break;
+			default: return base.OnKeyDown (document, e);
 		}
-
 		if (!IsActive) {
-			is_dragging = true;
-			OnStartTransform (document);
+			SynchronizeGizmo (document); if (!gizmo.Active) return false;
+			start_frame = gizmo.Frame; start_pivot = gizmo.Pivot;
+			is_dragging = true; OnStartTransform (document); started = true;
 		}
-
-		transform.Translate (dx, dy);
-		OnUpdateTransform (document, transform);
-
+		transform.Translate (dx, dy); OnUpdateTransform (document, transform);
 		return true;
 	}
-
-	protected override bool OnKeyUp (
-		Document document,
-		ToolKeyEventArgs e)
+	protected override bool OnKeyUp (Document document, ToolKeyEventArgs e)
 	{
-		if (IsActive && !using_mouse)
-			OnFinishTransform (document, transform);
-
+		if (IsActive && !using_mouse) FinishGesture (document);
 		return base.OnKeyUp (document, e);
 	}
-
 	protected abstract RectangleD GetSourceRectangle (Document document);
-
 	protected virtual void OnStartTransform (Document document)
 	{
-		source_rect = GetSourceRectangle (document);
+		document.Selection.TransformBounds = start_frame;
+		document.Selection.RotationPivot = start_pivot;
 		transform.InitIdentity ();
 	}
-
-	protected virtual void OnUpdateTransform (
-		Document document,
-		Matrix transform)
-	{ }
-
-	protected virtual void OnFinishTransform (
-		Document document,
-		Matrix transform)
+	protected virtual void OnUpdateTransform (Document document, Matrix transform) { }
+	protected virtual void OnFinishTransform (Document document, Matrix transform) { }
+	protected override bool OnHandleUndo (Document document)
 	{
-		is_dragging = false;
-		is_rotating = false;
-		is_scaling = false;
-		using_mouse = false;
+		if (IsActive) FinishGesture (document);
+		return base.OnHandleUndo (document);
 	}
-
-	private bool IsActive
-		=> is_dragging || is_rotating || is_scaling;
+	protected override bool OnHandleRedo (Document document)
+	{
+		if (IsActive) FinishGesture (document);
+		return base.OnHandleRedo (document);
+	}
+	protected override void OnCommit (Document? document)
+	{
+		if (document is not null && IsActive) FinishGesture (document);
+		base.OnCommit (document);
+	}
+	protected override void OnDeactivated (Document? document, BaseTool? newTool)
+	{
+		if (document is not null && IsActive) FinishGesture (document);
+		ResetGesture (); gizmo.Active = false;
+		base.OnDeactivated (document, newTool);
+	}
 }
-
