@@ -54,6 +54,8 @@ Toolbar commands, palette tools and workspace toggles have visible square tile b
 
 ## Themes
 
+Preferences → Themes now includes a responsive gallery of [12 built-in presets](THEMES.md), with Windows 95, three XP variants, Office 2003/2007, Vista/Windows 7 Aero, Frutiger Aero/Eco, Midnight and Graphite. Each preset includes both its palette and a desktop skin; selecting one applies it immediately. Custom color editing and JSON import/export preserve that skin.
+
 Preferences → Custom Theme edits Background, Surface, Foreground, Accent, Border, Canvas and Selection. Values use `#RRGGBB`. Valid edits apply immediately; invalid values are marked and never injected into CSS. Import and export use JSON through native file dialogs. Light and dark presets are available; examples are in `themes/`.
 
 The fork stores preferences separately in the `Pinta Modern` application-data directory. `PINTA_SETTINGS_DIRECTORY` can select an isolated profile for testing. Original Pinta preferences are not migrated or overwritten.
@@ -121,7 +123,7 @@ These checks parse the generated light/dark/custom CSS and cover external thumbn
 
 The non-C locale matters: GNU gettext deliberately does not translate in the C locale, so the upstream French-translation test fails with `LC_ALL=C.UTF-8` even when the `.mo` catalogs have been built.
 
-Verified on the development Mac: solution build succeeds with zero warnings; 799 core tests and 422 effects tests pass. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 80 checks, including Windows chrome/title updates and valid compact zoom-slider measurements. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
+Verified on the development Mac: solution build succeeds with zero warnings; 813 core tests pass after the preset additions; the unchanged effects suite previously passed 422 tests. All 60 new configuration dialogs construct successfully, all 60 new icons resolve in the packaged GTK theme, and the widget suite passes 95 checks, including Windows chrome/title updates and valid compact zoom-slider measurements. One pre-existing Voronoi test is skipped. The Studio pack adds 248 effect checks to the previous suite, including exact zero-strength identity, in-place rendering at parameter extremes, morphology against an independent reference, flat normals, matching texture edges, alpha extension and pixel sorting.
 
 New tests exercise every added effect on partial-alpha inputs, 1×1 images, nonzero regions, split renders, immutable source buffers and premultiplied output. Further tests cover neutral adjustments, chroma key, alpha masks, cloned settings, theme validation/round trips and macOS shortcut alternatives.
 

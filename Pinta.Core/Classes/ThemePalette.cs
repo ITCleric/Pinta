@@ -12,13 +12,15 @@ public sealed record ThemePalette (
 	string Accent = "#0067c0",
 	string Border = "#92979d",
 	string Canvas = "#bfc1c4",
-	string Selection = "#b8d9f4")
+	string Selection = "#b8d9f4",
+	ThemeStyle Style = ThemeStyle.Windows10)
 {
 	public static ThemePalette Light { get; } = new ();
 	public static ThemePalette Dark { get; } = new (
 		"#252525", "#303030", "#ededed", "#419bd0", "#555e64", "#202020", "#245675");
 
-	public bool IsValid => new[] { Background, Surface, Foreground, Accent, Border, Canvas, Selection }.All (IsColor);
+	[System.Text.Json.Serialization.JsonIgnore]
+	public bool IsValid => new[] { Background, Surface, Foreground, Accent, Border, Canvas, Selection }.All (IsColor) && Enum.IsDefined (Style);
 
 	public static bool IsColor (string? value) => value is { Length: 7 } && value[0] == '#' && value.Skip (1).All (Uri.IsHexDigit);
 
@@ -27,12 +29,12 @@ public sealed record ThemePalette (
 	public static ThemePalette FromJson (string json)
 	{
 		var result = JsonSerializer.Deserialize<ThemePalette> (json) ?? throw new FormatException ("Empty theme.");
-		return result.IsValid ? result : throw new FormatException ("Theme colors must use #RRGGBB.");
+		return result.IsValid ? result : throw new FormatException ("Theme colors must use #RRGGBB and the style must be supported.");
 	}
 
 	public string ToCss ()
 	{
-		if (!IsValid) throw new FormatException ("Theme colors must use #RRGGBB.");
+		if (!IsValid) throw new FormatException ("Theme colors must use #RRGGBB and the style must be supported.");
 		bool dark = Brightness (Background) < 128;
 		string paletteHeader = dark ? $"mix({Background}, {Accent}, 0.18)" : Accent;
 		string headerText = dark ? Foreground : Brightness (Accent) > 165 ? "#17212a" : "#ffffff";
@@ -101,6 +103,9 @@ public sealed record ThemePalette (
 		.pinta-modern .status-zoom-slider slider { min-width: 9px; min-height: 16px; margin: -6px 0; padding: 0; border: 1px solid {{Accent}}; background-color: mix({{Selection}}, {{Accent}}, .35); border-radius: 0; }
 		.pinta-modern separator { background-color: {{Border}}; }
 		.pinta-modern .effect-content { padding: 6px; }
+		.pinta-modern .theme-preset-gallery { padding: 4px 0 10px; }
+		.pinta-modern .theme-preset-tile { padding: 6px; border: 1px solid {{Border}}; }
+		.pinta-modern .theme-preset-tile:checked { border-color: {{Accent}}; background-color: {{Selection}}; }
 		.pinta-modern .effect-identity { padding: 0 0 6px; margin-bottom: 3px; border-bottom: 1px solid {{Border}}; }
 		/* Desktop controls: explicit square frames override libadwaita's rounded defaults. */
 		.pinta-modern button, .pinta-modern entry, .pinta-modern spinbutton,
@@ -241,8 +246,61 @@ public sealed record ThemePalette (
 		.pinta-modern .windows-titlebar .windows-close:hover { background-color: #e81123; }
 
 
-		""";
+		""" + DesktopSkinCss ();
 	}
+	private string DesktopSkinCss ()
+	{
+		// All selectors and style fragments are fixed code; user-supplied values remain validated hex colors.
+		string title = $".pinta-modern .windows-titlebar, .pinta-modern .palette-titlebar";
+		string commands = ".pinta-modern .command-deck, .pinta-modern #tool_toolbar, .pinta-modern .palette-toolbar";
+		return Style switch {
+			ThemeStyle.Classic95 => $$"""
+			window.pinta-modern { font-family: "Tahoma", "Arial", sans-serif; }
+			{{title}} { background-image: none; background-color: {{Accent}}; border-bottom: 0; }
+			.pinta-modern .palette-titlebar label, .pinta-modern .windows-window-title { font-weight: bold; }
+			{{commands}}, .pinta-modern #statusbar, .pinta-modern .floating-palette { background-image: none; background-color: {{Background}}; }
+			.pinta-modern .floating-palette { border: 2px solid {{Background}}; box-shadow: inset 1px 1px white, inset -1px -1px {{Border}}, 1px 2px 2px alpha(black,.3); }
+			.pinta-modern button, .pinta-modern .editor-toolbar .editor-tile, .pinta-modern .tool-box-button.editor-tile { background-image: none; background-color: {{Background}}; border: 1px solid {{Border}}; box-shadow: inset 1px 1px white, inset -1px -1px #555555; }
+			.pinta-modern button:checked, .pinta-modern button:active, .pinta-modern .editor-toolbar .editor-tile:checked, .pinta-modern .editor-toolbar .editor-tile:active, .pinta-modern .tool-box-button.editor-tile:checked { background-image: none; background-color: {{Selection}}; box-shadow: inset 1px 1px #555555, inset -1px -1px white; }
+			.pinta-modern .editor-toolbar .editor-tile:hover, .pinta-modern .tool-box-button.editor-tile:hover { background-image: none; background-color: {{Background}}; }
+			.pinta-modern .windows-titlebar .windows-caption-button { min-width: 24px; min-height: 22px; margin: 3px 2px; background-color: {{Background}}; color: {{Foreground}}; border: 1px solid {{Border}}; box-shadow: inset 1px 1px white, inset -1px -1px #555555; }
+			.pinta-modern .palette-titlebar button { background-color: {{Background}}; color: {{Foreground}}; border: 1px solid {{Border}}; box-shadow: inset 1px 1px white; }
+			""",
+			ThemeStyle.Luna => $$"""
+			{{title}} { background-image: linear-gradient(to bottom, mix({{Accent}},white,.3), {{Accent}} 22%, shade({{Accent}},.8) 85%, {{Accent}}); border-radius: 3px 3px 0 0; }
+			.pinta-modern .palette-titlebar label, .pinta-modern .windows-window-title { font-weight: bold; text-shadow: 1px 1px alpha(black,.45); }
+			{{commands}}, .pinta-modern #statusbar { background-image: linear-gradient(to bottom, mix({{Background}},white,.3), {{Background}}); }
+			.pinta-modern .floating-palette { border-color: {{Accent}}; box-shadow: 1px 2px 4px alpha(black,.3); }
+			.pinta-modern button:hover { box-shadow: inset 0 0 0 1px #f5ba52; }
+			.pinta-modern .windows-titlebar .windows-close { background-image: linear-gradient(to bottom, #efb09a, #c64c2c); border: 1px solid #fff4e9; margin: 3px; min-width: 25px; min-height: 22px; }
+			""",
+			ThemeStyle.Office2003 => $$"""
+			{{title}} { background-image: linear-gradient(to right, {{Accent}}, mix({{Accent}},white,.45)); }
+			{{commands}} { background-image: linear-gradient(to bottom, {{Surface}}, {{Background}} 45%, mix({{Background}},{{Accent}},.18)); }
+			.pinta-modern .editor-toolbar .editor-tile:hover, .pinta-modern .tool-box-button.editor-tile:hover { background-image: linear-gradient(to bottom, #fff5cf, {{Selection}}); border-color: #b77d37; }
+			.pinta-modern .editor-toolbar .editor-tile:checked, .pinta-modern .tool-box-button.editor-tile:checked { background-image: linear-gradient(to bottom, #ffe6b0, #f3ba68); border-color: #a86c2e; }
+			""",
+			ThemeStyle.Office2007 => $$"""
+			{{title}} { background-image: linear-gradient(to bottom, mix({{Accent}},white,.5), {{Accent}} 48%, shade({{Accent}},.85) 50%, {{Accent}}); }
+			{{commands}} { background-image: linear-gradient(to bottom, {{Surface}}, {{Background}} 48%, mix({{Background}},{{Accent}},.12) 50%, {{Background}}); }
+			.pinta-modern .editor-toolbar .editor-tile:hover, .pinta-modern .tool-box-button.editor-tile:checked { border-color: #bd9654; background-image: linear-gradient(to bottom, #fff9df, {{Selection}} 48%, #f8ca79 50%, #ffe9b4); }
+			""",
+			ThemeStyle.Aero => $$"""
+			{{title}} { background-image: linear-gradient(to bottom, mix({{Accent}},white,.48), mix({{Accent}},white,.2) 45%, {{Accent}} 49%, mix({{Accent}},white,.12)); box-shadow: inset 0 1px alpha(white,.8); }
+			.pinta-modern .floating-palette { border-color: mix({{Accent}},{{Border}},.5); box-shadow: inset 0 0 0 1px alpha(white,.7), 1px 3px 8px alpha(black,.25); }
+			{{commands}} { background-image: linear-gradient(to bottom, {{Surface}}, {{Background}}); }
+			.pinta-modern .windows-titlebar .windows-close { background-image: linear-gradient(to bottom, #e8ada8, #b83b31 48%, #92271f 50%, #b84e3d); }
+			""",
+			ThemeStyle.Frutiger => $$"""
+			{{title}} { background-image: linear-gradient(to bottom, mix({{Accent}},white,.55), mix({{Accent}},white,.25) 44%, {{Accent}} 48%, shade({{Accent}},.86)); box-shadow: inset 0 1px alpha(white,.9); }
+			{{commands}} { background-image: linear-gradient(to bottom, {{Surface}}, mix({{Background}},white,.3) 48%, {{Background}} 50%, mix({{Background}},{{Selection}},.35)); }
+			.pinta-modern .floating-palette { border-color: mix({{Border}},{{Accent}},.5); box-shadow: inset 0 0 0 1px alpha(white,.8), 1px 3px 8px alpha({{Accent}},.3); }
+			.pinta-modern .editor-toolbar .editor-tile:hover, .pinta-modern .tool-box-button.editor-tile:checked { background-image: linear-gradient(to bottom, white, {{Selection}} 45%, mix({{Selection}},{{Accent}},.18) 50%, {{Selection}}); }
+			""",
+			_ => string.Empty,
+		};
+	}
+
 	private static double Brightness (string color) =>
 		.2126 * Convert.ToInt32 (color.Substring (1, 2), 16) +
 		.7152 * Convert.ToInt32 (color.Substring (3, 2), 16) +

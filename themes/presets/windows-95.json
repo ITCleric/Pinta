@@ -1,0 +1,10 @@
+{
+  "Background": "#c0c0c0",
+  "Surface": "#ffffff",
+  "Foreground": "#000000",
+  "Accent": "#000080",
+  "Border": "#808080",
+  "Canvas": "#808080",
+  "Selection": "#c4c4dd",
+  "Style": "Classic95"
+}

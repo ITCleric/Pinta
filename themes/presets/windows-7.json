@@ -1,0 +1,10 @@
+{
+  "Background": "#edf3f8",
+  "Surface": "#ffffff",
+  "Foreground": "#233548",
+  "Accent": "#277fb8",
+  "Border": "#88a5bc",
+  "Canvas": "#b3c4d1",
+  "Selection": "#c4e5fa",
+  "Style": "Aero"
+}

@@ -22,12 +22,37 @@ void Check (bool condition, string message)
 	Console.WriteLine ($"PASS {message}");
 }
 
-foreach (var theme in new[] { ThemePalette.Light, ThemePalette.Dark, ThemePalette.Light with { Accent = "#bd3ee8" } }) {
+foreach (var theme in new[] { ThemePalette.Light, ThemePalette.Dark, ThemePalette.Light with { Accent = "#bd3ee8" } }.Concat (ThemePresets.All.Select (p => p.Palette))) {
 	using var css = Gtk.CssProvider.New ();
 	var errors = new List<string> ();
 	css.OnParsingError += (_, e) => errors.Add ($"{e.Error}");
 	css.LoadFromBytes (GLib.Bytes.New (Encoding.UTF8.GetBytes (theme.ToCss ())));
 	Check (errors.Count == 0, $"Theme CSS parses: {string.Join ("; ", errors)}");
+}
+
+var gallery = new ThemePresetPicker (_ => { });
+gallery.SetSelected (ThemePresets.All[0].Palette);
+int cardCount = 0;
+for (var child = gallery.Widget.GetFirstChild (); child is not null; child = child.GetNextSibling ()) cardCount++;
+Check (cardCount == 12, "All 12 preset cards build in the responsive theme gallery");
+if (args.Length == 2 && args[0] == "--export-themes") {
+	GdkPixbuf.Module.Initialize (); Cairo.Module.Initialize ();
+	Directory.CreateDirectory (args[1]);
+	using var sheet = CairoExtensions.CreateImageSurface (Cairo.Format.Argb32, 1040, 940);
+	using var cr = new Cairo.Context (sheet);
+	cr.SetSourceRgb (.94, .95, .97); cr.Paint ();
+	for (int i = 0; i < ThemePresets.All.Count; i++) {
+		var preset = ThemePresets.All[i];
+		File.WriteAllText (Path.Combine (args[1], preset.Id + ".json"), preset.Palette.ToJson ());
+		using var preview = CairoExtensions.CreateImageSurface (Cairo.Format.Argb32, 320, 192);
+		using (var pc = new Cairo.Context (preview)) ThemePresetPicker.DrawPreview (pc, preset.Palette, 320, 192);
+		using var png = preview.ToPixbuf (); png.Savev (Path.Combine (args[1], preset.Id + ".png"), "png", [], []);
+		int x = 20 + i % 3 * 340, y = 20 + i / 3 * 230;
+		cr.SetSourceSurface (preview, x, y); cr.Paint ();
+		cr.SetSourceRgb (.12, .18, .24); cr.SetFontSize (14); cr.MoveTo (x, y + 214); cr.ShowText (preset.Name);
+	}
+	using var image = sheet.ToPixbuf (); image.Savev (Path.Combine (args[1], "theme-gallery.png"), "png", [], []);
+	Console.WriteLine ("Exported 12 preset JSON files and actual gallery previews.");
 }
 
 // Root widgets in a window without presenting it: exercise the real GTK chrome and CSS.

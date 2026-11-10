@@ -24,6 +24,8 @@ internal sealed partial class PreferencesDialog
 	private Adw.PreferencesGroup theme_group;
 	private readonly List<Adw.EntryRow> theme_rows = [];
 	private bool loading_theme;
+	private ThemeStyle theme_style = ThemeStyle.Windows10;
+	private ThemePresetPicker? theme_presets;
 
 	[Gtk.Connect ("language_comborow")]
 	private Adw.ComboRow language_row;
@@ -127,6 +129,8 @@ internal sealed partial class PreferencesDialog
 
 	private void BuildThemeEditor ()
 	{
+		theme_presets = new ThemePresetPicker (preset => { SetThemeRows (preset); SaveTheme (); });
+		theme_group.Add (theme_presets.Widget);
 		string[] labels = ["Background", "Surface", "Foreground", "Accent", "Border", "Canvas", "Selection"];
 		foreach (string label in labels) {
 			var row = Adw.EntryRow.New ();
@@ -157,6 +161,8 @@ internal sealed partial class PreferencesDialog
 	private void SetThemeRows (ThemePalette theme)
 	{
 		loading_theme = true;
+		theme_style = theme.Style;
+		theme_presets?.SetSelected (theme);
 		string[] values = [theme.Background, theme.Surface, theme.Foreground, theme.Accent, theme.Border, theme.Canvas, theme.Selection];
 		for (int i = 0; i < values.Length; i++) theme_rows[i].SetText (values[i]);
 		loading_theme = false;
@@ -164,7 +170,7 @@ internal sealed partial class PreferencesDialog
 
 	private ThemePalette ReadTheme () => new (
 		theme_rows[0].GetText (), theme_rows[1].GetText (), theme_rows[2].GetText (),
-		theme_rows[3].GetText (), theme_rows[4].GetText (), theme_rows[5].GetText (), theme_rows[6].GetText ());
+		theme_rows[3].GetText (), theme_rows[4].GetText (), theme_rows[5].GetText (), theme_rows[6].GetText (), theme_style);
 
 	private void SaveTheme ()
 	{
@@ -175,6 +181,7 @@ internal sealed partial class PreferencesDialog
 		}
 		var theme = ReadTheme ();
 		if (!theme.IsValid) return;
+		theme_presets?.SetSelected (theme);
 		settings.PutSetting ("custom-theme", theme.ToJson ());
 		color_scheme_row.SetSelected (3);
 	}
