@@ -1,179 +1,68 @@
-//
-// Author:
-//       Cameron White <cameronwhite91@gmail.com>
-//
-// Copyright (c) 2020 Cameron White
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Pinta.Core;
 
 namespace Pinta.Docking;
 
+/// <summary>Independent overlay palettes, leaving the whole workspace available to the canvas.</summary>
 [GObject.Subclass<Gtk.Box>]
 public sealed partial class DockPanel
 {
-	internal sealed class DockPanelItem
+	internal sealed class DockPanelItem (DockItem item)
 	{
-		public DockItem Item { get; }
-		public Gtk.Paned Pane { get; }
-		public Gtk.ToggleButton ReopenButton { get; }
-		private readonly Gtk.Popover popover;
-		public DockPanelItem (DockItem item)
-		{
-			Gtk.Paned pane = Gtk.Paned.New (Gtk.Orientation.Vertical);
-
-			Gtk.Image icon = Gtk.Image.NewFromIconName (item.IconName);
-
-			Gtk.ToggleButton reopenButton = Gtk.ToggleButton.New ();
-			reopenButton.TooltipText = item.Label;
-			reopenButton.SetChild (icon);
-			reopenButton.OnToggled += ReopenButton_OnToggled;
-
-			// Autohide is set to false since it seems to cause the popover to close even when clicking inside it, on macOS at least
-			// Instead, the reopen button is a toggle button to close the popover.
-			Gtk.Popover popover = Gtk.Popover.New ();
-			popover.Autohide = false;
-			popover.Position = Gtk.PositionType.Left;
-			popover.SetParent (reopenButton);
-
-			// --- References to keep
-
-			this.popover = popover;
-			Pane = pane;
-			ReopenButton = reopenButton;
-			Item = item;
-		}
-
-		private void ReopenButton_OnToggled (Gtk.ToggleButton _, EventArgs __)
-		{
-			if (ReopenButton.Active)
-				popover.Popup ();
-			else
-				popover.Popdown ();
-		}
-
-		public bool IsMinimized
-			=> popover.Child is not null;
-
-		public void UpdateOnMaximize (Gtk.Box dockBar)
-		{
-			// Remove the reopen button from the dock bar.
-			// Note that it might not already be in the dock bar, e.g. on startup.
-			dockBar.RemoveIfChild (ReopenButton);
-
-			popover.Popdown ();
-			popover.Child = null;
-
-			Pane.StartChild = Item;
-			Pane.ResizeStartChild = true;
-			Pane.ShrinkStartChild = false;
-		}
-
-		public void UpdateOnMinimize (Gtk.Box dock_bar)
-		{
-			Pane.StartChild = null;
-			popover.Child = Item;
-
-			dock_bar.Append (ReopenButton);
-			ReopenButton.Active = false;
-		}
+		public DockItem Item { get; } = item;
+		public bool IsMinimized { get; set; }
 	}
 
-	/// <summary>
-	/// Contains the buttons to re-open any minimized dock items.
-	/// </summary>
-	private readonly Gtk.Box dock_bar = Gtk.Box.New (Gtk.Orientation.Vertical, 0);
-
-	/// <summary>
-	/// List of the items in this panel, which may be minimized or maximized.
-	/// </summary>
 	private readonly List<DockPanelItem> items = [];
+	private Gtk.Overlay overlay = null!;
+	private bool all_visible = true;
 
-	partial void Initialize ()
-	{
-		SetOrientation (Gtk.Orientation.Horizontal);
-		Append (dock_bar);
-	}
-
+	partial void Initialize () { }
 	public static DockPanel New () => NewWithProperties ([]);
+	internal void SetOverlay (Gtk.Overlay value) => overlay = value;
 
 	public void AddItem (DockItem item)
 	{
-		DockPanelItem panelItem = new (item);
-
-		// Connect to the previous pane in the list.
-		if (items.Count > 0) {
-			Gtk.Paned pane = items.Last ().Pane;
-			pane.EndChild = panelItem.Pane;
-		} else {
-			panelItem.Pane.Hexpand = true;
-			panelItem.Pane.Halign = Gtk.Align.Fill;
-			Prepend (panelItem.Pane);
-		}
-
-		items.Add (panelItem);
-		panelItem.UpdateOnMaximize (dock_bar);
-
-		item.MinimizeClicked += (_, _) => {
-			panelItem.UpdateOnMinimize (dock_bar);
-
-			int index = items.IndexOf (panelItem);
-			if (index > 0)
-				items[index - 1].Pane.PositionSet = false;
-		};
-		item.MaximizeClicked += (_, _) => panelItem.UpdateOnMaximize (dock_bar);
+		var entry = new DockPanelItem (item);
+		items.Add (entry);
+		item.WidthRequest = 208;
+		item.HeightRequest = item.UniqueName == "History" ? 190 : 210;
+		item.EnableFloating (overlay, Gtk.Align.End,
+			item.UniqueName == "History" ? Gtk.Align.Start : Gtk.Align.End, 8, 8);
+		item.MinimizeClicked += (_, _) => { entry.IsMinimized = true; item.Visible = false; };
+		item.MaximizeClicked += (_, _) => { entry.IsMinimized = false; item.Visible = all_visible; };
+		overlay.AddOverlay (item);
 	}
 
 	public void SetItemVisible (string name, bool visible)
 	{
-		var item = items.FirstOrDefault (x => x.Item.UniqueName == name);
-		if (item is null) return;
-		if (visible && item.IsMinimized) item.UpdateOnMaximize (dock_bar);
-		item.Item.Visible = visible;
+		var entry = items.FirstOrDefault (x => x.Item.UniqueName == name);
+		if (entry is null) return;
+		entry.IsMinimized = !visible;
+		if (visible) entry.Item.Maximize ();
+		entry.Item.Visible = visible && all_visible;
+	}
+
+	public void SetAllItemsVisible (bool visible)
+	{
+		all_visible = visible;
+		foreach (var entry in items) entry.Item.Visible = visible && !entry.IsMinimized;
 	}
 
 	public void SaveSettings (ISettingsService settings)
 	{
-		foreach (var panel_item in items) {
-			settings.PutSetting (SettingNames.MinimizeKey (panel_item), panel_item.IsMinimized);
-#if false
-			settings.PutSetting (SplitPosKey (panel_item), panel_item.Pane.Position);
-#endif
+		foreach (var entry in items) {
+			settings.PutSetting (SettingNames.MinimizeKey (entry), entry.IsMinimized);
+			entry.Item.SaveFloatingPosition (settings);
 		}
 	}
 
 	public void LoadSettings (ISettingsService settings)
 	{
-		foreach (var panel_item in items) {
-
-			if (settings.GetSetting<bool> (SettingNames.MinimizeKey (panel_item), false)) {
-				panel_item.Item.Minimize ();
-			}
-
-#if false
-			panel_item.Pane.Position = settings.GetSetting<int> (
-				SplitPosKey (panel_item), panel_item.Pane.Position);
-#endif
+		foreach (var entry in items) {
+			entry.Item.LoadFloatingPosition (settings);
+			SetItemVisible (entry.Item.UniqueName, !settings.GetSetting (SettingNames.MinimizeKey (entry), false));
 		}
 	}
 }

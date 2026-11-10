@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><IsPublishable>false</IsPublishable></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../Pinta.Docking/Pinta.Docking.csproj" /></ItemGroup>
+</Project>

@@ -35,6 +35,9 @@ public sealed class WindowShell
 	private readonly Gtk.Box shell_layout;
 	private Gtk.Box? workspace_layout;
 	private Gtk.Box? main_toolbar;
+	private readonly Gtk.Box command_stack = Gtk.Box.New (Gtk.Orientation.Vertical, 0);
+	public Gtk.Box DocumentStripHost { get; } = Gtk.Box.New (Gtk.Orientation.Horizontal, 0);
+	public Gtk.Box WorkspaceToggles { get; } = Gtk.Box.New (Gtk.Orientation.Horizontal, 1);
 
 	public WindowShell (
 		Gtk.Application app,
@@ -59,7 +62,7 @@ public sealed class WindowShell
 			// to have a traditional titlebar with the standard close / minimize buttons,
 			// and a menubar in the window unless a global menu is used (e.g. macOS)
 			app_window = Gtk.ApplicationWindow.New (app);
-			app_window.ShowMenubar = true;
+			app_window.ShowMenubar = false;
 			app_window.SetChild (app_layout);
 		}
 
@@ -75,6 +78,22 @@ public sealed class WindowShell
 
 		shell_layout = Gtk.Box.New (Gtk.Orientation.Vertical, 0);
 		app_layout.SetContent (shell_layout);
+		var command_deck = Gtk.Box.New (Gtk.Orientation.Horizontal, 6);
+		command_deck.AddCssClass ("command-deck");
+		command_stack.Valign = Gtk.Align.Start;
+		if (useMenuBar && app.Menubar is not null) {
+			var menubar = Gtk.PopoverMenuBar.NewFromModel (app.Menubar);
+			menubar.AddCssClass ("editor-menubar");
+			command_stack.Append (menubar);
+		}
+		command_deck.Append (command_stack);
+		DocumentStripHost.Hexpand = true;
+		DocumentStripHost.AddCssClass ("document-strip-host");
+		command_deck.Append (DocumentStripHost);
+		WorkspaceToggles.Valign = Gtk.Align.Start;
+		WorkspaceToggles.AddCssClass ("workspace-toggles");
+		command_deck.Append (WorkspaceToggles);
+		shell_layout.Append (command_deck);
 
 		app_window.Present ();
 	}
@@ -87,7 +106,8 @@ public sealed class WindowShell
 		main_toolbar = GtkExtensions.CreateToolBar ();
 		main_toolbar.Name = name;
 
-		shell_layout.Append (main_toolbar);
+		if (name == "main_toolbar") command_stack.Append (main_toolbar);
+		else shell_layout.Append (main_toolbar);
 		main_toolbar.Show ();
 
 		return main_toolbar;

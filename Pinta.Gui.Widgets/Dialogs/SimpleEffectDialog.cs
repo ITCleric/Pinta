@@ -65,8 +65,9 @@ public sealed partial class SimpleEffectDialog
 	partial void Initialize ()
 	{
 		// --- Initialization (Gtk.Window)
+		AddCssClass ("pinta-modern");
 		Modal = true;
-		WidthRequest = 400;
+		WidthRequest = 360;
 		Resizable = false;
 
 		// --- Initialization (Gtk.Dialog)
@@ -77,7 +78,8 @@ public sealed partial class SimpleEffectDialog
 		// --- Initialization
 
 		Gtk.Box contentAreaBox = this.GetContentAreaBox ();
-		contentAreaBox.Spacing = 12;
+		contentAreaBox.Spacing = 8;
+		contentAreaBox.AddCssClass ("effect-content");
 		contentAreaBox.SetAllMargins (6);
 
 		OnClose += (_, _) => HandleClose ();

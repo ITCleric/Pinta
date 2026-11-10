@@ -33,22 +33,18 @@ namespace Pinta.Docking;
 [GObject.Subclass<Gtk.Box>]
 public sealed partial class Dock
 {
-	private Gtk.Paned pane;
+	private Gtk.Overlay overlay;
 
 	public DockPanel RightPanel { get; } = DockPanel.New ();
 
-	[MemberNotNull (nameof (pane))]
+	[MemberNotNull (nameof (overlay))]
 	partial void Initialize ()
 	{
-		pane = Gtk.Paned.New (Gtk.Orientation.Horizontal);
-		pane.EndChild = RightPanel;
-		pane.ResizeEndChild = false;
-		pane.ShrinkEndChild = false;
-
-		// --- Initialization (Gtk.Box)
-
+		overlay = Gtk.Overlay.New ();
+		overlay.Hexpand = overlay.Vexpand = true;
+		RightPanel.SetOverlay (overlay);
 		SetOrientation (Gtk.Orientation.Horizontal);
-		Append (pane);
+		Append (overlay);
 	}
 
 	public static Dock New () => NewWithProperties ([]);
@@ -57,9 +53,7 @@ public sealed partial class Dock
 	{
 		switch (placement) {
 			case DockPlacement.Center:
-				pane.StartChild = item;
-				pane.ResizeStartChild = true;
-				pane.ShrinkStartChild = false;
+				overlay.Child = item;
 				break;
 			case DockPlacement.Right:
 				RightPanel.AddItem (item);

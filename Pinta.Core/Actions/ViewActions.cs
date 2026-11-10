@@ -270,8 +270,37 @@ public sealed class ViewActions
 
 	public void CreateStatusBar (Gtk.Box statusbar)
 	{
-		statusbar.Append (ZoomOut.CreateToolBarItem ());
 		statusbar.Append (ZoomComboBox);
+		statusbar.Append (ZoomOut.CreateToolBarItem ());
+		var slider = Gtk.Scale.NewWithRange (Gtk.Orientation.Horizontal, Math.Log2 (.05), Math.Log2 (36), .01);
+		slider.WidthRequest = 110;
+		slider.DrawValue = false;
+		slider.CanFocus = false;
+		slider.TooltipText = Translations.GetString ("Zoom");
+		slider.AddCssClass ("status-zoom-slider");
+		bool syncing = false;
+		DocumentWorkspace? observed = null;
+		void RefreshSlider (object? sender, EventArgs args)
+		{
+			syncing = true;
+			slider.Sensitive = workspace.HasOpenDocuments;
+			if (workspace.HasOpenDocuments) slider.SetValue (Math.Log2 (Math.Clamp (workspace.Scale, .05, 36)));
+			syncing = false;
+		}
+		workspace.ActiveDocumentChanged += (_, _) => {
+			if (observed is not null) observed.ViewSizeChanged -= RefreshSlider;
+			observed = workspace.HasOpenDocuments ? workspace.ActiveDocument.Workspace : null;
+			if (observed is not null) observed.ViewSizeChanged += RefreshSlider;
+			RefreshSlider (null, EventArgs.Empty);
+		};
+		slider.OnValueChanged += (_, _) => {
+			if (syncing || !workspace.HasOpenDocuments) return;
+			ZoomToWindowActivated = false;
+			ZoomComboBox.ComboBox.GetEntry ().SetText (ToPercent (Math.Pow (2, slider.GetValue ())));
+			workspace.ActiveDocument.Workspace.ZoomManually ();
+		};
+		RefreshSlider (null, EventArgs.Empty);
+		statusbar.Append (slider);
 		statusbar.Append (ZoomIn.CreateToolBarItem ());
 	}
 

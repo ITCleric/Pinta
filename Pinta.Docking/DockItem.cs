@@ -40,6 +40,9 @@ public sealed partial class DockItem
 	private Gtk.Stack button_stack;
 	private Gtk.Button minimize_button;
 	private Gtk.Button maximize_button;
+	private Gtk.Box? title_bar;
+	private Gtk.Overlay? floating_host;
+	private bool moved;
 
 	/// <summary>
 	/// Unique identifier for the dock item. Used e.g. when saving the dock layout to disk.
@@ -124,6 +127,11 @@ public sealed partial class DockItem
 				item.label_widget,
 				item.button_stack]);
 
+			titleLayout.AddCssClass ("palette-titlebar");
+			item.label_widget.Ellipsize = Pango.EllipsizeMode.End;
+			item.label_widget.WidthRequest = 1;
+			item.label_widget.MaxWidthChars = 22;
+			item.title_bar = titleLayout;
 			item.Append (titleLayout);
 		}
 
@@ -134,9 +142,71 @@ public sealed partial class DockItem
 		return item;
 	}
 
+	/// <summary>Drag the title, keeping the palette inside its workspace. Double-click resets its anchor.</summary>
+	public void EnableFloating (Gtk.Overlay host, Gtk.Align horizontal, Gtk.Align vertical, int x, int y)
+	{
+		floating_host = host;
+		AddCssClass ("floating-palette");
+		Hexpand = Vexpand = false;
+		Halign = horizontal; Valign = vertical;
+		if (horizontal == Gtk.Align.End) MarginEnd = x; else MarginStart = x;
+		if (vertical == Gtk.Align.End) MarginBottom = y; else MarginTop = y;
+		if (title_bar is null) return;
+		var drag = Gtk.GestureDrag.New ();
+		double originX = 0, originY = 0;
+		drag.OnDragBegin += (_, _) => {
+			originX = Halign == Gtk.Align.End ? host.GetWidth () - GetWidth () - MarginEnd : MarginStart;
+			originY = Valign == Gtk.Align.End ? host.GetHeight () - GetHeight () - MarginBottom : MarginTop;
+		};
+		drag.OnDragUpdate += (_, e) => {
+			var position = FloatingPalettePosition.Clamp (originX + e.OffsetX, originY + e.OffsetY,
+				host.GetWidth (), host.GetHeight (), GetWidth (), GetHeight ());
+			Halign = Gtk.Align.Start; Valign = Gtk.Align.Start;
+			MarginEnd = MarginBottom = 0;
+			MarginStart = position.X; MarginTop = position.Y;
+			moved = true;
+		};
+		title_bar.AddController (drag);
+		var clicks = Gtk.GestureClick.New ();
+		clicks.OnPressed += (_, e) => {
+			if (e.NPress != 2) return;
+			Halign = horizontal; Valign = vertical;
+			MarginStart = horizontal == Gtk.Align.Start ? x : 0;
+			MarginEnd = horizontal == Gtk.Align.End ? x : 0;
+			MarginTop = vertical == Gtk.Align.Start ? y : 0;
+			MarginBottom = vertical == Gtk.Align.End ? y : 0;
+			moved = false;
+		};
+		title_bar.AddController (clicks);
+	}
+
+	public void SaveFloatingPosition (ISettingsService settings)
+	{
+		settings.PutSetting ($"palette-{UniqueName}-moved", moved);
+		if (!moved) return;
+		settings.PutSetting ($"palette-{UniqueName}-x", MarginStart);
+		settings.PutSetting ($"palette-{UniqueName}-y", MarginTop);
+	}
+
+	public void LoadFloatingPosition (ISettingsService settings)
+	{
+		if (floating_host is null || !settings.GetSetting ($"palette-{UniqueName}-moved", false)) return;
+		int x = settings.GetSetting ($"palette-{UniqueName}-x", 8), y = settings.GetSetting ($"palette-{UniqueName}-y", 8);
+		// Allocation is available after the first frame. Re-clamp on restoration for smaller screens.
+		GLib.Functions.TimeoutAdd (0, 50, () => {
+			if (floating_host.GetWidth () == 0 || floating_host.GetHeight () == 0) return true;
+			var position = FloatingPalettePosition.Clamp (x, y, floating_host.GetWidth (), floating_host.GetHeight (), GetWidth (), GetHeight ());
+			Halign = Gtk.Align.Start; Valign = Gtk.Align.Start;
+			MarginEnd = MarginBottom = 0;
+			MarginStart = position.X; MarginTop = position.Y;
+			moved = true;
+			return false;
+		});
+	}
+
 	private Gtk.Button CreateMinimizeButton ()
 	{
-		Gtk.Button result = Gtk.Button.NewFromIconName (StandardIcons.WindowMinimize);
+		Gtk.Button result = Gtk.Button.NewFromIconName (StandardIcons.WindowClose);
 		result.AddCssClass (AdwaitaStyles.Flat);
 		return result;
 	}
@@ -166,7 +236,8 @@ public sealed partial class DockItem
 	public Gtk.Box AddToolBar ()
 	{
 		Gtk.Box toolbar = GtkExtensions.CreateToolBar ();
-		toolbar.Spacing = -4;
+		toolbar.Spacing = 0;
+		toolbar.AddCssClass ("palette-toolbar");
 		Append (toolbar);
 		return toolbar;
 	}

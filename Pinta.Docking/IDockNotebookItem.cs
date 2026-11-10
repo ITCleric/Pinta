@@ -43,3 +43,10 @@ public interface IDockNotebookItem
 	/// </summary>
 	event EventHandler LabelChanged;
 }
+
+/// <summary>Optional thumbnail content for the document strip.</summary>
+public interface IDockNotebookPreview : IDockNotebookItem
+{
+	void DrawPreview (Cairo.Context context, int width, int height);
+	event EventHandler PreviewChanged;
+}

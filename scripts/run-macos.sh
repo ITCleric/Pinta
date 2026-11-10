@@ -9,5 +9,5 @@ else
   dotnet_bin=dotnet
 fi
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
-"$dotnet_bin" build Pinta/Pinta.csproj --nologo
+"$dotnet_bin" build Pinta/Pinta.csproj --nologo -p:BuildTranslations=true
 exec "$dotnet_bin" "$project_root/build/bin/Pinta.dll" "$@"

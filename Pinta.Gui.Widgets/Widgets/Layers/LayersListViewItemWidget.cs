@@ -140,8 +140,8 @@ public sealed partial class LayersListViewItemWidget
 	{
 		Gtk.DrawingArea itemThumbnail = Gtk.DrawingArea.New ();
 		itemThumbnail.SetDrawFunc ((area, context, width, height) => DrawThumbnail (context, width, height));
-		itemThumbnail.WidthRequest = 60;
-		itemThumbnail.HeightRequest = 40;
+		itemThumbnail.WidthRequest = 44;
+		itemThumbnail.HeightRequest = 32;
 
 		Gtk.Label itemLabel = Gtk.Label.New (string.Empty);
 		itemLabel.Halign = Gtk.Align.Start;
@@ -168,9 +168,9 @@ public sealed partial class LayersListViewItemWidget
 
 		SetOrientation (Gtk.Orientation.Horizontal);
 
-		Append (visibleButton);
-		Append (itemLabel);
 		Append (itemThumbnail);
+		Append (itemLabel);
+		Append (visibleButton);
 
 		// --- References to keep
 

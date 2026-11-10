@@ -32,6 +32,7 @@ namespace Pinta;
 
 internal sealed class HistoryPad : IDockPad
 {
+	public DockItem Item { get; private set; } = null!;
 	private readonly EditActions edit;
 	internal HistoryPad (EditActions edit)
 	{
@@ -46,6 +47,8 @@ internal sealed class HistoryPad : IDockPad
 			child: history,
 			uniqueName: "History",
 			iconName: Resources.Icons.HistoryList);
+		Item = history_item;
+		history.WidthRequest = 180; history.HeightRequest = 120;
 		history_item.Label = Translations.GetString ("History");
 
 		Gtk.Box history_tb = history_item.AddToolBar ();

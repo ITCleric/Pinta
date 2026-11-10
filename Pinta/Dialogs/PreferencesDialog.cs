@@ -54,6 +54,7 @@ internal sealed partial class PreferencesDialog
 	public static PreferencesDialog New (IChromeService chrome, IPaletteService palette, ISettingsService settings)
 	{
 		PreferencesDialog dialog = NewWithProperties ([]);
+		dialog.AddCssClass ("pinta-modern");
 		dialog.chrome = chrome;
 		dialog.palette = palette;
 		dialog.LoadSettings (settings);

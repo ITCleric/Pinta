@@ -135,8 +135,10 @@ internal sealed class MainWindow
 	{
 		var tab = FindTabWithCanvas ((CanvasWindow) e.Document.Workspace.CanvasWindow);
 
-		if (tab != null)
+		if (tab != null) {
 			canvas_pad.Notebook.RemoveTab (tab);
+			if (tab is DocumentViewContent content) content.Dispose ();
+		}
 	}
 
 	private void DockNotebook_TabClosed (object? sender, TabClosedEventArgs e)
@@ -448,6 +450,23 @@ internal sealed class MainWindow
 
 	private void CreateMainToolBar ()
 	{
+		var view = PintaCore.Actions.View;
+		foreach (var (command, icon) in new[] {
+			(view.ToolBox, Resources.Icons.ToolPaintBrush),
+			(view.HistoryWindow, Resources.Icons.HistoryList),
+			(view.LayersWindow, Resources.Icons.LayerDuplicate),
+			(view.ColorsWindow, Resources.Icons.ToolColorPicker),
+		}) {
+			var toggle = Gtk.ToggleButton.New ();
+			toggle.IconName = icon;
+			toggle.Active = command.Value;
+			toggle.FocusOnClick = false;
+			toggle.TooltipText = command.Label;
+			toggle.OnClicked += (_, _) => command.Activate ();
+			command.Toggled += (visible, _) => toggle.Active = visible;
+			window_shell.WorkspaceToggles.Append (toggle);
+		}
+		window_shell.WorkspaceToggles.Append (PintaCore.Actions.App.Preferences.CreateToolBarItem ());
 		if (window_shell.HeaderBar is not null) {
 			var headerBar = window_shell.HeaderBar;
 			headerBar.PackEnd (GtkExtensions.CreateMenuButton (
@@ -494,11 +513,14 @@ internal sealed class MainWindow
 	{
 		Gtk.Box statusbar = window_shell.CreateStatusBar ("statusbar");
 
-		StatusBarColorPaletteWidget widget = StatusBarColorPaletteWidget.New (PintaCore.Chrome, PintaCore.Palette, PintaCore.System);
-		widget.Hexpand = true;
-		widget.Halign = Gtk.Align.Fill;
-
-		statusbar.Append (widget);
+		var hint = Gtk.Label.New (string.Empty);
+		hint.Hexpand = true; hint.Xalign = 0;
+		hint.Ellipsize = Pango.EllipsizeMode.End;
+		PintaCore.Chrome.StatusBarTextChanged += (_, e) => {
+			hint.SetText (e.Text.Split ('\n')[0]);
+			hint.TooltipText = e.Text;
+		};
+		statusbar.Append (hint);
 
 		PintaCore.Actions.CreateStatusBar (statusbar, PintaCore.Workspace);
 
@@ -529,14 +551,15 @@ internal sealed class MainWindow
 		var tools_frame = DockItem.New (toolbox_scroll, "Tools", Resources.Icons.ToolPaintBrush);
 		tools_frame.Label = Translations.GetString ("Tools");
 		tools_frame.AddCssClass ("floating-palette");
-		tools_frame.Halign = Gtk.Align.Start; tools_frame.Valign = Gtk.Align.Start;
-		tools_frame.MarginStart = 8; tools_frame.MarginTop = 40;
+		tools_frame.WidthRequest = 54;
+		tools_frame.EnableFloating (overlay, Gtk.Align.Start, Gtk.Align.Start, 6, 8);
 		tools_frame.MinimizeClicked += (_, _) => PintaCore.Actions.View.ToolBox.Value = false;
 		PintaCore.Actions.View.ToolBox.Toggled += (visible, _) => { if (visible) tools_frame.Maximize (); };
 		overlay.AddOverlay (tools_frame);
 		PintaCore.Chrome.InitializeToolBox (tools_frame);
 		colors_pad = new ColorsPad (PintaCore.Palette);
 		colors_pad.Widget.MinimizeClicked += (_, _) => PintaCore.Actions.View.ColorsWindow.Value = false;
+		colors_pad.Widget.EnableFloating (overlay, Gtk.Align.Start, Gtk.Align.End, 6, 8);
 		overlay.AddOverlay (colors_pad.Widget);
 		PintaCore.Actions.View.ColorsWindow.Toggled += (visible, _) => {
 			colors_pad.Widget.Visible = visible;
@@ -554,13 +577,16 @@ internal sealed class MainWindow
 		// Canvas pad
 		canvas_pad = new CanvasPad ();
 		canvas_pad.Initialize (dock);
+		canvas_pad.Notebook.MoveTabStripTo (window_shell.DocumentStripHost);
 		PintaCore.Chrome.InitializeImageTabsNotebook (canvas_pad.Notebook);
 
 		// Paint.NET places history above the layer stack.
 		HistoryPad history_pad = new (PintaCore.Actions.Edit);
 		history_pad.Initialize (dock);
+		history_pad.Item.MinimizeClicked += (_, _) => PintaCore.Actions.View.HistoryWindow.Value = false;
 		LayersPad layers_pad = new (PintaCore.Actions.Layers);
 		layers_pad.Initialize (dock);
+		layers_pad.Item.MinimizeClicked += (_, _) => PintaCore.Actions.View.LayersWindow.Value = false;
 
 		overlay.Child = dock;
 	}
@@ -568,6 +594,8 @@ internal sealed class MainWindow
 	private void LoadUserSettings ()
 	{
 		dock.LoadSettings (PintaCore.Settings);
+		((DockItem) PintaCore.Chrome.ToolBox).LoadFloatingPosition (PintaCore.Settings);
+		colors_pad.Widget.LoadFloatingPosition (PintaCore.Settings);
 
 		// Set selected tool to last selected or default to the PaintBrush
 		PintaCore.Tools.SetCurrentTool (PintaCore.Settings.GetSetting (SettingNames.LAST_SELECTED_TOOL, "PaintBrushTool"));
@@ -579,6 +607,9 @@ internal sealed class MainWindow
 		PintaCore.Actions.View.ColorsWindow.Value = PintaCore.Settings.GetSetting ("colors-window-shown", true);
 		PintaCore.Actions.View.HistoryWindow.Value = PintaCore.Settings.GetSetting ("history-window-shown", true);
 		PintaCore.Actions.View.LayersWindow.Value = PintaCore.Settings.GetSetting ("layers-window-shown", true);
+		// Apply even when a toggle already has its default value, overriding legacy minimized states.
+		dock.RightPanel.SetItemVisible ("History", PintaCore.Actions.View.HistoryWindow.Value);
+		dock.RightPanel.SetItemVisible ("Layers", PintaCore.Actions.View.LayersWindow.Value);
 		PintaCore.Actions.View.ImageTabs.Value = PintaCore.Settings.GetSetting (SettingNames.IMAGE_TABS_SHOWN, true);
 		PintaCore.Actions.View.ToolWindows.Value = PintaCore.Settings.GetSetting (SettingNames.TOOL_WINDOWS_SHOWN, true);
 
@@ -592,6 +623,8 @@ internal sealed class MainWindow
 	private void SaveUserSettings ()
 	{
 		dock.SaveSettings (PintaCore.Settings);
+		((DockItem) PintaCore.Chrome.ToolBox).SaveFloatingPosition (PintaCore.Settings);
+		colors_pad.Widget.SaveFloatingPosition (PintaCore.Settings);
 
 		// Don't store the maximized height if the window is maximized
 		if (!window_shell.Window.IsMaximized ()) {

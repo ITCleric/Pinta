@@ -32,6 +32,7 @@ namespace Pinta;
 
 internal sealed class LayersPad : IDockPad
 {
+	public DockItem Item { get; private set; } = null!;
 	private readonly LayerActions layer_actions;
 	internal LayersPad (LayerActions layerActions)
 	{
@@ -46,6 +47,8 @@ internal sealed class LayersPad : IDockPad
 			uniqueName: "Layers",
 			iconName: Resources.Icons.LayerDuplicate
 		);
+		Item = layers_item;
+		layers.WidthRequest = 180; layers.HeightRequest = 120;
 		layers_item.Label = Translations.GetString ("Layers");
 
 		Gio.Menu hamburger_menu = Gio.Menu.New ();

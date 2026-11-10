@@ -1,9 +1,9 @@
 {
-  "Background": "#202428",
-  "Surface": "#2b3036",
-  "Foreground": "#edf1f5",
-  "Accent": "#60b9ff",
-  "Border": "#46515d",
-  "Canvas": "#15181c",
-  "Selection": "#244b68"
+  "Background": "#252525",
+  "Surface": "#303030",
+  "Foreground": "#ededed",
+  "Accent": "#419bd0",
+  "Border": "#555e64",
+  "Canvas": "#202020",
+  "Selection": "#245675"
 }
