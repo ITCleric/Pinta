@@ -101,6 +101,7 @@ public sealed record ThemePalette (
 		.pinta-modern .status-zoom-slider slider { min-width: 9px; min-height: 16px; margin: -6px 0; padding: 0; border: 1px solid {{Accent}}; background-color: mix({{Selection}}, {{Accent}}, .35); border-radius: 0; }
 		.pinta-modern separator { background-color: {{Border}}; }
 		.pinta-modern .effect-content { padding: 6px; }
+		.pinta-modern .effect-identity { padding: 0 0 6px; margin-bottom: 3px; border-bottom: 1px solid {{Border}}; }
 		/* Desktop controls: explicit square frames override libadwaita's rounded defaults. */
 		.pinta-modern button, .pinta-modern entry, .pinta-modern spinbutton,
 		.pinta-modern dropdown > button, .pinta-modern combobox > box > button,

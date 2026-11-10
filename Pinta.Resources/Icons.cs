@@ -207,6 +207,15 @@ public static class Icons
 	public const string LayerProperties = "document-properties-symbolic";
 	public const string LayerRotateZoom = "layers-rotate-zoom-symbolic";
 
+	public const string TabTools = "pinta-tab-tools";
+	public const string TabColors = "pinta-tab-colors";
+	public const string TabHistory = "pinta-tab-history";
+	public const string TabLayers = "pinta-tab-layers";
+	public const string PluginGallery = "pinta-plugin-gallery";
+	public const string PluginInstalled = "pinta-plugin-installed";
+	public const string PluginUpdates = "pinta-plugin-updates";
+	public const string PluginDefault = "pinta-plugin-default";
+
 	public const string Pinta = "io.github.itcleric.pintamodern";
 
 	public const string ResizeCanvasBase = "image-resize-canvas-base-symbolic";

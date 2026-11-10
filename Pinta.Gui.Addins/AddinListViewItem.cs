@@ -118,12 +118,14 @@ internal sealed partial class AddinListViewItemWidget
 
 		Spacing = 6;
 
-		SetOrientation (Gtk.Orientation.Vertical);
-
-		this.SetAllMargins (10);
-
-		Append (nameLabel);
-		Append (descriptionLabel);
+		SetOrientation (Gtk.Orientation.Horizontal);
+		this.SetAllMargins (8);
+		var icon = Gtk.Image.NewFromIconName (Pinta.Resources.Icons.PluginDefault);
+		icon.PixelSize = 32;
+		var labels = Gtk.Box.New (Gtk.Orientation.Vertical, 3);
+		labels.Hexpand = true;
+		labels.AppendMultiple ([nameLabel, descriptionLabel]);
+		this.AppendMultiple ([icon, labels]);
 	}
 
 	public static AddinListViewItemWidget New () => NewWithProperties ([]);

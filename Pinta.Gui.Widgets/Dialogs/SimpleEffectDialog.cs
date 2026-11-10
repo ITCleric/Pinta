@@ -99,6 +99,14 @@ public sealed partial class SimpleEffectDialog
 		dialog.IconName = iconName;
 
 		Gtk.Box contentAreaBox = dialog.GetContentAreaBox ();
+		var identity = Gtk.Box.New (Gtk.Orientation.Horizontal, 8);
+		identity.AddCssClass ("effect-identity");
+		var icon = Gtk.Image.NewFromIconName (iconName);
+		icon.PixelSize = 32;
+		var name = Gtk.Label.New (title);
+		name.Xalign = 0; name.Hexpand = true; name.Wrap = true; name.MaxWidthChars = 40;
+		identity.AppendMultiple ([icon, name]);
+		contentAreaBox.Append (identity);
 		foreach (var widget in dialog.GenerateDialogWidgets (effectData, localizer, workspace))
 			contentAreaBox.Append (widget);
 

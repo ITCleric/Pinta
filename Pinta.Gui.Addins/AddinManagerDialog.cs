@@ -100,9 +100,9 @@ public sealed partial class AddinManagerDialog
 		AddinListView updatesList)
 	{
 		Adw.ViewStack result = Adw.ViewStack.New ();
-		result.AddTitledWithIcon (galleryList, null, Translations.GetString ("Gallery"), StandardIcons.SystemSoftwareInstall);
-		result.AddTitledWithIcon (installedList, null, Translations.GetString ("Installed"), StandardIcons.ApplicationAddon);
-		result.AddTitledWithIcon (updatesList, "updates", Translations.GetString ("Updates"), StandardIcons.SoftwareUpdateAvailable);
+		result.AddTitledWithIcon (galleryList, null, Translations.GetString ("Gallery"), Icons.PluginGallery);
+		result.AddTitledWithIcon (installedList, null, Translations.GetString ("Installed"), Icons.PluginInstalled);
+		result.AddTitledWithIcon (updatesList, "updates", Translations.GetString ("Updates"), Icons.PluginUpdates);
 		return result;
 	}
 

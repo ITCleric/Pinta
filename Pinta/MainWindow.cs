@@ -464,10 +464,10 @@ internal sealed class MainWindow
 	{
 		var view = PintaCore.Actions.View;
 		foreach (var (command, icon) in new[] {
-			(view.ToolBox, Resources.Icons.ToolPaintBrush),
-			(view.HistoryWindow, Resources.Icons.HistoryList),
-			(view.LayersWindow, Resources.Icons.LayerDuplicate),
-			(view.ColorsWindow, Resources.Icons.ToolColorPicker),
+			(view.ToolBox, Resources.Icons.TabTools),
+			(view.HistoryWindow, Resources.Icons.TabHistory),
+			(view.LayersWindow, Resources.Icons.TabLayers),
+			(view.ColorsWindow, Resources.Icons.TabColors),
 		}) {
 			var toggle = Gtk.ToggleButton.New ();
 			toggle.AddCssClass ("editor-tile");

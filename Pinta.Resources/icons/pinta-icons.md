@@ -27,3 +27,7 @@ The 60 `hicolor/scalable/actions/pinta-studio-*.svg` files and their separate `h
 ## Original application identity (Pinta Modern)
 
 `hicolor/scalable/apps/io.github.itcleric.pintamodern.svg` is an original framed landscape and brush icon under the project's MIT license. `scripts/generate-app-icon.py` exports matching GTK PNGs, `Pinta/Pinta.ico`, and `installer/macos/pinta-modern.icns` with 16px through 1024px representations. The fork has its own application and bundle identifier, separate from upstream Pinta.
+
+## Original palette and plugin tabs
+
+The four `pinta-tab-*.svg` and four `pinta-plugin-*.svg` images, with their separate 64px PNG exports, are independently drawn under the project's MIT license. Rebuild with `scripts/generate-tab-icons.py`. The palette toggles and plugin-manager tabs use them; add-ins without supplied artwork have an original puzzle-piece fallback. Configurable effect dialogs also display each effect's actual registered icon beside its name.

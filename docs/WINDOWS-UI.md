@@ -20,6 +20,10 @@ De aangeleverde Paint.NET-mockup is de visuele referentie voor de hoofdinterface
 
 De panelen behouden hun bestaande titelbalkdrag, dubbelklik om naar de hoek terug te keren, zichtbaarheidscommando’s en opgeslagen posities. Afmetingen zijn GTK-logische pixels; GTK schaalt tekst, SVG-iconen en titelbalkglyphs. De documentstrip en toolinstellingen kunnen horizontaal scrollen op smallere vensters. De vensterdecoratie wordt binnen de applicatie getekend; systeemeigen bestandsdialogen volgen nog het platform.
 
+## Tool- en pluginiconen
+
+De vier paneeltoggles gebruiken eigen vierkante iconen voor Tools, Colors, History en Layers. Gallery, Installed en Updates hebben eveneens eigen desktopiconen; pluginlijsten hebben een eigen puzzelstuk-fallback voor externe add-ins zonder artwork. De 84 toegevoegde effecten behouden hun individuele iconen. Configureerbare effectvensters tonen het geregistreerde icoon ook zichtbaar naast de naam, boven de instellingen. `scripts/generate-tab-icons.py` maakt acht afzonderlijke SVG- en 64px PNG-bestanden.
+
 ## Verificatie
 
 - Solutionbuild en releasepublish zonder waarschuwingen of fouten.

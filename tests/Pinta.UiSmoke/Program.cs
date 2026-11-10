@@ -57,6 +57,9 @@ using (var css = Gtk.CssProvider.New ()) {
 var iconTheme = Gtk.IconTheme.GetForDisplay (Gdk.Display.GetDefault ()!);
 iconTheme.AddSearchPath (Path.Combine (AppContext.BaseDirectory, "icons"));
 Check (iconTheme.HasIcon (Pinta.Resources.Icons.Pinta), "Original application icon resolves in the packaged GTK theme");
+Check (new[] { Pinta.Resources.Icons.TabTools, Pinta.Resources.Icons.TabColors, Pinta.Resources.Icons.TabHistory, Pinta.Resources.Icons.TabLayers,
+	Pinta.Resources.Icons.PluginGallery, Pinta.Resources.Icons.PluginInstalled, Pinta.Resources.Icons.PluginUpdates, Pinta.Resources.Icons.PluginDefault }
+	.All (name => iconTheme.HasIcon (name)), "All eight original palette/plugin tab icons resolve");
 var toolIcons = typeof (Pinta.Resources.Icons).GetFields ()
 	.Where (field => field.Name.StartsWith ("Tool", StringComparison.Ordinal))
 	.Select (field => field.GetRawConstantValue () as string)
@@ -67,7 +70,7 @@ Check (StudioCatalog.CreateAll ().All (e => iconTheme.HasIcon (e.Icon)), "All 60
 using (var parent = Gtk.Window.New ()) {
 	foreach (var effect in StudioCatalog.CreateAll ()) {
 		using var dialog = SimpleEffectDialog.New (parent, effect.Name, effect.Icon, effect.Data, new PintaLocalizer (), null!);
-		Check (dialog.GetContentAreaBox ().GetFirstChild () is not null, $"Configuration widgets build: {effect.Name}");
+		Check (dialog.GetContentAreaBox ().GetFirstChild () is Gtk.Box identity && identity.GetFirstChild () is Gtk.Image icon && icon.IconName == effect.Icon, $"Configuration widgets and visible icon build: {effect.Name}");
 		dialog.Destroy ();
 	}
 	parent.Destroy ();
